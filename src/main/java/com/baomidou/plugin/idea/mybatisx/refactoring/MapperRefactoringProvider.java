@@ -43,6 +43,11 @@ public class MapperRefactoringProvider implements RefactoringElementListenerProv
         };
     }
 
+    /**
+     * 重命名javaMapper时修改xmlMapper文件
+     * @param oldClazz
+     * @param newClazz
+     */
     private void renameMapperXml(@NotNull final PsiClass oldClazz, @NotNull final PsiClass newClazz) {
         Collection<Mapper> mappers = MapperUtils.findMappers(oldClazz.getProject(), oldClazz);
         try {

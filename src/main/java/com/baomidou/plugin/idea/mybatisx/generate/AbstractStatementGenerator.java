@@ -8,6 +8,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 
+import com.intellij.lang.jvm.JvmParameter;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
@@ -28,6 +29,7 @@ import com.baomidou.plugin.idea.mybatisx.ui.UiComponentFacade;
 import com.baomidou.plugin.idea.mybatisx.util.CollectionUtils;
 import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 
+import lombok.var;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -86,12 +88,14 @@ public abstract class AbstractStatementGenerator {
 
     private static void doGenerate(@NotNull final AbstractStatementGenerator generator, @NotNull final PsiMethod method) {
         (new WriteCommandAction.Simple(method.getProject(), new PsiFile[]{method.getContainingFile()}) {
+            @Override
             protected void run() throws Throwable {
                 generator.execute(method);
             }
         }).execute();
     }
 
+    //javaMapper 生成 xmlMapper
     public static void applyGenerate(@Nullable final PsiMethod method) {
         if (null == method) return;
         final Project project = method.getProject();
@@ -104,8 +108,10 @@ public abstract class AbstractStatementGenerator {
                     @Override
                     public PopupStep onChosen(Object selectedValue, boolean finalChoice) {
                         return this.doFinalStep(new Runnable() {
+                            @Override
                             public void run() {
                                 WriteCommandAction.runWriteCommandAction(project, new Runnable() {
+                                    @Override
                                     public void run() {
                                         AbstractStatementGenerator.doGenerate((AbstractStatementGenerator) selectedValue, method);
                                     }
@@ -164,11 +170,18 @@ public abstract class AbstractStatementGenerator {
     private void setupTag(PsiMethod method, Mapper mapper) {
         GroupTwo target = getTarget(mapper, method);
         target.getId().setStringValue(method.getName());
+        PsiParameter[] parameters = method.getParameterList().getParameters();
+        if (parameters.length == 1) {
+            //Integer id  getType() 参数值类型=Integer,  getName() 参数值=id
+            String canonicalText = parameters[0].getType().getCanonicalText();
+            target.getParameterType().setStringValue(canonicalText );
+        }
         target.setValue(" ");
         XmlTag tag = target.getXmlTag();
         int offset = tag.getTextOffset() + tag.getTextLength() - tag.getName().length() + 1;
         EditorService editorService = EditorService.getInstance(method.getProject());
         editorService.format(tag.getContainingFile(), tag);
+        //跳到xml位置
         editorService.scrollTo(tag, offset);
     }
 

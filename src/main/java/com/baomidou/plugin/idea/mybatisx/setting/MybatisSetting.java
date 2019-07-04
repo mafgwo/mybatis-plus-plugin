@@ -44,6 +44,9 @@ public class MybatisSetting implements PersistentStateComponent<Element> {
         return ServiceManager.getService(MybatisSetting.class);
     }
 
+    /**
+     * 保存到文件
+     */
     @Nullable
     @Override
     public Element getState() {
@@ -56,6 +59,10 @@ public class MybatisSetting implements PersistentStateComponent<Element> {
         return element;
     }
 
+    /**
+     * 从文件读取数据
+     * @param state
+     */
     @Override
     public void loadState(Element state) {
         loadState(state, INSERT_GENERATOR);

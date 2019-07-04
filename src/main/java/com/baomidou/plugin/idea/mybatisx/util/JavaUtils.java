@@ -43,7 +43,7 @@ public final class JavaUtils {
     public static boolean isModelClazz(@Nullable PsiClass clazz) {
         return null != clazz && !clazz.isAnnotationType() && !clazz.isInterface() && !clazz.isEnum() && clazz.isValid();
     }
-
+    // public void setUnitType(String)
     @NotNull
     public static Optional<PsiField> findSettablePsiField(@NotNull PsiClass clazz, @Nullable String propertyName) {
         PsiMethod propertySetter = PropertyUtil.findPropertySetter(clazz, propertyName, false, true);

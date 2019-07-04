@@ -16,6 +16,7 @@ import com.intellij.psi.impl.source.codeStyle.CodeFormatterFacade;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * 编辑文件的服务
  * @author yanglin
  */
 public class EditorService {

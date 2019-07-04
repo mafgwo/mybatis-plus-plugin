@@ -7,7 +7,8 @@ buildscript {
 }
 
 plugins {
-    id "org.jetbrains.intellij" version "0.3.5"
+    id 'java'
+    id "org.jetbrains.intellij" version "0.4.7"
 }
 
 apply plugin: 'idea'
@@ -20,22 +21,22 @@ targetCompatibility = JavaVersion.VERSION_1_8
 // https://github.com/JetBrains/gradle-intellij-plugin/
 // http://www.jetbrains.org/intellij/sdk/docs/tutorials/build_system/prerequisites.html
 intellij {
-    version '2018.1.5'
+    version '2019.1'
     type 'IU'
     plugins = ['spring', 'springboot', 'DatabaseTools'] //Bundled plugin dependencies
-    pluginName 'MybatisX'
+    pluginName 'MybatisPlus'
     sandboxDirectory = "${rootProject.rootDir}/idea-sandbox"
-    publish {
-        username project.hasProperty('publishUsername') ? project.property('publishUsername') : ''
-        password project.hasProperty('publishPassword') ? project.property('publishPassword') : ''
-    }
+//    publish {
+//        username project.hasProperty('publishUsername') ? project.property('publishUsername') : ''
+//        password project.hasProperty('publishPassword') ? project.property('publishPassword') : ''
+//    }
     updateSinceUntilBuild = false
 }
 
 // 各种版本去这里找
 // https://www.jetbrains.com/intellij-repository/releases
 
-group 'com.baomidou.plugin.idea.mybatisx'
+group 'com.baomidou.plugin.idea.mybatisPlus'
 version '1.0.0'
 
 repositories {

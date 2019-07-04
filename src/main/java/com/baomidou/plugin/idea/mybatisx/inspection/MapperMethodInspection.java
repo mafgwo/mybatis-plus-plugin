@@ -29,6 +29,13 @@ import java.util.List;
  */
 public class MapperMethodInspection extends MapperInspection {
 
+    /**
+     * 检查方法
+     * @param method
+     * @param manager
+     * @param isOnTheFly
+     * @return
+     */
     @Nullable
     @Override
     public ProblemDescriptor[] checkMethod(@NotNull PsiMethod method, @NotNull InspectionManager manager, boolean isOnTheFly) {
@@ -53,6 +60,13 @@ public class MapperMethodInspection extends MapperInspection {
         return res;
     }
 
+    /**
+     * 检查返回类型是否正确
+     * @param method
+     * @param manager
+     * @param isOnTheFly
+     * @return
+     */
     private Optional<ProblemDescriptor> checkResultType(PsiMethod method, InspectionManager manager, boolean isOnTheFly) {
         Optional<DomElement> ele = JavaService.getInstance(method.getProject()).findStatement(method);
         if (ele.isPresent()) {
@@ -76,6 +90,13 @@ public class MapperMethodInspection extends MapperInspection {
         return Optional.absent();
     }
 
+    /**
+     * 检查声明是否存在
+     * @param method
+     * @param manager
+     * @param isOnTheFly
+     * @return
+     */
     private Optional<ProblemDescriptor> checkStatementExists(PsiMethod method, InspectionManager manager, boolean isOnTheFly) {
         PsiIdentifier ide = method.getNameIdentifier();
         if (!JavaService.getInstance(method.getProject()).findStatement(method).isPresent() && null != ide) {

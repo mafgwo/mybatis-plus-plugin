@@ -35,6 +35,7 @@ public class SelectGenerator extends AbstractStatementGenerator {
     private void setupResultType(PsiMethod method, Select select) {
         Optional<PsiClass> clazz = AbstractStatementGenerator.getSelectResultType(method);
         if (clazz.isPresent()) {
+            //设置xmlMapper的返回值
             select.getResultType().setValue(clazz.get());
         }
     }

@@ -1,18 +1,19 @@
 <idea-plugin url="https://gitee.com/baomidou/mybatis-plus">
-    <id>com.baomidou.plugin.idea.mybatisx</id>
-    <name>MyBatisX</name>
+    <id>com.baomidou.plugin.idea.mybatisPlus</id>
+    <name>MyBatisPlus</name>
     <version>1.0.0</version>
-    <vendor email="jobob@qq.com" url="http://mp.baomidou.com">MybatisX</vendor>
+    <vendor email="jobob@qq.com" url="http://mp.baomidou.com">MybatisPlus</vendor>
 
     <description><![CDATA[
-          MybatisX plugin
+          MybatisPlus plugin  from java to xml or from xml to java
       ]]>
     </description>
 
     <change-notes><![CDATA[
-      <h4>2017.10.20</h4>
+      <h4>update 2019.07.04</h4>
+      <h4>from java to xml or from xml to java</h4>
       <ul>
-          <li>mybatisx-1.0.0</li>
+          <li>MybatisPlus-1.0.0</li>
       </ul>
       ]]>
     </change-notes>
@@ -54,7 +55,7 @@
 
         <!--自动完成提示-->
         <completion.contributor language="XML" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.TestParamContributor"/>
-        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.SqlParamCompletionContributor" order="first"/>
+<!--        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.SqlParamCompletionContributor" order="first"/>-->
 
         <!--文件模板组，新建文件选择模板-->
         <fileTemplateGroup implementation="com.baomidou.plugin.idea.mybatisx.template.MybatisFileTemplateDescriptorFactory"/>
@@ -75,11 +76,11 @@
 
 
         <!--spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中-->
-        <spring.customLocalComponentsDiscoverer implementation="com.baomidou.plugin.idea.mybatisx.inspection.EntityPropInspection"/>
+<!--        <spring.customLocalComponentsDiscoverer implementation="com.baomidou.plugin.idea.mybatisx.inspection.EntityPropInspection"/>-->
 
 
         <!--代码检测抑制器,用于过滤一些spring自带的校验规则-->
-        <lang.inspectionSuppressor language="JAVA" implementationClass="com.baomidou.plugin.idea.mybatisx.inspection.SpringInspectionsFilter"/>
+<!--        <lang.inspectionSuppressor language="JAVA" implementationClass="com.baomidou.plugin.idea.mybatisx.inspection.SpringInspectionsFilter"/>-->
 
         <!--提示动作 start-->
         <!--生成参数注解-->
