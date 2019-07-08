@@ -8,16 +8,16 @@ import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiParameter;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
-import com.baomidou.plugin.idea.mybatisx.service.AnnotationService;
+import com.baomidou.plugin.idea.mybatisx.service.PlusAnnotationService;
 
 import org.jetbrains.annotations.NotNull;
 
 /**
  * @author yanglin
  */
-public class GenerateParamAnnotationIntention extends GenericIntention {
+public class PlusGenerateParamAnnotationIntention extends GenericIntention {
 
-    public GenerateParamAnnotationIntention() {
+    public PlusGenerateParamAnnotationIntention() {
         super(GenerateParamChooser.INSTANCE);
     }
 
@@ -31,13 +31,13 @@ public class GenerateParamAnnotationIntention extends GenericIntention {
     public void invoke(@NotNull Project project, Editor editor, PsiFile file) throws IncorrectOperationException {
         PsiElement element = file.findElementAt(editor.getCaretModel().getOffset());
         PsiParameter parameter = PsiTreeUtil.getParentOfType(element, PsiParameter.class);
-        AnnotationService annotationService = AnnotationService.getInstance(project);
+        PlusAnnotationService plusAnnotationService = PlusAnnotationService.getInstance(project);
         if (null != parameter) {
-            annotationService.addAnnotationWithParameterName(parameter);
+            plusAnnotationService.addAnnotationWithParameterName(parameter);
         } else {
             PsiMethod method = PsiTreeUtil.getParentOfType(element, PsiMethod.class);
             if (null != method) {
-                annotationService.addAnnotationWithParameterNameForMethodParameters(method);
+                plusAnnotationService.addAnnotationWithParameterNameForMethodParameters(method);
             }
         }
     }

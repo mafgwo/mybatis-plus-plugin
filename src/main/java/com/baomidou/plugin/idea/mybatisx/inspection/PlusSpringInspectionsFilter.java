@@ -13,7 +13,7 @@ import org.jetbrains.annotations.Nullable;
  * @version 1.0.0
  * @since 2018/08/05 22:00
  */
-public class SpringInspectionsFilter implements InspectionSuppressor {
+public class PlusSpringInspectionsFilter implements InspectionSuppressor {
 
     @Override
     public boolean isSuppressedFor(@NotNull PsiElement element, @NotNull String toolId) {

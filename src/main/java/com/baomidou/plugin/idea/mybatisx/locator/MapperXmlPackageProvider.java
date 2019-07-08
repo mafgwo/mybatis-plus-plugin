@@ -26,6 +26,7 @@ public class MapperXmlPackageProvider extends PackageProvider {
     @NotNull
     @Override
     public Set<PsiPackage> getPackages(@NotNull Project project) {
+        // 1
         HashSet<PsiPackage> res = Sets.newHashSet();
         Collection<Mapper> mappers = MapperUtils.findMappers(project);
         JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);

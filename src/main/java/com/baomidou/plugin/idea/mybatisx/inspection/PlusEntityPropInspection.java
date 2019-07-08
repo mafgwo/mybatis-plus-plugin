@@ -22,11 +22,11 @@ import java.util.Collections;
  * @version 1.0.0
  * @since 2018/08/04 20:35
  */
-public class EntityPropInspection extends CustomLocalComponentsDiscoverer {
+public class PlusEntityPropInspection extends CustomLocalComponentsDiscoverer {
     /**
      * 日志
      */
-    private Logger logger = LoggerFactory.getLogger(EntityPropInspection.class);
+    private Logger logger = LoggerFactory.getLogger(PlusEntityPropInspection.class);
 
     @NotNull
     @Override

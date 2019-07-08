@@ -21,9 +21,9 @@ import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenera
 /**
  * @author yanglin
  */
-public class MybatisConfigurable implements SearchableConfigurable {
+public class PlusMybatisConfigurable implements SearchableConfigurable {
 
-    private MybatisSetting mybatisSetting;
+    private MybatisPlusSetting mybatisSetting;
 
     private MybatisSettingForm mybatisSettingForm;
 
@@ -33,8 +33,8 @@ public class MybatisConfigurable implements SearchableConfigurable {
 
     private Joiner joiner = Joiner.on(separator);
 
-    public MybatisConfigurable() {
-        mybatisSetting = MybatisSetting.getInstance();
+    public PlusMybatisConfigurable() {
+        mybatisSetting = MybatisPlusSetting.getInstance();
     }
 
     @Override

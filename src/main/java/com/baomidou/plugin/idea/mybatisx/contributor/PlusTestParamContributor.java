@@ -30,10 +30,10 @@ import org.slf4j.LoggerFactory;
 /**
  * @author yanglin
  */
-public class TestParamContributor extends CompletionContributor {
+public class PlusTestParamContributor extends CompletionContributor {
 
-    private static final Logger logger = LoggerFactory.getLogger(TestParamContributor.class);
-    public TestParamContributor() {
+    private static final Logger logger = LoggerFactory.getLogger(PlusTestParamContributor.class);
+    public PlusTestParamContributor() {
         extend(CompletionType.BASIC,
                 XmlPatterns.psiElement().inside(XmlPatterns.xmlAttributeValue().inside(XmlPatterns.xmlAttribute().withName("test"))),
                 new CompletionProvider<CompletionParameters>() {

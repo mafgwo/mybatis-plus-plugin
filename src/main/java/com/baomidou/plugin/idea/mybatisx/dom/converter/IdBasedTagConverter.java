@@ -119,6 +119,7 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
 
         @Override
         public Collection<? extends IdDomElement> getValue() {
+            // 1
             List<IdDomElement> result = Lists.newArrayList();
             for (Mapper mapper : MapperUtils.findMappers(context.getProject())) {
                 result.addAll(getComparisons(mapper, context));

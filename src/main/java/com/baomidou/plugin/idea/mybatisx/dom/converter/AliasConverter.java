@@ -12,7 +12,7 @@ import com.intellij.util.xml.DomJavaUtil;
 import com.intellij.util.xml.GenericDomValue;
 import com.intellij.util.xml.PsiClassConverter;
 import com.baomidou.plugin.idea.mybatisx.alias.AliasClassReference;
-import com.baomidou.plugin.idea.mybatisx.alias.AliasFacade;
+import com.baomidou.plugin.idea.mybatisx.alias.PlusAliasFacade;
 import com.baomidou.plugin.idea.mybatisx.util.MybatisConstants;
 
 import org.jetbrains.annotations.NonNls;
@@ -31,7 +31,7 @@ public class AliasConverter extends ConverterAdaptor<PsiClass> implements Custom
     public PsiClass fromString(@Nullable @NonNls String s, ConvertContext context) {
         if (StringUtil.isEmptyOrSpaces(s)) return null;
         if (!s.contains(MybatisConstants.DOT_SEPARATOR)) {
-            return AliasFacade.getInstance(context.getProject()).findPsiClass(context.getXmlElement(), s).orNull();
+            return PlusAliasFacade.getInstance(context.getProject()).findPsiClass(context.getXmlElement(), s).orNull();
         }
         return DomJavaUtil.findClass(s.trim(), context.getFile(), context.getModule(), GlobalSearchScope.allScope(context.getProject()));
     }

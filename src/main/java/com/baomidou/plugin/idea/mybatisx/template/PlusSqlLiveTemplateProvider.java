@@ -7,7 +7,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author yanglin
  */
-public class SqlLiveTemplateProvider implements DefaultLiveTemplatesProvider {
+public class PlusSqlLiveTemplateProvider implements DefaultLiveTemplatesProvider {
 
     public static final String[] TEMPLATE_FILES = {"liveTemplates/sql"};
 

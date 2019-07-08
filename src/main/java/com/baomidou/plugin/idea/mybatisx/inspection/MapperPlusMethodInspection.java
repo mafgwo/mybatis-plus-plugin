@@ -1,5 +1,6 @@
 package com.baomidou.plugin.idea.mybatisx.inspection;
 
+import com.baomidou.plugin.idea.mybatisx.service.PlusJavaService;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 
@@ -14,8 +15,7 @@ import com.intellij.util.xml.DomElement;
 import com.baomidou.plugin.idea.mybatisx.annotation.Annotation;
 import com.baomidou.plugin.idea.mybatisx.dom.model.Select;
 import com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenerator;
-import com.baomidou.plugin.idea.mybatisx.locator.MapperLocator;
-import com.baomidou.plugin.idea.mybatisx.service.JavaService;
+import com.baomidou.plugin.idea.mybatisx.locator.PlusMapperLocator;
 import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * @author yanglin
  */
-public class MapperMethodInspection extends MapperInspection {
+public class MapperPlusMethodInspection extends MapperInspection {
 
     /**
      * 检查方法
@@ -39,7 +39,7 @@ public class MapperMethodInspection extends MapperInspection {
     @Nullable
     @Override
     public ProblemDescriptor[] checkMethod(@NotNull PsiMethod method, @NotNull InspectionManager manager, boolean isOnTheFly) {
-        if (!MapperLocator.getInstance(method.getProject()).process(method)
+        if (!PlusMapperLocator.getInstance(method.getProject()).process(method)
             || JavaUtils.isAnyAnnotationPresent(method, Annotation.STATEMENT_SYMMETRIES)) {
             return EMPTY_ARRAY;
         }
@@ -68,7 +68,7 @@ public class MapperMethodInspection extends MapperInspection {
      * @return
      */
     private Optional<ProblemDescriptor> checkResultType(PsiMethod method, InspectionManager manager, boolean isOnTheFly) {
-        Optional<DomElement> ele = JavaService.getInstance(method.getProject()).findStatement(method);
+        Optional<DomElement> ele = PlusJavaService.getInstance(method.getProject()).findStatement(method);
         if (ele.isPresent()) {
             DomElement domElement = ele.get();
             if (domElement instanceof Select) {
@@ -99,7 +99,7 @@ public class MapperMethodInspection extends MapperInspection {
      */
     private Optional<ProblemDescriptor> checkStatementExists(PsiMethod method, InspectionManager manager, boolean isOnTheFly) {
         PsiIdentifier ide = method.getNameIdentifier();
-        if (!JavaService.getInstance(method.getProject()).findStatement(method).isPresent() && null != ide) {
+        if (!PlusJavaService.getInstance(method.getProject()).findStatement(method).isPresent() && null != ide) {
             return Optional.of(manager.createProblemDescriptor(ide, "Statement with id=\"#ref\" not defined in mapper xml",
                     new StatementNotExistsQuickFix(method), ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
         }

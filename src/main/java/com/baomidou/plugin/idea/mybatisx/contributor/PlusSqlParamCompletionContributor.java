@@ -18,7 +18,7 @@ import com.baomidou.plugin.idea.mybatisx.util.MapperUtils;
 /**
  * @author yanglin
  */
-public class SqlParamCompletionContributor extends CompletionContributor {
+public class PlusSqlParamCompletionContributor extends CompletionContributor {
 
     @Override
     public void fillCompletionVariants(CompletionParameters parameters, final CompletionResultSet result) {
@@ -41,7 +41,7 @@ public class SqlParamCompletionContributor extends CompletionContributor {
             int offset = documentWindow.injectedToHost(position.getTextOffset());
             Optional<IdDomElement> idDomElement = MapperUtils.findParentIdDomElement(xmlFile.findElementAt(offset));
             if (idDomElement.isPresent()) {
-                TestParamContributor.addElementForPsiParameter(position.getProject(), result, idDomElement.get());
+                PlusTestParamContributor.addElementForPsiParameter(position.getProject(), result, idDomElement.get());
                 result.stopHere();
             }
         }
@@ -51,7 +51,8 @@ public class SqlParamCompletionContributor extends CompletionContributor {
         String text = file.getText();
         for (int i = offset - 1; i > 0; i--) {
             char c = text.charAt(i);
-            if (c == '{' && text.charAt(i - 1) == '#') return true;
+            if (c == '{' && text.charAt(i - 1) == '#')
+                return true;
         }
         return false;
     }

@@ -27,7 +27,7 @@ import java.util.Collection;
 /**
  * @author yanglin
  */
-public class InjectionLineMarkerProvider extends RelatedItemLineMarkerProvider {
+public class PlusInjectionLineMarkerProvider extends RelatedItemLineMarkerProvider {
 
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element, Collection<? super RelatedItemLineMarkerInfo> result) {

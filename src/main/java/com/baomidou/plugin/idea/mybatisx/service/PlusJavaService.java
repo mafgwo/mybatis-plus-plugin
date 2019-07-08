@@ -29,22 +29,22 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author yanglin
  */
-public class JavaService {
+public class PlusJavaService {
 
     private Project project;
 
     private JavaPsiFacade javaPsiFacade;
 
-    private EditorService editorService;
+    private PlusEditorService plusEditorService;
 
-    public JavaService(Project project) {
+    public PlusJavaService(Project project) {
         this.project = project;
         this.javaPsiFacade = JavaPsiFacade.getInstance(project);
-        this.editorService = EditorService.getInstance(project);
+        this.plusEditorService = PlusEditorService.getInstance(project);
     }
 
-    public static JavaService getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, JavaService.class);
+    public static PlusJavaService getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, PlusJavaService.class);
     }
 
     public Optional<PsiClass> getReferenceClazzOfPsiField(@NotNull PsiElement field) {
@@ -77,12 +77,18 @@ public class JavaService {
 
     @SuppressWarnings("unchecked")
     public void process(@NotNull PsiClass clazz, @NotNull Processor<Mapper> processor) {
-        String ns = clazz.getQualifiedName();
-        for (Mapper mapper : MapperUtils.findMappers(clazz.getProject())) {
-            if (MapperUtils.getNamespace(mapper).equals(ns)) {
-                processor.process(mapper);
+        // TODO: 这里有错误异常
+       /* try {
+            String ns = clazz.getQualifiedName();
+            for (Mapper mapper : MapperUtils.findMappers(clazz.getProject())) {
+                if (MapperUtils.getNamespace(mapper).equals(ns)) {
+                    processor.process(mapper);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+*/
     }
 
     public void process(@NotNull PsiElement target, @NotNull Processor processor) {
@@ -107,7 +113,7 @@ public class JavaService {
                 PsiElementFactory elementFactory = javaPsiFacade.getElementFactory();
                 PsiImportStatement statement = elementFactory.createImportStatement(clazz.get());
                 importList.add(statement);
-                editorService.format(file, statement);
+                plusEditorService.format(file, statement);
             }
         }
     }

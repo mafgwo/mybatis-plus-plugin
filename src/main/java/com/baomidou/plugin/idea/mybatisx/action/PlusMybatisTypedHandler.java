@@ -17,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public class MybatisTypedHandler extends TypedHandlerDelegate {
+public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
 
     @Override
     public Result checkAutoPopup(char charTyped, final Project project, final Editor editor, PsiFile file) {

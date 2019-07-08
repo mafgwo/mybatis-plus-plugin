@@ -17,9 +17,9 @@ import org.jetbrains.annotations.Nullable;
  * @author yanglin jobob
  * @since 2018-07-30
  */
-public class MapperDescription extends DomFileDescription<Mapper> {
+public class PlusMapperDescription extends DomFileDescription<Mapper> {
 
-    public MapperDescription() {
+    public PlusMapperDescription() {
         super(Mapper.class, "mapper");
     }
 

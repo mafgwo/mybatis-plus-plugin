@@ -9,7 +9,6 @@ import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
 import com.intellij.psi.impl.source.codeStyle.CodeFormatterFacade;
 
@@ -19,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
  * 编辑文件的服务
  * @author yanglin
  */
-public class EditorService {
+public class PlusEditorService {
 
     private Project project;
 
@@ -27,13 +26,13 @@ public class EditorService {
 
     private CodeFormatterFacade codeFormatterFacade;
 
-    public EditorService(Project project) {
+    public PlusEditorService(Project project) {
         this.project = project;
         this.fileEditorManager = FileEditorManager.getInstance(project);
     }
 
-    public static EditorService getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, EditorService.class);
+    public static PlusEditorService getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, PlusEditorService.class);
     }
 
     public void format(@NotNull PsiFile file, @NotNull PsiElement element) {

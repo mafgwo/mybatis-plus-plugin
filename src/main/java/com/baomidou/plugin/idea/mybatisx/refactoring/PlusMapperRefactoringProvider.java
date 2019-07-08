@@ -18,7 +18,7 @@ import java.util.Collection;
 /**
  * @author yanglin
  */
-public class MapperRefactoringProvider implements RefactoringElementListenerProvider {
+public class PlusMapperRefactoringProvider implements RefactoringElementListenerProvider {
 
     @Nullable
     @Override
@@ -54,7 +54,7 @@ public class MapperRefactoringProvider implements RefactoringElementListenerProv
             for (Mapper mapper : mappers) {
                 VirtualFile vf = mapper.getXmlTag().getOriginalElement().getContainingFile().getVirtualFile();
                 if (null != vf) {
-                    vf.rename(MapperRefactoringProvider.this, newClazz.getName() + "." + vf.getExtension());
+                    vf.rename(PlusMapperRefactoringProvider.this, newClazz.getName() + "." + vf.getExtension());
                 }
             }
         } catch (IOException e) {

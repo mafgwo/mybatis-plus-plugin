@@ -32,14 +32,14 @@ public class AliasClassReference extends PsiReferenceBase<XmlAttributeValue> {
     @Override
     public PsiElement resolve() {
         XmlAttributeValue attributeValue = getElement();
-        return AliasFacade.getInstance(attributeValue.getProject()).findPsiClass(attributeValue, attributeValue.getValue()).orNull();
+        return PlusAliasFacade.getInstance(attributeValue.getProject()).findPsiClass(attributeValue, attributeValue.getValue()).orNull();
     }
 
     @NotNull
     @Override
     public Object[] getVariants() {
-        AliasFacade aliasFacade = AliasFacade.getInstance(getElement().getProject());
-        Collection<String> result = Collections2.transform(aliasFacade.getAliasDescs(getElement()), function);
+        PlusAliasFacade plusAliasFacade = PlusAliasFacade.getInstance(getElement().getProject());
+        Collection<String> result = Collections2.transform(plusAliasFacade.getAliasDescs(getElement()), function);
         return result.toArray(new String[result.size()]);
     }
 

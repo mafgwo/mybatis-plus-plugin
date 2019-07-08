@@ -20,16 +20,16 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public class AnnotationService {
+public class PlusAnnotationService {
 
     private Project project;
 
-    public AnnotationService(Project project) {
+    public PlusAnnotationService(Project project) {
         this.project = project;
     }
 
-    public static AnnotationService getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, AnnotationService.class);
+    public static PlusAnnotationService getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, PlusAnnotationService.class);
     }
 
     public void addAnnotation(@NotNull PsiModifierListOwner parameter, @NotNull Annotation annotation) {
@@ -37,7 +37,7 @@ public class AnnotationService {
         if (JavaUtils.isAnnotationPresent(parameter, annotation) || null == modifierList) {
             return;
         }
-        JavaService.getInstance(parameter.getProject()).importClazz((PsiJavaFile) parameter.getContainingFile(), annotation.getQualifiedName());
+        PlusJavaService.getInstance(parameter.getProject()).importClazz((PsiJavaFile) parameter.getContainingFile(), annotation.getQualifiedName());
 
         PsiElementFactory elementFactory = JavaPsiFacade.getInstance(project).getElementFactory();
         PsiAnnotation psiAnnotation = elementFactory.createAnnotationFromText(annotation.toString(), parameter);
@@ -59,7 +59,7 @@ public class AnnotationService {
     public void addAnnotationWithParameterName(@NotNull PsiParameter parameter) {
         String name = parameter.getName();
         if (null != name) {
-            AnnotationService.getInstance(parameter.getProject()).addAnnotation(parameter, Annotation.PARAM.withValue(new Annotation.StringValue(name)));
+            PlusAnnotationService.getInstance(parameter.getProject()).addAnnotation(parameter, Annotation.PARAM.withValue(new Annotation.StringValue(name)));
         }
     }
 }

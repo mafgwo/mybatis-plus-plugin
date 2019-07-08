@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * @author yanglin
  */
-public class AliasFacade {
+public class PlusAliasFacade {
 
     private Project project;
 
@@ -28,11 +28,11 @@ public class AliasFacade {
 
     private List<AliasResolver> resolvers;
 
-    public static final AliasFacade getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, AliasFacade.class);
+    public static final PlusAliasFacade getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, PlusAliasFacade.class);
     }
 
-    public AliasFacade(Project project) {
+    public PlusAliasFacade(Project project) {
         this.project = project;
         this.resolvers = Lists.newArrayList();
         this.javaPsiFacade = JavaPsiFacade.getInstance(project);

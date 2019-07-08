@@ -26,7 +26,7 @@ import javax.swing.*;
 /**
  * @author yanglin
  */
-public class StatementLineMarkerProvider extends SimpleLineMarkerProvider<XmlTag, PsiMethod> {
+public class PlusStatementLinePlusMarkerProvider extends SimpleLinePlusMarkerProvider<XmlTag, PsiMethod> {
 
     private static final ImmutableList<Class<? extends GroupTwo>> TARGET_TYPES = ImmutableList.of(
             Select.class,

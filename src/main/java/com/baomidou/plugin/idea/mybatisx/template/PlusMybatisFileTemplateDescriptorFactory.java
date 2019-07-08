@@ -8,7 +8,7 @@ import com.baomidou.plugin.idea.mybatisx.util.Icons;
 /**
  * @author yanglin
  */
-public class MybatisFileTemplateDescriptorFactory implements FileTemplateGroupDescriptorFactory {
+public class PlusMybatisFileTemplateDescriptorFactory implements FileTemplateGroupDescriptorFactory {
 
     public static final String MYBATIS_MAPPER_XML_TEMPLATE = "Mybatis Mapper.xml";
 

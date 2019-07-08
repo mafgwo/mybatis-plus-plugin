@@ -2,7 +2,7 @@ package com.baomidou.plugin.idea.mybatisx.definitionsearch;
 
 import org.jetbrains.annotations.NotNull;
 
-import com.baomidou.plugin.idea.mybatisx.service.JavaService;
+import com.baomidou.plugin.idea.mybatisx.service.PlusJavaService;
 import com.intellij.openapi.application.QueryExecutorBase;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiTypeParameterListOwner;
@@ -18,9 +18,9 @@ import com.intellij.util.xml.DomElement;
  * @author yanglin
  * @since 2018-08-05
  */
-public class MapperDefinitionSearch extends QueryExecutorBase<XmlElement, PsiElement> {
+public class PlusMapperDefinitionSearch extends QueryExecutorBase<XmlElement, PsiElement> {
 
-    public MapperDefinitionSearch() {
+    public PlusMapperDefinitionSearch() {
         super(true);
     }
 
@@ -31,7 +31,7 @@ public class MapperDefinitionSearch extends QueryExecutorBase<XmlElement, PsiEle
         }
 
         Processor<DomElement> processor = domElement -> consumer.process(domElement.getXmlElement());
-        JavaService.getInstance(element.getProject()).process(element, processor);
+        PlusJavaService.getInstance(element.getProject()).process(element, processor);
     }
 
    /* @Override
@@ -42,6 +42,6 @@ public class MapperDefinitionSearch extends QueryExecutorBase<XmlElement, PsiEle
         }
 
         Processor<DomElement> processor = domElement -> consumer.process(domElement.getXmlElement());
-        JavaService.getInstance(element.getProject()).process(element, processor);
+        PlusJavaService.getInstance(element.getProject()).process(element, processor);
     }*/
 }

@@ -9,7 +9,7 @@ import com.intellij.psi.PsiReference;
 import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.xml.XmlAttributeValue;
 import com.baomidou.plugin.idea.mybatisx.dom.MapperBacktrackingUtils;
-import com.baomidou.plugin.idea.mybatisx.service.JavaService;
+import com.baomidou.plugin.idea.mybatisx.service.PlusJavaService;
 import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import com.baomidou.plugin.idea.mybatisx.util.MybatisConstants;
 
@@ -52,7 +52,7 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
             int ind = 0 == index ? 0 : index - 1;
             Optional<PsiElement> resolved = resolver.resolve(ind);
             if (resolved.isPresent()) {
-                return JavaService.getInstance(myElement.getProject()).getReferenceClazzOfPsiField(resolved.get());
+                return PlusJavaService.getInstance(myElement.getProject()).getReferenceClazzOfPsiField(resolved.get());
             }
         } else {
             return MapperBacktrackingUtils.getPropertyClazz(myElement);

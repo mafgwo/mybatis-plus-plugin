@@ -8,7 +8,7 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiJavaFile;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiParameter;
-import com.baomidou.plugin.idea.mybatisx.service.JavaService;
+import com.baomidou.plugin.idea.mybatisx.service.PlusJavaService;
 import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -42,7 +42,7 @@ public abstract class JavaFileIntentionChooser implements IntentionChooser {
     }
 
     public boolean isTargetPresentInXml(@NotNull PsiElement element) {
-        return JavaService.getInstance(element.getProject()).findWithFindFirstProcessor(element).isPresent();
+        return PlusJavaService.getInstance(element.getProject()).findWithFindFirstProcessor(element).isPresent();
     }
 
 }

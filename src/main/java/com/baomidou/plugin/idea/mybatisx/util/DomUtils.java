@@ -1,8 +1,10 @@
 package com.baomidou.plugin.idea.mybatisx.util;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -35,6 +37,8 @@ public final class DomUtils {
                 return input.getRootElement();
             }
         });
+
+
     }
 
     /**

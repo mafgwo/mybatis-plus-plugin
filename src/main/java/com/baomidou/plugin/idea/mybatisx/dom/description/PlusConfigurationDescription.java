@@ -12,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author yanglin
  */
-public class ConfigurationDescription extends DomFileDescription<Configuration> {
+public class PlusConfigurationDescription extends DomFileDescription<Configuration> {
 
-    public ConfigurationDescription() {
+    public PlusConfigurationDescription() {
         super(Configuration.class, "configuration");
     }
 

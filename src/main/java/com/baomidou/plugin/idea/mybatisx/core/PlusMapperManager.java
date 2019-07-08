@@ -1,6 +1,6 @@
 package com.baomidou.plugin.idea.mybatisx.core;
 
-import com.baomidou.plugin.idea.mybatisx.core.impl.MapperManagerImpl;
+import com.baomidou.plugin.idea.mybatisx.core.impl.PlusMapperManagerImpl;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.project.Project;
@@ -16,15 +16,15 @@ import java.util.List;
  * @version 1.0.0
  * @since 2018/08/06 10:24
  */
-public interface MapperManager {
+public interface PlusMapperManager {
     /**
      * 获取实例
      *
      * @param project 项目对象，非空
      * @return mapper管理实例对象
      */
-    static MapperManager getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, MapperManagerImpl.class);
+    static PlusMapperManager getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, PlusMapperManagerImpl.class);
     }
 
     void init();

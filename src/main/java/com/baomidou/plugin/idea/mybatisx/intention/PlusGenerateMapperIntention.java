@@ -19,8 +19,8 @@ import com.intellij.psi.PsiFile;
 import com.intellij.psi.PsiManager;
 import com.intellij.psi.util.PsiTreeUtil;
 import com.intellij.util.IncorrectOperationException;
-import com.baomidou.plugin.idea.mybatisx.service.EditorService;
-import com.baomidou.plugin.idea.mybatisx.template.MybatisFileTemplateDescriptorFactory;
+import com.baomidou.plugin.idea.mybatisx.service.PlusEditorService;
+import com.baomidou.plugin.idea.mybatisx.template.PlusMybatisFileTemplateDescriptorFactory;
 import com.baomidou.plugin.idea.mybatisx.ui.ClickableListener;
 import com.baomidou.plugin.idea.mybatisx.ui.ListSelectionListener;
 import com.baomidou.plugin.idea.mybatisx.ui.UiComponentFacade;
@@ -40,9 +40,9 @@ import java.util.Properties;
 /**
  * @author yanglin
  */
-public class GenerateMapperIntention extends GenericIntention {
+public class PlusGenerateMapperIntention extends GenericIntention {
 
-    public GenerateMapperIntention() {
+    public PlusGenerateMapperIntention() {
         super(GenerateMapperChooser.INSTANCE);
     }
 
@@ -154,9 +154,9 @@ public class GenerateMapperIntention extends GenericIntention {
         try {
             Properties properties = new Properties();
             properties.setProperty("NAMESPACE", clazz.getQualifiedName());
-            PsiElement psiFile = MapperUtils.createMapperFromFileTemplate(MybatisFileTemplateDescriptorFactory.MYBATIS_MAPPER_XML_TEMPLATE,
+            PsiElement psiFile = MapperUtils.createMapperFromFileTemplate(PlusMybatisFileTemplateDescriptorFactory.MYBATIS_MAPPER_XML_TEMPLATE,
                     clazz.getName(), directory, properties);
-            EditorService.getInstance(clazz.getProject()).scrollTo(psiFile, 0);
+            PlusEditorService.getInstance(clazz.getProject()).scrollTo(psiFile, 0);
         } catch (Exception e) {
             HintManager.getInstance().showErrorHint(editor, "Failed: " + e.getCause());
         }

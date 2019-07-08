@@ -13,9 +13,9 @@ import com.intellij.util.xml.highlighting.DomHighlightingHelper;
  * @author yanglin
  * @since 2018-07-30
  */
-public class MapperXmlInspection extends BasicDomElementsInspection<DomElement> {
+public class MapperPlusXmlInspection extends BasicDomElementsInspection<DomElement> {
 
-    public MapperXmlInspection() {
+    public MapperPlusXmlInspection() {
         super(DomElement.class);
     }
 

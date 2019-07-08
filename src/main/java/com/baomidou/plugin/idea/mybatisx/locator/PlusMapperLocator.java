@@ -12,12 +12,12 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author yanglin
  */
-public class MapperLocator {
+public class PlusMapperLocator {
 
     public static LocateStrategy dfltLocateStrategy = new PackageLocateStrategy();
 
-    public static MapperLocator getInstance(@NotNull Project project) {
-        return ServiceManager.getService(project, MapperLocator.class);
+    public static PlusMapperLocator getInstance(@NotNull Project project) {
+        return ServiceManager.getService(project, PlusMapperLocator.class);
     }
 
     public boolean process(@Nullable PsiMethod method) {

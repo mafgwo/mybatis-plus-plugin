@@ -27,7 +27,7 @@ import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenera
 @State(
         name = "MybatisSettings",
         storages = @Storage(file = "$APP_CONFIG$/mybatis.xml"))
-public class MybatisSetting implements PersistentStateComponent<Element> {
+public class MybatisPlusSetting implements PersistentStateComponent<Element> {
 
     private GenerateModel statementGenerateModel;
 
@@ -36,12 +36,12 @@ public class MybatisSetting implements PersistentStateComponent<Element> {
     private Type gsonTypeToken = new TypeToken<Set<String>>() {
     }.getType();
 
-    public MybatisSetting() {
+    public MybatisPlusSetting() {
         statementGenerateModel = GenerateModel.START_WITH_MODEL;
     }
 
-    public static MybatisSetting getInstance() {
-        return ServiceManager.getService(MybatisSetting.class);
+    public static MybatisPlusSetting getInstance() {
+        return ServiceManager.getService(MybatisPlusSetting.class);
     }
 
     /**
