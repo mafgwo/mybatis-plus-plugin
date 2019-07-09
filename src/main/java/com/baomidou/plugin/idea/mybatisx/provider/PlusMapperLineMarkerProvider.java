@@ -19,6 +19,7 @@ import com.intellij.util.CommonProcessors;
 
 /**
  * @author yanglin
+ * mapper.xml文件到mapper.java
  */
 public class PlusMapperLineMarkerProvider extends RelatedItemLineMarkerProvider {
 

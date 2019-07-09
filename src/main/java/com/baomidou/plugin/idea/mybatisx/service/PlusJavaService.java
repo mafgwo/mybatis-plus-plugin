@@ -78,24 +78,20 @@ public class PlusJavaService {
     @SuppressWarnings("unchecked")
     public void process(@NotNull PsiClass clazz, @NotNull Processor<Mapper> processor) {
         // TODO: 这里有错误异常
-       /* try {
-            String ns = clazz.getQualifiedName();
-            for (Mapper mapper : MapperUtils.findMappers(clazz.getProject())) {
-                if (MapperUtils.getNamespace(mapper).equals(ns)) {
-                    processor.process(mapper);
-                }
+        String ns = clazz.getQualifiedName();
+        for (Mapper mapper : MapperUtils.findMappers(clazz.getProject())) {
+            if (MapperUtils.getNamespace(mapper).equals(ns)) {
+                processor.process(mapper);
             }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
-*/
     }
 
     public void process(@NotNull PsiElement target, @NotNull Processor processor) {
         if (target instanceof PsiMethod) {
             process((PsiMethod) target, processor);
         } else if (target instanceof PsiClass) {
-            process((PsiClass) target, processor);
+            //  转化为类错误
+            // process((PsiClass) target, processor);
         }
     }
 

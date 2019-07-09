@@ -1,7 +1,6 @@
 <idea-plugin url="https://gitee.com/baomidou/mybatis-plus">
     <id>com.baomidou.plugin.idea.mybatisPlus</id>
     <name>MyBatisPlus</name>
-    <version>1.0.0</version>
     <vendor email="makey22112@gmail.com" url="https://plugins.jetbrains.com/plugin/12670-mybatisplus">MybatisPlus</vendor>
 
     <description><![CDATA[
@@ -10,9 +9,11 @@
     </description>
 
     <change-notes><![CDATA[
+      <h4>update 2019.07.09</h4>
       <h4>update 2019.07.08</h4>
       <h4>from java to xml or from xml to java</h4>
       <ul>
+          <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
           <li>MybatisPlus-1.0.1  fix mybatisX conflict and fix mapper cast to IdDomElement  </li>
           <li>MybatisPlus-1.0.0</li>
       </ul>
@@ -56,12 +57,12 @@
 
         <!--自动完成提示-->
         <completion.contributor language="XML" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusTestParamContributor"/>
-<!--        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusSqlParamCompletionContributor" order="first"/>-->
+        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusSqlParamCompletionContributor" order="first"/>
 
         <!--文件模板组，新建文件选择模板-->
         <fileTemplateGroup implementation="com.baomidou.plugin.idea.mybatisx.template.PlusMybatisFileTemplateDescriptorFactory"/>
 
-        <!--编辑mapper文件时，实现参数提示-->
+        <!--编辑mapper.xml文件时，实现参数提示-->
         <typedHandler implementation="com.baomidou.plugin.idea.mybatisx.action.PlusMybatisTypedHandler" id="mybatis" order="first"/>
 
         <!--附加的LiveTemplate模板-->
