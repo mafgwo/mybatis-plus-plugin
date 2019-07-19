@@ -1,6 +1,7 @@
 <idea-plugin url="https://gitee.com/baomidou/mybatis-plus">
     <id>com.baomidou.plugin.idea.mybatisPlus</id>
     <name>MyBatisPlus</name>
+    <version>1.0.2</version>
     <vendor email="makey22112@gmail.com" url="https://plugins.jetbrains.com/plugin/12670-mybatisplus">MybatisPlus</vendor>
 
     <description><![CDATA[
@@ -10,11 +11,15 @@
 
     <change-notes><![CDATA[
       <h4>update 2019.07.09</h4>
+       <ul>
+          <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
+      </ul>
       <h4>update 2019.07.08</h4>
+       <ul>
+          <li>MybatisPlus-1.0.1  fix mybatisX conflict and fix mapper cast to IdDomElement  </li>
+      </ul>
       <h4>from java to xml or from xml to java</h4>
       <ul>
-          <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
-          <li>MybatisPlus-1.0.1  fix mybatisX conflict and fix mapper cast to IdDomElement  </li>
           <li>MybatisPlus-1.0.0</li>
       </ul>
       ]]>
@@ -82,7 +87,7 @@
 
 
         <!--代码检测抑制器,用于过滤一些spring自带的校验规则-->
-<!--        <lang.inspectionSuppressor language="JAVA" implementationClass="com.baomidou.plugin.idea.mybatisx.inspection.PlusSpringInspectionsFilter"/>-->
+        <lang.inspectionSuppressor language="JAVA" implementationClass="com.baomidou.plugin.idea.mybatisx.inspection.PlusSpringInspectionsFilter"/>
 
         <!--提示动作 start-->
         <!--生成参数注解-->
@@ -103,6 +108,10 @@
     <actions>
         <action id="MybatisX.Test.Action" class="com.baomidou.plugin.idea.mybatisx.action.TestAction" text="Test" description="测试">
             <add-to-group group-id="OtherMenu" anchor="first"/>
+        </action>
+        <action id="org.py.code.generator.plugin" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator"
+                text="CodeGenerator" description="mybatis plus code generator ">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>

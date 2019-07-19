@@ -77,7 +77,7 @@ public class PlusJavaService {
 
     @SuppressWarnings("unchecked")
     public void process(@NotNull PsiClass clazz, @NotNull Processor<Mapper> processor) {
-        // TODO: 这里有错误异常
+        // TIP: 这里有错误异常
         String ns = clazz.getQualifiedName();
         for (Mapper mapper : MapperUtils.findMappers(clazz.getProject())) {
             if (MapperUtils.getNamespace(mapper).equals(ns)) {
@@ -91,7 +91,7 @@ public class PlusJavaService {
             process((PsiMethod) target, processor);
         } else if (target instanceof PsiClass) {
             //  转化为类错误
-            // process((PsiClass) target, processor);
+//             process((PsiClass) target, processor);
         }
     }
 
