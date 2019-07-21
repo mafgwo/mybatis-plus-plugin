@@ -5,6 +5,8 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.domain;
  */
 public class GenConfig {
 
+    private String rootFolder;
+
     private Long id;
 
     /** 包路径 **/
@@ -90,5 +92,13 @@ public class GenConfig {
 
     public void setCover(Boolean cover) {
         this.cover = cover;
+    }
+
+    public String getRootFolder() {
+        return rootFolder;
+    }
+
+    public void setRootFolder(String rootFolder) {
+        this.rootFolder = rootFolder;
     }
 }

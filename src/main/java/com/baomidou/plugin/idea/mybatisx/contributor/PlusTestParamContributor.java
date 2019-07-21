@@ -35,7 +35,7 @@ public class PlusTestParamContributor extends CompletionContributor {
     private static final Logger logger = LoggerFactory.getLogger(PlusTestParamContributor.class);
     public PlusTestParamContributor() {
         extend(CompletionType.BASIC,
-                XmlPatterns.psiElement().inside(XmlPatterns.xmlAttributeValue().inside(XmlPatterns.xmlAttribute().withName("test"))),
+                XmlPatterns.psiElement().inside(XmlPatterns.xmlAttributeValue().inside(XmlPatterns.xmlAttribute().withName("ShowTableInfo"))),
                 new CompletionProvider<CompletionParameters>() {
                     @Override
                     protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result) {

@@ -8,57 +8,73 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo;
 public class TableInfo {
 
     /** 表名称 **/
-    private Object tableName;
+    private String tableName;
 
     /** 创建日期 **/
-    private Object createTime;
+    private String createTime;
 
     // 数据库引擎
-    private Object engine;
+    private String engine;
 
     // 编码集
-    private Object coding;
+    private String coding;
 
     // 备注
-    private Object remark;
+    private String remark;
 
-    public Object getTableName() {
+    public String getTableName() {
         return tableName;
     }
 
-    public void setTableName(Object tableName) {
+    public TableInfo setTableName(String tableName) {
         this.tableName = tableName;
+        return this;
     }
 
-    public Object getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Object createTime) {
+    public TableInfo setCreateTime(String createTime) {
         this.createTime = createTime;
+        return this;
     }
 
-    public Object getEngine() {
+    public String getEngine() {
         return engine;
     }
 
-    public void setEngine(Object engine) {
+    public TableInfo setEngine(String engine) {
         this.engine = engine;
+        return this;
     }
 
-    public Object getCoding() {
+    public String getCoding() {
         return coding;
     }
 
-    public void setCoding(Object coding) {
+    public TableInfo setCoding(String coding) {
         this.coding = coding;
+        return this;
     }
 
-    public Object getRemark() {
+    public String getRemark() {
         return remark;
     }
 
-    public void setRemark(Object remark) {
+    public TableInfo setRemark(String remark) {
         this.remark = remark;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "TableInfo{" +
+            "tableName=" + tableName +
+            ", createTime=" + createTime +
+            ", engine=" + engine +
+            ", coding=" + coding +
+            ", remark=" + remark +
+            '}';
     }
 }

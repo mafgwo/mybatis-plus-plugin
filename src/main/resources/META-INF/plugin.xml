@@ -10,6 +10,10 @@
     </description>
 
     <change-notes><![CDATA[
+        <h4>update 2019.07.21</h4>
+       <ul>
+          <li>MybatisPlus-1.1.0 add code generator  </li>
+      </ul>
       <h4>update 2019.07.09</h4>
        <ul>
           <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
@@ -106,7 +110,7 @@
         <!--提示动作 end-->
     </extensions>
     <actions>
-        <action id="MybatisX.Test.Action" class="com.baomidou.plugin.idea.mybatisx.action.TestAction" text="Test" description="测试">
+        <action id="org.py.code.generator.action" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator" text="code generator" description="code generator">
             <add-to-group group-id="OtherMenu" anchor="first"/>
         </action>
         <action id="org.py.code.generator.plugin" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator"

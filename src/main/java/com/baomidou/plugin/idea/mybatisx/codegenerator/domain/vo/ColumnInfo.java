@@ -8,22 +8,22 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo;
 public class ColumnInfo {
 
     /** 数据库字段名称 **/
-    private Object columnName;
+    private String columnName;
 
     /** 允许空值 **/
-    private Object isNullable;
+    private String isNullable;
 
     /** 数据库字段类型 **/
-    private Object columnType;
+    private String columnType;
 
     /** 数据库字段注释 **/
-    private Object columnComment;
+    private String columnComment;
 
     /** 数据库字段键类型 **/
-    private Object columnKey;
+    private String columnKey;
 
     /** 额外的参数 **/
-    private Object extra;
+    private String extra;
 
     /** 查询 1:模糊 2：精确 **/
     private String columnQuery;
@@ -31,10 +31,24 @@ public class ColumnInfo {
     /** 是否在列表显示 **/
     private String columnShow;
 
+    @Override
+    public String toString() {
+        return "ColumnInfo{" +
+            "columnName=" + columnName +
+            ", isNullable=" + isNullable +
+            ", columnType=" + columnType +
+            ", columnComment=" + columnComment +
+            ", columnKey=" + columnKey +
+            ", extra=" + extra +
+            ", columnQuery='" + columnQuery + '\'' +
+            ", columnShow='" + columnShow + '\'' +
+            '}';
+    }
+
     public ColumnInfo() {
     }
 
-    public ColumnInfo(Object columnName, Object isNullable, Object columnType, Object columnComment, Object columnKey, Object extra, String columnQuery, String columnShow) {
+    public ColumnInfo(String columnName, String isNullable, String columnType, String columnComment, String columnKey, String extra, String columnQuery, String columnShow) {
         this.columnName = columnName;
         this.isNullable = isNullable;
         this.columnType = columnType;
@@ -45,67 +59,75 @@ public class ColumnInfo {
         this.columnShow = columnShow;
     }
 
-    public Object getColumnName() {
+    public String getColumnName() {
         return columnName;
     }
 
-    public void setColumnName(Object columnName) {
+    public ColumnInfo setColumnName(String columnName) {
         this.columnName = columnName;
+        return this;
     }
 
-    public Object getIsNullable() {
+    public String getIsNullable() {
         return isNullable;
     }
 
-    public void setIsNullable(Object isNullable) {
+    public ColumnInfo setIsNullable(String isNullable) {
         this.isNullable = isNullable;
+        return this;
     }
 
-    public Object getColumnType() {
+    public String getColumnType() {
         return columnType;
     }
 
-    public void setColumnType(Object columnType) {
+    public ColumnInfo setColumnType(String columnType) {
         this.columnType = columnType;
+        return this;
     }
 
-    public Object getColumnComment() {
+    public String getColumnComment() {
         return columnComment;
     }
 
-    public void setColumnComment(Object columnComment) {
+    public ColumnInfo setColumnComment(String columnComment) {
         this.columnComment = columnComment;
+        return this;
     }
 
-    public Object getColumnKey() {
+    public String getColumnKey() {
         return columnKey;
     }
 
-    public void setColumnKey(Object columnKey) {
+    public ColumnInfo setColumnKey(String columnKey) {
         this.columnKey = columnKey;
+        return this;
     }
 
-    public Object getExtra() {
+    public String getExtra() {
         return extra;
     }
 
-    public void setExtra(Object extra) {
+    public ColumnInfo setExtra(String extra) {
         this.extra = extra;
+        return this;
     }
 
     public String getColumnQuery() {
         return columnQuery;
     }
 
-    public void setColumnQuery(String columnQuery) {
+    public ColumnInfo setColumnQuery(String columnQuery) {
         this.columnQuery = columnQuery;
+        return this;
     }
 
     public String getColumnShow() {
         return columnShow;
     }
 
-    public void setColumnShow(String columnShow) {
+    public ColumnInfo setColumnShow(String columnShow) {
         this.columnShow = columnShow;
+        return this;
     }
 }

@@ -62,9 +62,9 @@ public class GenUtil {
         String tableName = "unit";
         GenConfig genConfig = new GenConfig();
         genConfig.setId(1L);
-        genConfig.setPack("me.zhengjie.modules.test");
+        genConfig.setPack("me.zhengjie.modules.ShowTableInfo");
         genConfig.setModuleName("eladmin-system");
-        genConfig.setPath("E:\\workspace\\me\\front\\eladmin-qt\\src\\views\\test");
+        genConfig.setPath("E:\\workspace\\me\\front\\eladmin-qt\\src\\views\\ShowTableInfo");
         genConfig.setApiPath("E:\\workspace\\me\\front\\eladmin-qt\\src\\api");
         genConfig.setAuthor("hj");
         genConfig.setCover(false);
@@ -79,7 +79,7 @@ public class GenUtil {
 
         columnInfo.setColumnComment("123");
         columnInfos.add(columnInfo);
-        GenUtil.generatorCode(columnInfos,genConfig,tableName);
+        GenUtil.generatorCode(tableName, columnInfos, genConfig);
     }
 
     /**
@@ -87,7 +87,7 @@ public class GenUtil {
      * @param columnInfos 表元数据
      * @param genConfig 生成代码的参数配置，如包路径，作者
      */
-    public static void generatorCode(List<ColumnInfo> columnInfos, GenConfig genConfig, String tableName) throws IOException {
+    public static void generatorCode(String tableName, List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
         Map<String,Object> map = new HashMap();
         map.put("package",genConfig.getPack());
         map.put("moduleName",genConfig.getModuleName());
@@ -162,7 +162,7 @@ public class GenUtil {
             Template template = configuration.getTemplate("generator/admin/"+templateName+".ftl");
 
 
-            String filePath = getAdminFilePath(templateName,genConfig,className);
+            String filePath = getAdminFilePath(templateName, genConfig, className);
 
             File file = new File(filePath);
 
@@ -198,8 +198,12 @@ public class GenUtil {
      * 定义后端文件路径以及名称
      */
     public static String getAdminFilePath(String templateName, GenConfig genConfig, String className) {
-        String projectPath = "D:\\tempfile"+ File.separator + genConfig.getModuleName();
+        String projectPath = genConfig.getRootFolder() + File.separator + genConfig.getModuleName();
+
         String packagePath = projectPath + File.separator + "src" +File.separator+ "main" + File.separator + "java" + File.separator;
+
+//        genConfig.setPath(packagePath);
+
         if (!StringUtils.isEmpty(genConfig.getPack())) {
             packagePath += genConfig.getPack().replace(".", File.separator) + File.separator;
         }
@@ -243,7 +247,7 @@ public class GenUtil {
      * 定义前端文件路径以及名称
      */
     public static String getFrontFilePath(String templateName, GenConfig genConfig, String apiName) {
-        String path = genConfig.getPath();
+        String path = StringUtils.isEmpty(genConfig.getPath()) ?  genConfig.getApiPath() : genConfig.getPath();
 
         if ("api".equals(templateName)) {
             return genConfig.getApiPath() + File.separator + apiName + ".js";
