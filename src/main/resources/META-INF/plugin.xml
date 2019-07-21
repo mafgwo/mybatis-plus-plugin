@@ -1,7 +1,6 @@
 <idea-plugin url="https://gitee.com/baomidou/mybatis-plus">
     <id>com.baomidou.plugin.idea.mybatisPlus</id>
     <name>MyBatisPlus</name>
-    <version>1.0.2</version>
     <vendor email="makey22112@gmail.com" url="https://plugins.jetbrains.com/plugin/12670-mybatisplus">MybatisPlus</vendor>
 
     <description><![CDATA[
@@ -14,6 +13,11 @@
        <ul>
           <li>MybatisPlus-1.1.0 add code generator  </li>
       </ul>
+      <p>
+       idea -> Other
+           1 ConfigMysql 配置 mysql 信息
+           2 code generator 配置代码生成路径 生成代码
+       </p>
       <h4>update 2019.07.09</h4>
        <ul>
           <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
@@ -110,12 +114,19 @@
         <!--提示动作 end-->
     </extensions>
     <actions>
-        <action id="org.py.code.generator.action" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator" text="code generator" description="code generator">
+        <action id="org.py.code.generator.action" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator"
+                text="code generator" description="code generator">
             <add-to-group group-id="OtherMenu" anchor="first"/>
         </action>
+        <action id="org.py.code.generator.mysql" class="com.baomidou.plugin.idea.mybatisx.action.ConfigMysql"
+                text="config mysql" description="config mysql">
+            <add-to-group group-id="OtherMenu" anchor="first"/>
+        </action>
+
         <action id="org.py.code.generator.plugin" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator"
                 text="CodeGenerator" description="mybatis plus code generator ">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
+
     </actions>
 </idea-plugin>

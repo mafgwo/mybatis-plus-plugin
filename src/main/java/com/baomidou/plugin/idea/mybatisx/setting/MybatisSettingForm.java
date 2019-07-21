@@ -19,4 +19,18 @@ public class MybatisSettingForm {
 
     public JComboBox modelComboBox;
 
+    public JTextField connectNameTextField;
+
+    public JTextField hostTextField;
+
+    public JTextField portTextField;
+
+    public JTextField userTextField;
+
+    public JTextField pwdTextField;
+
+    private JCheckBox savePasswordCheckBox;
+
+    private JButton testConnectButton;
+
 }

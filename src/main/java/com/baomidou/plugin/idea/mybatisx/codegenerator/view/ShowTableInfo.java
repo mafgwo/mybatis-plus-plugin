@@ -69,7 +69,7 @@ public class ShowTableInfo extends JFrame {
             rowData[i] = tableInfoArr;
         }
 
-        String[] columnNames = new String[]{"表名", "创建时间", "引擎", "编码", "备注"};
+        String[] columnNames = new String[]{"table name", "create time", "engine", "coding", "remark"};
 //        Object[][] rowData = {{"1","2","3","4","5"}};
         DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames);
 

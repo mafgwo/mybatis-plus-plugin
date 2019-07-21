@@ -1,5 +1,6 @@
 package com.baomidou.plugin.idea.mybatisx.action;
 
+import com.baomidou.plugin.idea.mybatisx.codegenerator.view.DBInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.view.ShowTableInfo;
 import com.intellij.database.actions.DatabaseObjectRefactoring;
 import com.intellij.database.model.DasObject;
@@ -38,6 +39,7 @@ public class TestAction extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {
+
         String projectRoot = e.getProject().getBasePath();
         ShowTableInfo dialog = new ShowTableInfo(projectRoot);
         dialog.pack();

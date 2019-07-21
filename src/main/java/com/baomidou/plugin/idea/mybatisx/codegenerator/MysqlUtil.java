@@ -2,6 +2,7 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
+import com.intellij.ide.util.PropertiesComponent;
 
 import java.lang.reflect.Field;
 import java.sql.*;
@@ -11,8 +12,8 @@ import java.util.List;
 public class MysqlUtil {
 
     // MySQL 8.0 以下版本 - JDBC 驱动名及数据库 URL
-    private static String jdbcDriver = "com.mysql.jdbc.Driver";
-    private static String dbUrl = "jdbc:mysql://localhost:3306/eladmin?useSSL=false&serverTimezone=UTC";
+//    private static String jdbcDriver = "";
+//    private static String dbUrl = "";
 
     // MySQL 8.0 以上版本 - JDBC 驱动名及数据库 URL
     //private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -20,39 +21,33 @@ public class MysqlUtil {
 
 
     // 数据库的用户名与密码，需要根据自己的设置
-    private static String username = "root";
-    private static String password = "123456";
+//    private static String username = "root";
+//    private static String password = "123456";
 
     public String getJdbcDriver() {
+        String jdbcDriver = PropertiesComponent.getInstance().getValue("mybatisplus_jdbcDriver");
         return jdbcDriver;
     }
 
-    public void setJdbcDriver(String jdbcDriver) {
-        this.jdbcDriver = jdbcDriver;
-    }
+
 
     public String getDbUrl() {
+        String dbUrl = PropertiesComponent.getInstance().getValue("mybatisplus_dbUrl");
         return dbUrl;
     }
 
-    public void setDbUrl(String dbUrl) {
-        this.dbUrl = dbUrl;
-    }
+
 
     public String getUsername() {
+        String username = PropertiesComponent.getInstance().getValue("mybatisplus_username");
         return username;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
     public String getPassword() {
+        String password = PropertiesComponent.getInstance().getValue("mybatisplus_password");
         return password;
     }
-    public void setPassword(String password) {
-        this.password = password;
-    }
+
 
     private  static MysqlUtil mysqlUtil;
 
@@ -83,10 +78,10 @@ public class MysqlUtil {
         Statement stmt;
         try {
             // 注册 JDBC 驱动
-            Class.forName(jdbcDriver);
+            Class.forName(getJdbcDriver());
             // 打开链接
             System.out.println("连接数据库...");
-            conn = DriverManager.getConnection(dbUrl,username,password);
+            conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
             // 执行查询
             System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
@@ -128,10 +123,10 @@ public class MysqlUtil {
         Statement stmt;
         try {
             // 注册 JDBC 驱动
-            Class.forName(jdbcDriver);
+            Class.forName(getJdbcDriver());
             // 打开链接
             System.out.println("连接数据库...");
-            conn = DriverManager.getConnection(dbUrl,username,password);
+            conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
             // 执行查询
             System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
@@ -164,4 +159,19 @@ public class MysqlUtil {
         return new ArrayList<>();
     }
 
+    public boolean testConnect() {
+        // 注册 JDBC 驱动
+        try {
+            Class.forName(getJdbcDriver());
+            // 打开链接
+            System.out.println("连接数据库...");
+            DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
+            return true;
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

@@ -29,7 +29,7 @@ public class ColumnInfo {
     private String columnQuery;
 
     /** 是否在列表显示 **/
-    private String columnShow;
+    private String columnShow = "true";
 
     @Override
     public String toString() {
