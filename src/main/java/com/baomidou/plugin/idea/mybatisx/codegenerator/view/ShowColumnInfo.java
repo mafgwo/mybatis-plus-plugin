@@ -3,6 +3,7 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
+import com.intellij.ui.JBColor;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -68,20 +69,20 @@ public class ShowColumnInfo extends JFrame {
             rowData[i] = tableInfoArr;
         }
 
-        String[] columnNames = new String[]{"字段名称", "是否为空", "字段类型", "字段备注", "columnKey", "extra"};
+        String[] columnNames = new String[]{"field name", "allow be empty", "field type", "reamrk", "columnKey", "extra"};
 //        Object[][] rowData = {{"1","2","3","4","5"}};
         DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames);
 
         // 设置表格内容颜色
-        tableColumn.setForeground(Color.BLACK);                   // 字体颜色
+        tableColumn.setForeground(JBColor.BLACK);                   // 字体颜色
         tableColumn.setFont(new Font(null, Font.PLAIN, 14));      // 字体样式
-        tableColumn.setSelectionForeground(Color.DARK_GRAY);      // 选中后字体颜色
-        tableColumn.setSelectionBackground(Color.LIGHT_GRAY);     // 选中后字体背景
-        tableColumn.setGridColor(Color.GRAY);                     // 网格颜色
+        tableColumn.setSelectionForeground(JBColor.DARK_GRAY);      // 选中后字体颜色
+        tableColumn.setSelectionBackground(JBColor.LIGHT_GRAY);     // 选中后字体背景
+        tableColumn.setGridColor(JBColor.GRAY);                     // 网格颜色
 
         // 设置表头
         tableColumn.getTableHeader().setFont(new Font(null, Font.BOLD, 14));  // 设置表头名称字体样式
-        tableColumn.getTableHeader().setForeground(Color.RED);                // 设置表头名称字体颜色
+        tableColumn.getTableHeader().setForeground(JBColor.RED);                // 设置表头名称字体颜色
         tableColumn.getTableHeader().setResizingAllowed(false);               // 设置不允许手动改变列宽
         tableColumn.getTableHeader().setReorderingAllowed(false);             // 设置不允许拖动重新排序各列
 

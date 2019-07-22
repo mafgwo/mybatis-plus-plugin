@@ -2,12 +2,14 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst;
 import com.intellij.ide.util.PropertiesComponent;
 
-import java.lang.reflect.Field;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.jdbcDrivers;
 
 public class MysqlUtil {
 
@@ -24,27 +26,27 @@ public class MysqlUtil {
 //    private static String username = "root";
 //    private static String password = "123456";
 
-    public String getJdbcDriver() {
-        String jdbcDriver = PropertiesComponent.getInstance().getValue("mybatisplus_jdbcDriver");
-        return jdbcDriver;
+    public int getJdbcDriver() {
+        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(MybatisConst.MYBATISPLUS_JDBCDRIVER, 0);
+        return jdbcDriverIndex;
     }
 
 
 
     public String getDbUrl() {
-        String dbUrl = PropertiesComponent.getInstance().getValue("mybatisplus_dbUrl");
+        String dbUrl = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_DBURL);
         return dbUrl;
     }
 
 
 
     public String getUsername() {
-        String username = PropertiesComponent.getInstance().getValue("mybatisplus_username");
+        String username = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_USERNAME);
         return username;
     }
 
     public String getPassword() {
-        String password = PropertiesComponent.getInstance().getValue("mybatisplus_password");
+        String password = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_PASSWORD);
         return password;
     }
 
@@ -78,7 +80,7 @@ public class MysqlUtil {
         Statement stmt;
         try {
             // 注册 JDBC 驱动
-            Class.forName(getJdbcDriver());
+            Class.forName(jdbcDrivers[getJdbcDriver()]);
             // 打开链接
             System.out.println("连接数据库...");
             conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
@@ -123,7 +125,7 @@ public class MysqlUtil {
         Statement stmt;
         try {
             // 注册 JDBC 驱动
-            Class.forName(getJdbcDriver());
+            Class.forName(jdbcDrivers[getJdbcDriver()]);
             // 打开链接
             System.out.println("连接数据库...");
             conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
@@ -162,9 +164,9 @@ public class MysqlUtil {
     public boolean testConnect() {
         // 注册 JDBC 驱动
         try {
-            Class.forName(getJdbcDriver());
+            Class.forName(jdbcDrivers[getJdbcDriver()]);
             // 打开链接
-            System.out.println("连接数据库...");
+            System.out.println("connect mysql...");
             DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
             return true;
         } catch (ClassNotFoundException e) {

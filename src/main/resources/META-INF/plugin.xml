@@ -4,39 +4,27 @@
     <vendor email="makey22112@gmail.com" url="https://plugins.jetbrains.com/plugin/12670-mybatisplus">MybatisPlus</vendor>
 
     <description><![CDATA[
+          <h1>MybatisPlus</h1>
+          generator code <br>
           MybatisPlus plugin  from java to xml or from xml to java
+          <p>
+          <b>
+              <a href="https://gitee.com/baomidou/mybatis-plus">Website</a> |
+              <a href="https://github.com/kana112233/mybatis-plus-plugin">GitHub</a> |
+              <a href="https://github.com/kana112233/mybatis-plus-plugin/issues">Issues</a>
+          </b>
+          </p>
+          <br/>
       ]]>
     </description>
 
-    <change-notes><![CDATA[
-        <h4>update 2019.07.21</h4>
-       <ul>
-          <li>MybatisPlus-1.1.0 add code generator  </li>
-      </ul>
-      <p>
-       idea -> Other
-           1 ConfigMysql 配置 mysql 信息
-           2 code generator 配置代码生成路径 生成代码
-       </p>
-      <h4>update 2019.07.09</h4>
-       <ul>
-          <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
-      </ul>
-      <h4>update 2019.07.08</h4>
-       <ul>
-          <li>MybatisPlus-1.0.1  fix mybatisX conflict and fix mapper cast to IdDomElement  </li>
-      </ul>
-      <h4>from java to xml or from xml to java</h4>
-      <ul>
-          <li>MybatisPlus-1.0.0</li>
-      </ul>
-      ]]>
-    </change-notes>
+    <depends>com.intellij.modules.lang</depends>
 
     <idea-version since-build="145.0"/>
-    <depends optional="true">com.intellij.spring</depends>
-    <depends optional="true">com.intellij.spring.boot</depends>
-    <depends optional="true">com.intellij.database</depends>
+<!--    <depends optional="true">com.intellij.spring</depends>-->
+<!--    <depends optional="true">com.intellij.spring.boot</depends>-->
+<!--    <depends optional="true">com.intellij.database</depends>-->
+
     <extensions defaultExtensionNs="com.intellij">
 
         <!--文件描述-->
@@ -70,7 +58,7 @@
 
         <!--自动完成提示-->
         <completion.contributor language="XML" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusTestParamContributor"/>
-        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusSqlParamCompletionContributor" order="first"/>
+<!--        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusSqlParamCompletionContributor" order="first"/>-->
 
         <!--文件模板组，新建文件选择模板-->
         <fileTemplateGroup implementation="com.baomidou.plugin.idea.mybatisx.template.PlusMybatisFileTemplateDescriptorFactory"/>
@@ -129,4 +117,33 @@
         </action>
 
     </actions>
+
+    <change-notes><![CDATA[
+       <h4>update 2019.07.22</h4>
+        <ul>
+          <li>MybatisPlus-1.1.1  save file config and English show Information   </li>
+        </ul>
+       <h4>update 2019.07.21</h4>
+       <ul>
+          <li>MybatisPlus-1.1.0 add code generator  </li>
+      </ul>
+      <p>
+           idea -> Other <br>
+           1 config mysql 配置 mysql 信息<br>
+           2 code generator 配置代码生成路径 生成代码<br>
+       </p>
+      <h4>update 2019.07.09</h4>
+       <ul>
+          <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
+      </ul>
+      <h4>update 2019.07.08</h4>
+       <ul>
+          <li>MybatisPlus-1.0.1  fix mybatisX conflict and fix mapper cast to IdDomElement  </li>
+      </ul>
+      <h4>from java to xml or from xml to java</h4>
+      <ul>
+          <li>MybatisPlus-1.0.0</li>
+      </ul>
+      ]]>
+    </change-notes>
 </idea-plugin>

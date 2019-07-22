@@ -6,9 +6,13 @@
 
 idea -> Other 
 
-ConfigMysql 配置mysql信息
+### 配置mysql信息
 
-code generator 配置代码生成路径 生成代码
+config mysql 
+
+### 配置代码生成路径 生成代码
+
+code generator 
 
 
 

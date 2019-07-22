@@ -1,7 +1,6 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
-import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.StringUtils;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.ui.Messages;
 
@@ -13,15 +12,13 @@ import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst
 public class DBInfo extends JFrame {
     private JPanel contentPane;
     private JButton buttonOK;
-    private JButton buttonCancel;
     private JTextField dbUrlTextField;
-    private JTextField jdbcDriverTextField;
     private JTextField userTextField;
     private JButton testConnect;
     private JLabel jdbcDriver;
-    private JCheckBox savePwdCheckBox;
     private JLabel dbUrl;
     private JPasswordField passwordField1;
+    private JComboBox<String> jdbcDriverComboBox;
 
     public DBInfo() {
         setContentPane(contentPane);
@@ -30,12 +27,6 @@ public class DBInfo extends JFrame {
         buttonOK.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 onOK();
-            }
-        });
-
-        buttonCancel.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
             }
         });
 
@@ -60,9 +51,9 @@ public class DBInfo extends JFrame {
                 setMybatisPlusGlobalConst();
                 boolean isConnect = MysqlUtil.getInstance().testConnect();
                 if (isConnect) {
-                    Messages.showInfoMessage("测试成功！", "mybatis plus");
+                    Messages.showInfoMessage("test successful！", "mybatis plus");
                 }else {
-                    Messages.showInfoMessage("测试失败！", "mybatis plus");
+                    Messages.showInfoMessage("test failure！", "mybatis plus");
                 }
             }
 
@@ -75,30 +66,31 @@ public class DBInfo extends JFrame {
             }
         });
 
-       setMysqlFieldText();
+        for (String driver : jdbcDrivers) {
+            jdbcDriverComboBox.addItem(driver);
+        }
+
+        setMysqlFieldText();
     }
 
     private void setMysqlFieldText() {
-        String dbUrl = !StringUtils.isEmpty(PropertiesComponent.getInstance().getValue(MYBATISPLUS_DBURL))?
-            PropertiesComponent.getInstance().getValue(MYBATISPLUS_DBURL): "jdbc:mysql://localhost:3306/mysql?useSSL=false&serverTimezone=UTC";
+        String dbUrl = PropertiesComponent.getInstance().getValue(MYBATISPLUS_DBURL, "jdbc:mysql://localhost:3306/mysql?useSSL=false&serverTimezone=UTC");
         dbUrlTextField.setText(dbUrl);
 
-        String jdbcDriver = !StringUtils.isEmpty(PropertiesComponent.getInstance().getValue(MYBATISPLUS_JDBCDRIVER))?
-            PropertiesComponent.getInstance().getValue(MYBATISPLUS_JDBCDRIVER) : "com.mysql.jdbc.Driver";
-        jdbcDriverTextField.setText(jdbcDriver);
+        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(MYBATISPLUS_JDBCDRIVER,0);
+        jdbcDriverComboBox.setSelectedIndex(jdbcDriverIndex);
 
-        String username = !StringUtils.isEmpty(PropertiesComponent.getInstance().getValue(MYBATISPLUS_USERNAME))?
-            PropertiesComponent.getInstance().getValue(MYBATISPLUS_USERNAME) : "root";
+        String username = PropertiesComponent.getInstance().getValue(MYBATISPLUS_USERNAME,"root");
         userTextField.setText(username);
 
-        passwordField1.setText(PropertiesComponent.getInstance().getValue(MYBATISPLUS_PASSWORD));
+        passwordField1.setText(PropertiesComponent.getInstance().getValue(MYBATISPLUS_PASSWORD,""));
     }
 
     private void setMybatisPlusGlobalConst() {
-        PropertiesComponent.getInstance().setValue("mybatisplus_dbUrl",dbUrlTextField.getText());
-        PropertiesComponent.getInstance().setValue("mybatisplus_jdbcDriver",jdbcDriverTextField.getText());
-        PropertiesComponent.getInstance().setValue("mybatisplus_username",userTextField.getText());
-        PropertiesComponent.getInstance().setValue("mybatisplus_password", String.valueOf(passwordField1.getPassword()));
+        PropertiesComponent.getInstance().setValue(MYBATISPLUS_DBURL,dbUrlTextField.getText());
+        PropertiesComponent.getInstance().setValue(MYBATISPLUS_JDBCDRIVER,jdbcDriverComboBox.getSelectedIndex(),0);
+        PropertiesComponent.getInstance().setValue(MYBATISPLUS_USERNAME,userTextField.getText());
+        PropertiesComponent.getInstance().setValue(MYBATISPLUS_PASSWORD, String.valueOf(passwordField1.getPassword()));
     }
 
     private void onOK() {
