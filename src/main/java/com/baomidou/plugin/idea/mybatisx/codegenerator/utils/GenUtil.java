@@ -2,6 +2,16 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.utils;
 
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.generator.AutoGenerator;
+import com.baomidou.mybatisplus.generator.InjectionConfig;
+import com.baomidou.mybatisplus.generator.config.*;
+import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
+import com.baomidou.mybatisplus.generator.config.po.TableInfo;
+import com.baomidou.mybatisplus.generator.config.rules.FileType;
+import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
+import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import freemarker.template.Configuration;
@@ -14,6 +24,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.jdbcDrivers;
 
 /**
  * 代码生成
@@ -59,14 +71,15 @@ public class GenUtil {
 
     public static void main(String[] args) throws IOException {
 
-        String tableName = "unit";
+        String tableName = "user";
         GenConfig genConfig = new GenConfig();
         genConfig.setId(1L);
-        genConfig.setPack("me.zhengjie.modules.ShowTableInfo");
-        genConfig.setModuleName("eladmin-system");
-        genConfig.setPath("E:\\workspace\\me\\front\\eladmin-qt\\src\\views\\ShowTableInfo");
-        genConfig.setApiPath("E:\\workspace\\me\\front\\eladmin-qt\\src\\api");
-        genConfig.setAuthor("hj");
+        genConfig.setPack("org.py.modules.ShowTableInfo");
+        genConfig.setModuleName("my-system");
+        genConfig.setPath("D:\\tempfile\\");
+        genConfig.setApiPath("D:\\tempfile\\api");
+        genConfig.setRootFolder("D:\\tempfile");
+        genConfig.setAuthor("py");
         genConfig.setCover(false);
 
         List<ColumnInfo> columnInfos = new ArrayList<>();
@@ -79,7 +92,98 @@ public class GenUtil {
 
         columnInfo.setColumnComment("123");
         columnInfos.add(columnInfo);
-        GenUtil.generatorCode(tableName, columnInfos, genConfig);
+        GenUtil.generatorCode(tableName, genConfig);
+    }
+
+    public static void generatorCode(String tableName, GenConfig genConfig) {
+        // 代码生成器
+        AutoGenerator mpg = new AutoGenerator();
+
+        // 全局配置
+        GlobalConfig gc = new GlobalConfig();
+//        String projectPath = System.getProperty("user.dir");
+        String projectPath = genConfig.getRootFolder();
+        gc.setOutputDir(projectPath +File.separator+genConfig.getModuleName()+ "/src/main/java");
+        gc.setAuthor(genConfig.getAuthor());
+        gc.setOpen(false);
+        gc.setFileOverride(genConfig.getCover());
+        gc.setSwagger2(true); // 实体属性 Swagger2 注解
+        mpg.setGlobalConfig(gc);
+
+        // 数据源配置
+        DataSourceConfig dsc = new DataSourceConfig();
+        dsc.setUrl(MysqlUtil.getInstance().getDbUrl());
+        // dsc.setSchemaName("public");
+        dsc.setDriverName(jdbcDrivers[MysqlUtil.getInstance().getJdbcDriver()]);
+        dsc.setUsername(MysqlUtil.getInstance().getUsername());
+        dsc.setPassword(MysqlUtil.getInstance().getPassword());
+        mpg.setDataSource(dsc);
+
+        // 包配置
+        PackageConfig pc = new PackageConfig();
+        pc.setModuleName(""); // 在pack下的文件，现在不要
+        pc.setParent(genConfig.getPack());
+        mpg.setPackageInfo(pc);
+
+        // 自定义配置
+        InjectionConfig cfg = new InjectionConfig() {
+            @Override
+            public void initMap() {
+                // to do nothing
+            }
+        };
+
+        // todo 从用户读取自定义模板文件
+
+        // 如果模板引擎是 freemarker
+//        String templatePath = "/templates/mapper.xml.ftl";
+        // 如果模板引擎是 velocity
+        // String templatePath = "/templates/mapper.xml.vm";
+
+        // 自定义输出配置
+        /*List<FileOutConfig> focList = new ArrayList<>();
+        // 自定义配置会被优先输出
+        focList.add(new FileOutConfig(templatePath) {
+            @Override
+            public String outputFile(TableInfo tableInfo) {
+                // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
+                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
+                    + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+            }
+        });
+
+        cfg.setFileOutConfigList(focList);*/
+        mpg.setCfg(cfg);
+
+        // 配置模板
+        TemplateConfig templateConfig = new TemplateConfig();
+
+        // 配置自定义输出模板
+        //指定自定义模板路径，注意不要带上.ftl/.vm, 会根据使用的模板引擎自动识别
+        // templateConfig.setEntity("templates/entity2.java");
+        // templateConfig.setService();
+        // templateConfig.setController();
+
+        templateConfig.setXml(null);
+        mpg.setTemplate(templateConfig);
+
+        // 策略配置
+        StrategyConfig strategy = new StrategyConfig();
+        strategy.setNaming(NamingStrategy.underline_to_camel);
+        strategy.setColumnNaming(NamingStrategy.underline_to_camel);
+//        strategy.setSuperEntityClass("com.baomidou.ant.common.BaseEntity");
+        strategy.setEntityLombokModel(true);
+        strategy.setRestControllerStyle(true);
+        // 公共父类
+//        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
+        // 写于父类中的公共字段
+//        strategy.setSuperEntityColumns("id");
+        strategy.setInclude(tableName);
+        strategy.setControllerMappingHyphenStyle(true);
+        strategy.setTablePrefix(pc.getModuleName() + "_");
+        mpg.setStrategy(strategy);
+        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        mpg.execute();
     }
 
     /**
@@ -87,7 +191,7 @@ public class GenUtil {
      * @param columnInfos 表元数据
      * @param genConfig 生成代码的参数配置，如包路径，作者
      */
-    public static void generatorCode(String tableName, List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
+    public static void generatorCode123(String tableName, List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
         Map<String,Object> map = new HashMap();
         map.put("package",genConfig.getPack());
         map.put("moduleName",genConfig.getModuleName());

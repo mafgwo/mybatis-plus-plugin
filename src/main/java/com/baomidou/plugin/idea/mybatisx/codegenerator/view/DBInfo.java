@@ -49,12 +49,8 @@ public class DBInfo extends JFrame {
             public void mouseClicked(MouseEvent e) {
 
                 setMybatisPlusGlobalConst();
-                boolean isConnect = MysqlUtil.getInstance().testConnect();
-                if (isConnect) {
-                    Messages.showInfoMessage("test successful！", "mybatis plus");
-                }else {
-                    Messages.showInfoMessage("test failure！", "mybatis plus");
-                }
+                MysqlUtil.getInstance().testConnect();
+
             }
 
 
@@ -95,6 +91,7 @@ public class DBInfo extends JFrame {
 
     private void onOK() {
         // add your code here
+        setMybatisPlusGlobalConst();
         dispose();
     }
 

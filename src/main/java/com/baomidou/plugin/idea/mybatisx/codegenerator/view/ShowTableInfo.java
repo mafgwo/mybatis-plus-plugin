@@ -2,7 +2,6 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
-import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.GenUtil;
 import com.intellij.ide.util.PropertiesComponent;
@@ -12,7 +11,6 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.IOException;
 import java.util.List;
 
 import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.*;
@@ -22,14 +20,13 @@ public class ShowTableInfo extends JFrame {
     private JButton showColumn;
     private JButton codeGenerator;
     private JTable tableInfo;
-    private JTextField frontPathTextField;
+//    private JTextField frontPathTextField;
     private JTextField authorTextField;
     private JTextField mymoduleTextField;
     private JTextField myPackTextField;
     private JCheckBox isOver;
     private JLabel myModule;
-    private JTextField apiPathTextField;
-    private JLabel apiPath;
+//    private JTextField apiPathTextField;
     private JButton saveButton;
     List<TableInfo> tableInfoList = null;
     private String projectFilePath;
@@ -113,10 +110,10 @@ public class ShowTableInfo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 GenConfig genConfig = new GenConfig();
                 genConfig.setRootFolder(projectFilePath);
-                genConfig.setPath(frontPathTextField.getText());
+//                genConfig.setPath(frontPathTextField.getText());
                 genConfig.setId(1L);
                 genConfig.setPack(myPackTextField.getText());
-                genConfig.setApiPath(apiPathTextField.getText());
+//                genConfig.setApiPath(apiPathTextField.getText());
                 genConfig.setModuleName(mymoduleTextField.getText());
 
                 genConfig.setAuthor(authorTextField.getText());
@@ -130,8 +127,8 @@ public class ShowTableInfo extends JFrame {
                 }
                 for (int selectedRow : selectedRows) {
                     String tableName = (String) ShowTableInfo.this.tableInfo.getValueAt(selectedRow, 0);
-                    List<ColumnInfo> columnInfoList = MysqlUtil.getInstance().getColumns(tableName);
-                    DoCodeGenerator(tableName, columnInfoList, genConfig);
+//                    List<ColumnInfo> columnInfoList = MysqlUtil.getInstance().getColumns(tableName);
+                    DoCodeGenerator(tableName, genConfig);
                 }
                 Messages.showInfoMessage("generator successful！", "mybatis plus");
             }
@@ -147,24 +144,21 @@ public class ShowTableInfo extends JFrame {
         setMysqlFieldText();
     }
 
-    public void DoCodeGenerator(String tableName, List<ColumnInfo> columnInfos, GenConfig genConfig) {
+    public void DoCodeGenerator(String tableName, GenConfig genConfig) {
         //
         // 获取数据库 读取数据库信息
         //  配置生成的位置
         //  修改ftl文件
-        try {
-            GenUtil.generatorCode(tableName, columnInfos, genConfig);
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+       GenUtil.generatorCode(tableName, genConfig);
+
     }
 
     private void setMysqlFieldText() {
         String frontPath = PropertiesComponent.getInstance().getValue(MYBATISPLUS_FRONT_PATH,"D:\\tempfile\\front");
-        frontPathTextField.setText(frontPath);
+//        frontPathTextField.setText(frontPath);
 
         String apiPath = PropertiesComponent.getInstance().getValue(MYBATISPLUS_FRONT_API_PATH,"D:\\tempfile\\front\\api");
-        apiPathTextField.setText(apiPath);
+//        apiPathTextField.setText(apiPath);
 
         String module = PropertiesComponent.getInstance().getValue(MYBATISPLUS_MODULE, "mybmodule");
         mymoduleTextField.setText(module);
@@ -179,8 +173,8 @@ public class ShowTableInfo extends JFrame {
     }
 
     private void setMybatisPlusGlobalConst() {
-        PropertiesComponent.getInstance().setValue(MYBATISPLUS_FRONT_PATH, frontPathTextField.getText());
-        PropertiesComponent.getInstance().setValue(MYBATISPLUS_FRONT_API_PATH, apiPathTextField.getText());
+//        PropertiesComponent.getInstance().setValue(MYBATISPLUS_FRONT_PATH, frontPathTextField.getText());
+//        PropertiesComponent.getInstance().setValue(MYBATISPLUS_FRONT_API_PATH, apiPathTextField.getText());
         PropertiesComponent.getInstance().setValue(MYBATISPLUS_MODULE, mymoduleTextField.getText());
         PropertiesComponent.getInstance().setValue(MYBATISPLUS_PACKAGE, myPackTextField.getText());
         PropertiesComponent.getInstance().setValue(MYBATISPLUS_AUTHOR, authorTextField.getText());

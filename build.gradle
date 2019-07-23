@@ -27,10 +27,6 @@ intellij {
     plugins = ['spring', 'springboot', 'DatabaseTools'] //Bundled plugin dependencies
     pluginName 'MybatisPlus'
     sandboxDirectory = "${rootProject.rootDir}/idea-sandbox"
-//    publish {
-//        username project.hasProperty('publishUsername') ? project.property('publishUsername') : ''
-//        password project.hasProperty('publishPassword') ? project.property('publishPassword') : ''
-//    }
     updateSinceUntilBuild = false
 }
 
@@ -38,17 +34,18 @@ intellij {
 // https://www.jetbrains.com/intellij-repository/releases
 
 group 'com.baomidou.plugin.idea.mybatisPlus'
-version '1.1.1'
+version '1.1.2'
 
 repositories {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-
 //    jcenter()
     mavenCentral()
 }
 
 dependencies {
     testCompile "junit:junit:4.12"
+    compile "org.springframework:spring-core:5.0.6.RELEASE"
+    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.22'
     compile group: 'com.baomidou', name: 'mybatis-plus-generator', version: '3.1.2'
     compile group: 'org.freemarker', name: 'freemarker', version: '2.3.28'
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'

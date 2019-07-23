@@ -4,6 +4,9 @@ import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst;
 import com.intellij.ide.util.PropertiesComponent;
+import com.intellij.openapi.ui.Messages;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -13,32 +16,19 @@ import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst
 
 public class MysqlUtil {
 
-    // MySQL 8.0 以下版本 - JDBC 驱动名及数据库 URL
-//    private static String jdbcDriver = "";
-//    private static String dbUrl = "";
+    Logger logger = LoggerFactory.getLogger(MysqlUtil.class);
 
-    // MySQL 8.0 以上版本 - JDBC 驱动名及数据库 URL
-    //private String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
-    //private String DB_URL = "jdbc:mysql://localhost:3306/unionfund?useSSL=false&serverTimezone=UTC";
-
-
-    // 数据库的用户名与密码，需要根据自己的设置
-//    private static String username = "root";
-//    private static String password = "123456";
+    private MysqlUtil(){}
 
     public int getJdbcDriver() {
         int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(MybatisConst.MYBATISPLUS_JDBCDRIVER, 0);
         return jdbcDriverIndex;
     }
 
-
-
     public String getDbUrl() {
         String dbUrl = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_DBURL);
         return dbUrl;
     }
-
-
 
     public String getUsername() {
         String username = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_USERNAME);
@@ -49,7 +39,6 @@ public class MysqlUtil {
         String password = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_PASSWORD);
         return password;
     }
-
 
     private  static MysqlUtil mysqlUtil;
 
@@ -79,19 +68,11 @@ public class MysqlUtil {
         Connection conn;
         Statement stmt;
         try {
-            // 注册 JDBC 驱动
             Class.forName(jdbcDrivers[getJdbcDriver()]);
-            // 打开链接
-            System.out.println("连接数据库...");
             conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
-            // 执行查询
-            System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
-            // 完成后关闭
             ResultSet rs = stmt.executeQuery(sql);
-            // 展开结果集数据库
             while(rs.next()){
-                // 通过字段检索
                 String columnName  = rs.getString("column_name");
                 String isNullable = rs.getString("is_nullable");
                 String dataType = rs.getString("data_type");
@@ -110,9 +91,9 @@ public class MysqlUtil {
             conn.close();
             return columnInfoList;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
         return new ArrayList<>();
     }
@@ -124,19 +105,13 @@ public class MysqlUtil {
         Connection conn;
         Statement stmt;
         try {
-            // 注册 JDBC 驱动
             Class.forName(jdbcDrivers[getJdbcDriver()]);
-            // 打开链接
             System.out.println("连接数据库...");
             conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
-            // 执行查询
             System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
-            // 完成后关闭
             ResultSet rs = stmt.executeQuery(sql);
-            // 展开结果集数据库
             while(rs.next()){
-                // 通过字段检索
                 String tableName  = rs.getString("table_name");
                 String createTime = rs.getString("create_time");
                 String engine = rs.getString("engine");
@@ -154,26 +129,26 @@ public class MysqlUtil {
             conn.close();
             return tableInfos;
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            logger.error(e.toString());
         }
         return new ArrayList<>();
     }
 
-    public boolean testConnect() {
-        // 注册 JDBC 驱动
+    public void testConnect() {
+        String result = "test successful！";
         try {
             Class.forName(jdbcDrivers[getJdbcDriver()]);
-            // 打开链接
-            System.out.println("connect mysql...");
+            logger.info("connect mysql...");
             DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
-            return true;
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            result = e.getMessage();
+            logger.error(e.toString());
         } catch (SQLException e) {
-            e.printStackTrace();
+            result = e.getMessage();
+            logger.error(e.toString());
         }
-        return false;
+        Messages.showInfoMessage(result, "mybatis plus");
     }
 }
