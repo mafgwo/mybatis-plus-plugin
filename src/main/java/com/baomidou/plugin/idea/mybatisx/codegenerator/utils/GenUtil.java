@@ -69,7 +69,7 @@ public class GenUtil {
         return templateNames;
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
 
         String tableName = "user";
         GenConfig genConfig = new GenConfig();
@@ -103,7 +103,7 @@ public class GenUtil {
         GlobalConfig gc = new GlobalConfig();
 //        String projectPath = System.getProperty("user.dir");
         String projectPath = genConfig.getRootFolder();
-        gc.setOutputDir(projectPath +File.separator+genConfig.getModuleName()+ "/src/main/java");
+        gc.setOutputDir(projectPath + File.separator + genConfig.getModuleName() + "/src/main/java");
         gc.setAuthor(genConfig.getAuthor());
         gc.setOpen(false);
         gc.setFileOverride(genConfig.getCover());
@@ -123,6 +123,7 @@ public class GenUtil {
         PackageConfig pc = new PackageConfig();
         pc.setModuleName(""); // 在pack下的文件，现在不要
         pc.setParent(genConfig.getPack());
+        pc.setXml(genConfig.getPack());
         mpg.setPackageInfo(pc);
 
         // 自定义配置
@@ -135,24 +136,28 @@ public class GenUtil {
 
         // todo 从用户读取自定义模板文件
 
+        // todo 文件浏览
+
         // 如果模板引擎是 freemarker
-//        String templatePath = "/templates/mapper.xml.ftl";
+        String templatePath = "/templates/mapper.xml.ftl";
+//        String templatePath = "D:/tempfile/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
         // String templatePath = "/templates/mapper.xml.vm";
 
         // 自定义输出配置
-        /*List<FileOutConfig> focList = new ArrayList<>();
+        List<FileOutConfig> focList = new ArrayList<>();
         // 自定义配置会被优先输出
         focList.add(new FileOutConfig(templatePath) {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                return projectPath + "/src/main/resources/mapper/" + pc.getModuleName()
-                    + "/" + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+               String result =  projectPath  + "/" + genConfig.getModuleName() + "/src/main/resources/mapper/"
+                + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
+                return result;
             }
         });
 
-        cfg.setFileOutConfigList(focList);*/
+        cfg.setFileOutConfigList(focList);
         mpg.setCfg(cfg);
 
         // 配置模板
@@ -163,7 +168,7 @@ public class GenUtil {
         // templateConfig.setEntity("templates/entity2.java");
         // templateConfig.setService();
         // templateConfig.setController();
-
+//        String xmlPath =  projectPath  + File.separator + genConfig.getModuleName() + "/src/main/resources/mapper/";
         templateConfig.setXml(null);
         mpg.setTemplate(templateConfig);
 
@@ -284,7 +289,6 @@ public class GenUtil {
 //            Template template = engine.getTemplate("generator/front/"+templateName+".ftl");
             String filePath = getFrontFilePath(templateName,genConfig,map.get("changeClassName").toString());
             Template template = configuration.getTemplate("generator/front/"+templateName+".ftl");
-
 
             File file = new File(filePath);
 
