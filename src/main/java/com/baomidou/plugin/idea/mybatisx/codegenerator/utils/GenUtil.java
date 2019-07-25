@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.generator.config.po.TableInfo;
 import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.MyFreemarkerTemplateEngine;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
@@ -121,7 +122,7 @@ public class GenUtil {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName(""); // 在pack下的文件，现在不要
+        pc.setModuleName(null); // 在pack下的文件，现在不要
         pc.setParent(genConfig.getPack());
         pc.setXml(genConfig.getPack());
         mpg.setPackageInfo(pc);
@@ -139,8 +140,9 @@ public class GenUtil {
         // todo 文件浏览
 
         // 如果模板引擎是 freemarker
+//        String templatePath = "/templates/mapper.xml.ftl";
+//        String templatePath = "D:\workspace4Idea\cloud\pig";
         String templatePath = "/templates/mapper.xml.ftl";
-//        String templatePath = "D:/tempfile/templates/mapper.xml.ftl";
         // 如果模板引擎是 velocity
         // String templatePath = "/templates/mapper.xml.vm";
 
@@ -187,7 +189,7 @@ public class GenUtil {
         strategy.setControllerMappingHyphenStyle(true);
         strategy.setTablePrefix(pc.getModuleName() + "_");
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new FreemarkerTemplateEngine());
+        mpg.setTemplateEngine(new MyFreemarkerTemplateEngine(projectPath));
         mpg.execute();
     }
 
