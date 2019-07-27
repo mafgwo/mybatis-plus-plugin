@@ -26,7 +26,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
+// todo 3 连接数据源后xml里面自动提示字段
+// todo 4 sql 增删查改
 /**
  * @author yanglin
  */

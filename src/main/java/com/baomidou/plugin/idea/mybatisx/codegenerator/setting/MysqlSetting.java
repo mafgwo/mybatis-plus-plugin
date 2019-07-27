@@ -17,11 +17,11 @@ import java.util.Set;
 import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenerator.*;
 
 /**
- * @author yanglin
+ *
  */
 @State(
         name = "MybatisSettings",
-        storages = @Storage(file = "$APP_CONFIG$/mybatis-mysql.xml"))
+        storages = @Storage(value = "$APP_CONFIG$/mybatis-plus-config.xml"))
 public class MysqlSetting implements PersistentStateComponent<Element> {
 
     private GenerateModel statementGenerateModel;

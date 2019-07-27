@@ -21,22 +21,22 @@ public class MysqlUtil {
     private MysqlUtil(){}
 
     public int getJdbcDriver() {
-        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(MybatisConst.MYBATISPLUS_JDBCDRIVER, 0);
+        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(MybatisConst.PLUS_JDBCDRIVER, 0);
         return jdbcDriverIndex;
     }
 
     public String getDbUrl() {
-        String dbUrl = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_DBURL);
+        String dbUrl = PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_DBURL);
         return dbUrl;
     }
 
     public String getUsername() {
-        String username = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_USERNAME);
+        String username = PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_USERNAME);
         return username;
     }
 
     public String getPassword() {
-        String password = PropertiesComponent.getInstance().getValue(MybatisConst.MYBATISPLUS_PASSWORD);
+        String password = PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_PASSWORD);
         return password;
     }
 

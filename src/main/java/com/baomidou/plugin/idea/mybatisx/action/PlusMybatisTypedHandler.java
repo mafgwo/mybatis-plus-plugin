@@ -15,6 +15,7 @@ import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
 import org.jetbrains.annotations.NotNull;
 
 /**
+ * xml 文件修改提示
  * @author yanglin
  */
 public class PlusMybatisTypedHandler extends TypedHandlerDelegate {

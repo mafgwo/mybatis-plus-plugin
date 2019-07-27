@@ -2,8 +2,10 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.IdTypeObj;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.GenUtil;
+import com.google.gson.Gson;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.ui.Messages;
 
@@ -14,6 +16,7 @@ import java.awt.event.*;
 import java.util.List;
 
 import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.*;
+import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenerator.INSERT_GENERATOR;
 
 public class ShowTableInfo extends JFrame {
     private JPanel contentPane;
@@ -28,6 +31,20 @@ public class ShowTableInfo extends JFrame {
     private JLabel myModule;
 //    private JTextField apiPathTextField;
     private JButton saveButton;
+    private JTextField entityTextField;
+    private JTextField mapperTextField;
+    private JTextField controllerTextField;
+    private JTextField serviceTextField;
+    private JTextField serviceImplTextField;
+    private JCheckBox lombokCheckBox;
+    private JCheckBox restControllerCheckBox;
+    private JCheckBox resultMapCheckBox;
+    private JCheckBox isFillCheckBox;
+    private JComboBox idTypecomboBox;
+    private JCheckBox swaggerCheckBox;
+    private JTextField templatesTextField;
+    private JCheckBox isEnableCacheCheckBox;
+    private JCheckBox isBaseColumnCheckBox;
     List<TableInfo> tableInfoList = null;
     private String projectFilePath;
 
@@ -40,6 +57,7 @@ public class ShowTableInfo extends JFrame {
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -47,6 +65,7 @@ public class ShowTableInfo extends JFrame {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 onCancel();
             }
@@ -89,6 +108,7 @@ public class ShowTableInfo extends JFrame {
         tableInfo.setPreferredScrollableViewportSize(new Dimension(600, 300));
         tableInfo.setModel(tableModel);
         showColumn.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 int[] selectedRows = tableInfo.getSelectedRows();
                 if (selectedRows.length <= 0) {
@@ -107,18 +127,16 @@ public class ShowTableInfo extends JFrame {
             }
         });
         codeGenerator.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
-                GenConfig genConfig = new GenConfig();
-                genConfig.setRootFolder(projectFilePath);
-//                genConfig.setPath(frontPathTextField.getText());
-                genConfig.setId(1L);
-                genConfig.setPack(myPackTextField.getText());
-//                genConfig.setApiPath(apiPathTextField.getText());
-                genConfig.setModuleName(mymoduleTextField.getText());
 
-                genConfig.setAuthor(authorTextField.getText());
-                boolean isOver2 = isOver.isSelected();
-                genConfig.setCover(isOver2);
+                saveMybatisPlusGlobalConst();
+
+                Gson gson = new Gson();
+                String configJson = PropertiesComponent.getInstance().getValue(GEN_CONFIG);
+                GenConfig genConfig = gson.fromJson(configJson, GenConfig.class);
+                // 设置项目根目录
+                genConfig.setRootFolder(projectFilePath);
 
                 int[] selectedRows = tableInfo.getSelectedRows();
                 if (selectedRows.length <= 0) {
@@ -136,11 +154,16 @@ public class ShowTableInfo extends JFrame {
         saveButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                setMybatisPlusGlobalConst();
+                saveMybatisPlusGlobalConst();
                 Messages.showInfoMessage("save successful！", "mybatis plus");
             }
         });
 
+        // 初始化
+        idTypecomboBox.removeAllItems();
+        for (IdTypeObj idTypeObj : IDTYPES) {
+            idTypecomboBox.addItem(idTypeObj.getRemark());
+        }
         setMysqlFieldText();
     }
 
@@ -154,31 +177,73 @@ public class ShowTableInfo extends JFrame {
     }
 
     private void setMysqlFieldText() {
-        String frontPath = PropertiesComponent.getInstance().getValue(MYBATISPLUS_FRONT_PATH,"D:\\tempfile\\front");
-//        frontPathTextField.setText(frontPath);
+        Gson gson = new Gson();
+        String configJson = PropertiesComponent.getInstance().getValue(GEN_CONFIG);
+        GenConfig genConfig = gson.fromJson(configJson, GenConfig.class);
+        if (null == genConfig) {
+            genConfig = new GenConfig();
+            String configJson2 = gson.toJson(genConfig);
+            PropertiesComponent.getInstance().setValue(GEN_CONFIG,configJson2 );
+        }
 
-        String apiPath = PropertiesComponent.getInstance().getValue(MYBATISPLUS_FRONT_API_PATH,"D:\\tempfile\\front\\api");
-//        apiPathTextField.setText(apiPath);
+        mymoduleTextField.setText(genConfig.getModuleName());
 
-        String module = PropertiesComponent.getInstance().getValue(MYBATISPLUS_MODULE, "mybmodule");
-        mymoduleTextField.setText(module);
-
-        String myPackage = PropertiesComponent.getInstance().getValue(MYBATISPLUS_PACKAGE, "org.py.mybmodule.submodule");
+        String myPackage = genConfig.getPack();
         myPackTextField.setText(myPackage);
 
-        String author = PropertiesComponent.getInstance().getValue(MYBATISPLUS_AUTHOR, "author");
+        String author = genConfig.getAuthor();
         authorTextField.setText(author);
 
-        isOver.setSelected(PropertiesComponent.getInstance().getBoolean(MYBATISPLUS_IS_OVER, false));
+        isOver.setSelected(genConfig.isCover());
+        lombokCheckBox.setSelected(genConfig.isLombok());
+        swaggerCheckBox.setSelected(genConfig.isSwagger());
+        restControllerCheckBox.setSelected(genConfig.isRestcontroller());
+        resultMapCheckBox.setSelected(genConfig.isResultmap());
+        isFillCheckBox.setSelected(genConfig.isFill());
+        isEnableCacheCheckBox.setSelected(genConfig.isEnableCache());
+        isBaseColumnCheckBox.setSelected(genConfig.isBaseColumnList());
+
+        templatesTextField.setText(genConfig.getTemplatePath());
+        entityTextField.setText(genConfig.getEntityName());
+        mapperTextField.setText(genConfig.getMapperName());
+        controllerTextField.setText(genConfig.getControllerName());
+        serviceTextField.setText(genConfig.getServiceName());
+        serviceImplTextField.setText(genConfig.getServiceImplName());
+
+        // 设置id type
+        int index = genConfig.getIdtype();
+        idTypecomboBox.setSelectedIndex(index);
+
     }
 
-    private void setMybatisPlusGlobalConst() {
-//        PropertiesComponent.getInstance().setValue(MYBATISPLUS_FRONT_PATH, frontPathTextField.getText());
-//        PropertiesComponent.getInstance().setValue(MYBATISPLUS_FRONT_API_PATH, apiPathTextField.getText());
-        PropertiesComponent.getInstance().setValue(MYBATISPLUS_MODULE, mymoduleTextField.getText());
-        PropertiesComponent.getInstance().setValue(MYBATISPLUS_PACKAGE, myPackTextField.getText());
-        PropertiesComponent.getInstance().setValue(MYBATISPLUS_AUTHOR, authorTextField.getText());
-        PropertiesComponent.getInstance().setValue(MYBATISPLUS_IS_OVER, isOver.isSelected());
+    private void saveMybatisPlusGlobalConst() {
+        GenConfig genConfig = new GenConfig();
+        genConfig.setModuleName(mymoduleTextField.getText());
+        genConfig.setPack(myPackTextField.getText());
+        genConfig.setAuthor(authorTextField.getText());
+        genConfig.setCover(isOver.isSelected());
+
+        genConfig.setLombok(lombokCheckBox.isSelected());
+        genConfig.setSwagger(swaggerCheckBox.isSelected());
+        genConfig.setRestcontroller(restControllerCheckBox.isSelected());
+        genConfig.setResultmap(resultMapCheckBox.isSelected());
+        genConfig.setFill(isFillCheckBox.isSelected());
+        genConfig.setEnableCache(isEnableCacheCheckBox.isSelected());
+        genConfig.setBaseColumnList(isBaseColumnCheckBox.isSelected());
+
+        genConfig.setTemplatePath(templatesTextField.getText());
+        genConfig.setEntityName(entityTextField.getText());
+        genConfig.setMapperName(mapperTextField.getText());
+        genConfig.setControllerName(controllerTextField.getText());
+        genConfig.setServiceName(serviceTextField.getText());
+        genConfig.setServiceImplName(serviceImplTextField.getText());
+
+        genConfig.setIdtype(idTypecomboBox.getSelectedIndex());
+        Gson gson = new Gson();
+        String configJson = gson.toJson(genConfig);
+        PropertiesComponent.getInstance().setValue(GEN_CONFIG,configJson );
+
+
     }
 
     private void onOK() {

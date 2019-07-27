@@ -11,6 +11,7 @@ public class ConfigMysql extends AnAction {
         DBInfo dialog = new DBInfo();
         dialog.pack();
         dialog.setVisible(true);
+        dialog.setAlwaysOnTop(true);
         dialog.setLocationRelativeTo(null);
         dialog.setSize(500,300);
     }
