@@ -119,6 +119,12 @@
     </actions>
 
     <change-notes><![CDATA[
+        <h4>update 2019.07.28</h4>
+        <ul>
+          <li> MybatisPlus-1.2.1 </li>
+          <li> auto complete table column name in SimpleMapper.xml about #{xxx}</li>
+          <li> add custom config about code generate</li>
+        </ul>
          <h4>update 2019.07.23</h4>
         <ul>
           <li>MybatisPlus-1.1.2  Generate the correct file </li>
