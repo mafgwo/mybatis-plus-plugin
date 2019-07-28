@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.util.List;
 
 import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.*;
@@ -23,13 +24,13 @@ public class ShowTableInfo extends JFrame {
     private JButton showColumn;
     private JButton codeGenerator;
     private JTable tableInfo;
-//    private JTextField frontPathTextField;
+    //    private JTextField frontPathTextField;
     private JTextField authorTextField;
     private JTextField mymoduleTextField;
     private JTextField myPackTextField;
     private JCheckBox isOver;
     private JLabel myModule;
-//    private JTextField apiPathTextField;
+    //    private JTextField apiPathTextField;
     private JButton saveButton;
     private JTextField entityTextField;
     private JTextField mapperTextField;
@@ -42,9 +43,10 @@ public class ShowTableInfo extends JFrame {
     private JCheckBox isFillCheckBox;
     private JComboBox idTypecomboBox;
     private JCheckBox swaggerCheckBox;
-    private JTextField templatesTextField;
+//    private JTextField templatesTextField;
     private JCheckBox isEnableCacheCheckBox;
     private JCheckBox isBaseColumnCheckBox;
+    private JButton button1;
     List<TableInfo> tableInfoList = null;
     private String projectFilePath;
 
@@ -172,7 +174,7 @@ public class ShowTableInfo extends JFrame {
         // 获取数据库 读取数据库信息
         //  配置生成的位置
         //  修改ftl文件
-       GenUtil.generatorCode(tableName, genConfig);
+        GenUtil.generatorCode(tableName, genConfig);
 
     }
 
@@ -183,7 +185,7 @@ public class ShowTableInfo extends JFrame {
         if (null == genConfig) {
             genConfig = new GenConfig();
             String configJson2 = gson.toJson(genConfig);
-            PropertiesComponent.getInstance().setValue(GEN_CONFIG,configJson2 );
+            PropertiesComponent.getInstance().setValue(GEN_CONFIG, configJson2);
         }
 
         mymoduleTextField.setText(genConfig.getModuleName());
@@ -203,7 +205,7 @@ public class ShowTableInfo extends JFrame {
         isEnableCacheCheckBox.setSelected(genConfig.isEnableCache());
         isBaseColumnCheckBox.setSelected(genConfig.isBaseColumnList());
 
-        templatesTextField.setText(genConfig.getTemplatePath());
+//        templatesTextField.setText(genConfig.getTemplatePath());
         entityTextField.setText(genConfig.getEntityName());
         mapperTextField.setText(genConfig.getMapperName());
         controllerTextField.setText(genConfig.getControllerName());
@@ -231,7 +233,7 @@ public class ShowTableInfo extends JFrame {
         genConfig.setEnableCache(isEnableCacheCheckBox.isSelected());
         genConfig.setBaseColumnList(isBaseColumnCheckBox.isSelected());
 
-        genConfig.setTemplatePath(templatesTextField.getText());
+//        genConfig.setTemplatePath(templatesTextField.getText());
         genConfig.setEntityName(entityTextField.getText());
         genConfig.setMapperName(mapperTextField.getText());
         genConfig.setControllerName(controllerTextField.getText());
@@ -241,7 +243,7 @@ public class ShowTableInfo extends JFrame {
         genConfig.setIdtype(idTypecomboBox.getSelectedIndex());
         Gson gson = new Gson();
         String configJson = gson.toJson(genConfig);
-        PropertiesComponent.getInstance().setValue(GEN_CONFIG,configJson );
+        PropertiesComponent.getInstance().setValue(GEN_CONFIG, configJson);
 
 
     }

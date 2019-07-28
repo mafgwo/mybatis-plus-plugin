@@ -9,11 +9,14 @@ import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
 import com.intellij.codeInsight.completion.PrioritizedLookupElement;
 import com.intellij.codeInsight.lookup.LookupElementBuilder;
+import com.intellij.lang.xml.XMLLanguage;
 import com.intellij.openapi.project.Project;
+import com.intellij.patterns.PlatformPatterns;
 import com.intellij.patterns.XmlPatterns;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiMethod;
 import com.intellij.psi.PsiParameter;
+import com.intellij.psi.xml.XmlElementType;
 import com.intellij.util.ProcessingContext;
 import com.baomidou.plugin.idea.mybatisx.annotation.Annotation;
 import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
@@ -26,22 +29,23 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-// todo 3 连接数据源后xml里面自动提示字段
 // todo 4 sql 增删查改
 /**
  * @author yanglin
  */
-public class PlusTestParamContributor extends CompletionContributor {
+public class PlusXmlParamContributor extends CompletionContributor {
 
-    private static final Logger logger = LoggerFactory.getLogger(PlusTestParamContributor.class);
-    public PlusTestParamContributor() {
+    private static final Logger logger = LoggerFactory.getLogger(PlusXmlParamContributor.class);
+    public PlusXmlParamContributor() {
         extend(CompletionType.BASIC,
-                XmlPatterns.psiElement().inside(XmlPatterns.xmlAttributeValue().inside(XmlPatterns.xmlAttribute().withName("ShowTableInfo"))),
-                new CompletionProvider<CompletionParameters>() {
+            PlatformPatterns.psiElement().inside(PlatformPatterns.get("select")),
+            new CompletionProvider<CompletionParameters>() {
                     @Override
-                    protected void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet result) {
-                        PsiElement position = parameters.getPosition();
-                        addElementForPsiParameter(position.getProject(), result, MapperUtils.findParentIdDomElement(position).orNull());
+                    public void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet resultSet) {
+                        resultSet.addElement(LookupElementBuilder.create("Hello I am completion"));
+                        resultSet.addElement(LookupElementBuilder.create("OK i am 2"));
+//                        PsiElement position = parameters.getPosition();
+//                        addElementForPsiParameter(position.getProject(), result, MapperUtils.findParentIdDomElement(position).orNull());
                     }
                 });
     }
@@ -51,11 +55,12 @@ public class PlusTestParamContributor extends CompletionContributor {
             return;
         }
         PsiMethod psiMethod= JavaUtils.findMethod(project, element).orNull();
+
         if(null == psiMethod ) {
             logger.info("psiMethod null");
             return;
-
         }
+
         PsiParameter[] psiParameters = psiMethod.getParameterList().getParameters();
 
         for (PsiParameter parameter : psiParameters ) {

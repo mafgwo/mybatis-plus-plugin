@@ -57,8 +57,8 @@
 
 
         <!--自动完成提示-->
-        <completion.contributor language="XML" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusTestParamContributor"/>
-<!--        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusSqlParamCompletionContributor" order="first"/>-->
+        <completion.contributor language="XML" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusXmlParamContributor"/>
+        <completion.contributor language="SQL" implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusSqlParamCompletionContributor" order="first"/>
 
         <!--文件模板组，新建文件选择模板-->
         <fileTemplateGroup implementation="com.baomidou.plugin.idea.mybatisx.template.PlusMybatisFileTemplateDescriptorFactory"/>

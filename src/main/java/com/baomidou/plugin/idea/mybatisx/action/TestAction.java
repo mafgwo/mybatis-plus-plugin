@@ -45,7 +45,7 @@ public class TestAction extends AnAction {
         dialog.pack();
         dialog.setVisible(true);
         dialog.setLocationRelativeTo(null);
-        dialog.setAlwaysOnTop(true);
+//        dialog.setAlwaysOnTop(true);
         dialog.setSize(1000,600);
 //        Messages.showInfoMessage("测试完毕！", "一个温馨的提示框跟你说：");
     }

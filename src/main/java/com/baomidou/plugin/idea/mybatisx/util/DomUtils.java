@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.List;
 
 import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
+import com.intellij.psi.xml.XmlFile;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +15,7 @@ import com.google.common.collect.Collections2;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.xml.XmlFile;
+//import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomFileElement;

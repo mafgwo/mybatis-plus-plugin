@@ -18,7 +18,7 @@ public class CodeGenerator extends AnAction {
         ShowTableInfo dialog = new ShowTableInfo(projectRoot);
         dialog.pack();
         dialog.setVisible(true);
-        dialog.setAlwaysOnTop(true);
+//        dialog.setAlwaysOnTop(true);
         dialog.setLocationRelativeTo(null);
         dialog.setSize(1000,600);
     }

@@ -37,7 +37,6 @@ public class MyFreemarkerTemplateEngine extends AbstractTemplateEngine {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         // 自带的
         configurationSelf = new Configuration(Configuration.DEFAULT_INCOMPATIBLE_IMPROVEMENTS);
         configurationSelf.setDefaultEncoding(ConstVal.UTF8);

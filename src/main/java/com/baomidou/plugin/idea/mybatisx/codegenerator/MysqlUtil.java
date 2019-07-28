@@ -85,7 +85,6 @@ public class MysqlUtil {
                     .setColumnComment(columnComment)
                     .setColumnKey(columnKey)
                     .setExtra(extra) );
-
             }
             stmt.close();
             conn.close();

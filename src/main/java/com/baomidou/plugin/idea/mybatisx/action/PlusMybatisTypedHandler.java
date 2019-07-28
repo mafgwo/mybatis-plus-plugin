@@ -9,7 +9,6 @@ import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
-import com.intellij.sql.psi.SqlFile;
 import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
 
 import org.jetbrains.annotations.NotNull;
@@ -35,10 +34,11 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
         PsiFile topLevelFile = InjectedLanguageUtil.getTopLevelFile(file);
         boolean parameterCase = c == '{' &&
                 index >= 0 &&
-                editor.getDocument().getText().charAt(index) == '#' &&
-                file instanceof SqlFile &&
-                DomUtils.isMybatisFile(topLevelFile);
-        if (parameterCase) {
+                editor.getDocument().getText().charAt(index) == '#';
+
+        boolean mybatisFile = DomUtils.isMybatisFile(topLevelFile);
+
+        if (parameterCase && mybatisFile) {
             autoPopupParameter(project, editor);
             return Result.STOP;
         }

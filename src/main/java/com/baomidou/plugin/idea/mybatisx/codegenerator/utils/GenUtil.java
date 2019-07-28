@@ -161,12 +161,12 @@ public class GenUtil {
         };
 
         // 1 从用户读取自定义模板文件
-        // 2 todo 文件浏览
+        //
 
         // 如果模板引擎是 freemarker
 //        String templatePath = "/templates/mapper.xml.ftl";
-        String templatePath = genConfig.getTemplatePath();
-        String mapperTemplatePath = templatePath + "/mapper.xml.ftl";
+        String templatePath = "/templates";
+        String mapperTemplatePath = templatePath +"/mapper.xml.ftl";
         // 如果模板引擎是 velocity
         // String templatePath = "/templates/mapper.xml.vm";
 

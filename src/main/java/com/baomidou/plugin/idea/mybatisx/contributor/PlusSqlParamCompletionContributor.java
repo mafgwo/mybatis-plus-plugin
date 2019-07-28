@@ -1,32 +1,49 @@
 package com.baomidou.plugin.idea.mybatisx.contributor;
 
-import com.google.common.base.Optional;
-
+import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
 import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.injected.editor.DocumentWindow;
+import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
-import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
 import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
-import com.baomidou.plugin.idea.mybatisx.util.MapperUtils;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
- * @author yanglin
+ *  xml 里的 sql #{auto completion}
  */
 public class PlusSqlParamCompletionContributor extends CompletionContributor {
+
+    private Map<String,List<String>> suggestMaps = new HashMap<>();
+    public PlusSqlParamCompletionContributor(){
+
+        List<TableInfo> tableInfos = MysqlUtil.getInstance().getTableInfo();
+        for (TableInfo tableInfo : tableInfos) {
+            List<ColumnInfo> columns = MysqlUtil.getInstance().getColumns(tableInfo.getTableName());
+            List<String> suggests = new ArrayList<>();
+            for (ColumnInfo column : columns) {
+                suggests.add(column.getColumnName());
+            }
+            String tableName = tableInfo.getTableName().replaceAll("_","").toLowerCase();
+            suggestMaps.put(tableName, suggests);
+        }
+    }
 
     @Override
     public void fillCompletionVariants(CompletionParameters parameters, final CompletionResultSet result) {
         if (parameters.getCompletionType() != CompletionType.BASIC) {
             return;
         }
-
         PsiElement position = parameters.getPosition();
+
         PsiFile topLevelFile = InjectedLanguageUtil.getTopLevelFile(position);
         if (DomUtils.isMybatisFile(topLevelFile)) {
             if (shouldAddElement(position.getContainingFile(), parameters.getOffset())) {
@@ -35,24 +52,26 @@ public class PlusSqlParamCompletionContributor extends CompletionContributor {
         }
     }
 
-    private void process(PsiFile xmlFile, CompletionResultSet result, PsiElement position) {
-        DocumentWindow documentWindow = InjectedLanguageUtil.getDocumentWindow(position);
-        if (null != documentWindow) {
-            int offset = documentWindow.injectedToHost(position.getTextOffset());
-            Optional<IdDomElement> idDomElement = MapperUtils.findParentIdDomElement(xmlFile.findElementAt(offset));
-            if (idDomElement.isPresent()) {
-                PlusTestParamContributor.addElementForPsiParameter(position.getProject(), result, idDomElement.get());
-                result.stopHere();
+    private void process(PsiFile xmlFile, CompletionResultSet resultSet, PsiElement position) {
+        System.out.println(xmlFile.getName());
+        int mapperIndex = xmlFile.getName().indexOf("Mapper");
+        String tableName = xmlFile.getName().substring(0, mapperIndex);
+        List<String> suggests = suggestMaps.get(tableName.toLowerCase());
+        if (null != suggests) {
+            for (String suggest : suggests) {
+                resultSet.addElement(LookupElementBuilder.create(suggest));
             }
         }
+//        resultSet.addElement(LookupElementBuilder.create("Hello I am completion"));
     }
 
     private boolean shouldAddElement(PsiFile file, int offset) {
         String text = file.getText();
         for (int i = offset - 1; i > 0; i--) {
             char c = text.charAt(i);
-            if (c == '{' && text.charAt(i - 1) == '#')
+            if (c == '{' && text.charAt(i - 1) == '#') {
                 return true;
+            }
         }
         return false;
     }

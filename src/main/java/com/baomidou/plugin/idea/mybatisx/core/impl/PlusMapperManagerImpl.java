@@ -61,7 +61,6 @@ public class PlusMapperManagerImpl implements PlusMapperManager {
             // 拿到Module中的所有资源文件夹目录
             List<VirtualFile> moduleDir = ModuleRootManager.getInstance(module).getSourceRoots(JavaSourceRootType.SOURCE);
 
-
             // 通过module拿到所有的mapper扫描包
             Set<String> packageNameSet = new HashSet<>();
             // 定死一个
