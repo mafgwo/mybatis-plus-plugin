@@ -114,7 +114,7 @@ public class ShowTableInfo extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 int[] selectedRows = tableInfo.getSelectedRows();
                 if (selectedRows.length <= 0) {
-                    Messages.showInfoMessage("select one line！", "mybatis plus");
+                    Messages.showInfoMessage("select one line！", "Mybatis Plus");
                     return;
                 }
                 for (int selectedRow : selectedRows) {
@@ -142,7 +142,7 @@ public class ShowTableInfo extends JFrame {
 
                 int[] selectedRows = tableInfo.getSelectedRows();
                 if (selectedRows.length <= 0) {
-                    Messages.showInfoMessage("select one line！", "mybatis plus");
+                    Messages.showInfoMessage("select one line！", "Mybatis Plus");
                     return;
                 }
                 for (int selectedRow : selectedRows) {
@@ -150,14 +150,14 @@ public class ShowTableInfo extends JFrame {
 //                    List<ColumnInfo> columnInfoList = MysqlUtil.getInstance().getColumns(tableName);
                     DoCodeGenerator(tableName, genConfig);
                 }
-                Messages.showInfoMessage("generator successful！", "mybatis plus");
+                Messages.showInfoMessage("generator successful！", "Mybatis Plus");
             }
         });
         saveButton.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 saveMybatisPlusGlobalConst();
-                Messages.showInfoMessage("save successful！", "mybatis plus");
+                Messages.showInfoMessage("save successful！", "Mybatis Plus");
             }
         });
 

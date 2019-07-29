@@ -1,12 +1,14 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator.utils;
 
 
+import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.DbTypeDriver;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.IdTypeObj;
 
 public interface MybatisConst {
     String PLUS_DBURL = "mybatisplus_dbUrl";
-    String PLUS_JDBCDRIVER = "mybatisplus_jdbcDriver";
+    String PLUS_DBTYPE = "mybatisplus_dbtype";
     String PLUS_USERNAME = "mybatisplus_username";
     String PLUS_PASSWORD = "mybatisplus_password";
 //
@@ -44,10 +46,10 @@ public interface MybatisConst {
         new IdTypeObj(IdType.ID_WORKER_STR, "ID_WORKER_STR(字符串全局唯一ID)")
     };
 
-    String[] jdbcDrivers = new String[]{
-        "com.mysql.jdbc.Driver",
-        "com.mysql.cj.jdbc.Driver",
-        "oracle.jdbc.driver.OracleDriver"
+    DbTypeDriver[] dbTypeDriver = new DbTypeDriver[]{
+        new DbTypeDriver(DbType.MYSQL,"mysql"),
+        new DbTypeDriver(DbType.ORACLE,"oracle")
     };
+
 
 }
