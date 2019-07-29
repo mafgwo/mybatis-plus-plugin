@@ -14,6 +14,8 @@ public class MybatisTests {
     }
 
 
+
+
     public void doGen() {
         // 代码生成器
         AutoGenerator mpg = new AutoGenerator();

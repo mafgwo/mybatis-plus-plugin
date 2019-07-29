@@ -12,6 +12,9 @@ import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
 import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -22,18 +25,22 @@ import java.util.Map;
  */
 public class PlusSqlParamCompletionContributor extends CompletionContributor {
 
+    private Logger log = LoggerFactory.getLogger(PlusSqlParamCompletionContributor.class);
+
     private Map<String,List<String>> suggestMaps = new HashMap<>();
     public PlusSqlParamCompletionContributor(){
-
         List<TableInfo> tableInfos = MysqlUtil.getInstance().getTableInfo();
+        log.info("PlusSqlParamCompletionContributor:"+tableInfos);
         for (TableInfo tableInfo : tableInfos) {
             List<ColumnInfo> columns = MysqlUtil.getInstance().getColumns(tableInfo.getTableName());
             List<String> suggests = new ArrayList<>();
             for (ColumnInfo column : columns) {
                 suggests.add(column.getColumnName());
+                log.info("column" + column.getColumnName());
             }
             String tableName = tableInfo.getTableName().replaceAll("_","").toLowerCase();
             suggestMaps.put(tableName, suggests);
+            log.info("tableName" + tableName);
         }
     }
 
@@ -53,12 +60,13 @@ public class PlusSqlParamCompletionContributor extends CompletionContributor {
     }
 
     private void process(PsiFile xmlFile, CompletionResultSet resultSet, PsiElement position) {
-        System.out.println(xmlFile.getName());
+        //System.out.println(xmlFile.getName());
         int mapperIndex = xmlFile.getName().indexOf("Mapper");
         String tableName = xmlFile.getName().substring(0, mapperIndex);
         List<String> suggests = suggestMaps.get(tableName.toLowerCase());
         if (null != suggests) {
             for (String suggest : suggests) {
+                log.info("suggest:" + suggest);
                 resultSet.addElement(LookupElementBuilder.create(suggest));
             }
         }

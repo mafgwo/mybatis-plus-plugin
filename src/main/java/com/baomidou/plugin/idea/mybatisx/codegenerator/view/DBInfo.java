@@ -1,6 +1,7 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.DbTypeDriver;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.IdTypeObj;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.ui.Messages;
@@ -65,8 +66,8 @@ public class DBInfo extends JFrame {
             }
         });
 
-        for (String driver : jdbcDrivers) {
-            jdbcDriverComboBox.addItem(driver);
+        for (DbTypeDriver dbTypeDriver : dbTypeDriver) {
+            jdbcDriverComboBox.addItem(dbTypeDriver.getName());
         }
         setMysqlFieldText();
     }
@@ -75,7 +76,7 @@ public class DBInfo extends JFrame {
         String dbUrl = PropertiesComponent.getInstance().getValue(PLUS_DBURL, "jdbc:mysql://localhost:3306/mysql?useSSL=false&serverTimezone=UTC");
         dbUrlTextField.setText(dbUrl);
 
-        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(PLUS_JDBCDRIVER,0);
+        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(PLUS_DBTYPE,0);
         jdbcDriverComboBox.setSelectedIndex(jdbcDriverIndex);
 
         String username = PropertiesComponent.getInstance().getValue(PLUS_USERNAME,"root");
@@ -86,9 +87,10 @@ public class DBInfo extends JFrame {
 
     private void saveMybatisPlusGlobalConst() {
         PropertiesComponent.getInstance().setValue(PLUS_DBURL,dbUrlTextField.getText());
-        PropertiesComponent.getInstance().setValue(PLUS_JDBCDRIVER,jdbcDriverComboBox.getSelectedIndex(),0);
+        PropertiesComponent.getInstance().setValue(PLUS_DBTYPE,jdbcDriverComboBox.getSelectedIndex(),0);
         PropertiesComponent.getInstance().setValue(PLUS_USERNAME,userTextField.getText());
         PropertiesComponent.getInstance().setValue(PLUS_PASSWORD, String.valueOf(passwordField1.getPassword()));
+        MysqlUtil.getInstance().resetDbInfo();
     }
 
     private void onOK() {

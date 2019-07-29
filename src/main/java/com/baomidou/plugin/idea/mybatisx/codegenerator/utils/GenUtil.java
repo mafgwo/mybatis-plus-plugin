@@ -29,8 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.IDTYPES;
-import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.jdbcDrivers;
+import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.*;
 
 /**
  * 代码生成
@@ -133,7 +132,7 @@ public class GenUtil {
         DataSourceConfig dsc = new DataSourceConfig();
         dsc.setUrl(MysqlUtil.getInstance().getDbUrl());
 //         dsc.setSchemaName("public");
-        dsc.setDriverName(jdbcDrivers[MysqlUtil.getInstance().getJdbcDriver()]);
+        dsc.setDriverName(MysqlUtil.getInstance().getJdbcDriver());
         dsc.setUsername(MysqlUtil.getInstance().getUsername());
         dsc.setPassword(MysqlUtil.getInstance().getPassword());
         mpg.setDataSource(dsc);

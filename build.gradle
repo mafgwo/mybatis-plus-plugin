@@ -1,6 +1,8 @@
 buildscript {
     repositories {
-        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+        mavenLocal()
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
+//        maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
         jcenter()
         maven { url 'http://dl.bintray.com/jetbrains/intellij-plugin-service' }
         mavenCentral()
@@ -22,7 +24,7 @@ targetCompatibility = JavaVersion.VERSION_1_8
 // https://github.com/JetBrains/gradle-intellij-plugin/
 // http://www.jetbrains.org/intellij/sdk/docs/tutorials/build_system/prerequisites.html
 intellij {
-    version '2019.1'
+    version '2019.1.2'
     type 'IU'
     plugins = ['spring', 'springboot', 'DatabaseTools'] //Bundled plugin dependencies
     pluginName 'MybatisPlus'
@@ -37,7 +39,9 @@ group 'com.baomidou.plugin.idea.mybatisPlus'
 version '1.2.1'
 
 repositories {
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
+//    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 //    jcenter()
     mavenCentral()
 }
@@ -51,7 +55,8 @@ dependencies {
     compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
     runtime group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
-    compile fileTree(dir: 'libs', includes: ['*.jar'])
+    compile group: 'cn.easyproject', name: 'ojdbc5', version: '11.2.0.4'
+//    compile fileTree(dir: 'libs', includes: ['*.jar'])
     compile group: 'commons-configuration', name: 'commons-configuration', version: '1.9'
     compile 'cn.hutool:hutool-all:4.5.16'
 }

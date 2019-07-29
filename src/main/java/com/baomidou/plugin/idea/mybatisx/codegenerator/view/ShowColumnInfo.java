@@ -22,6 +22,7 @@ public class ShowColumnInfo extends JFrame {
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 onOK();
             }
@@ -37,6 +38,7 @@ public class ShowColumnInfo extends JFrame {
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -51,9 +53,9 @@ public class ShowColumnInfo extends JFrame {
         }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
         List<ColumnInfo> columnInfoList = MysqlUtil.getInstance().getColumns(tableName);
-        columnInfoList.forEach(item->{
+       /* columnInfoList.forEach(item->{
             System.out.println(item);
-        });
+        });*/
 
         // 表格所有行数据
         Object[][] rowData = new Object[columnInfoList.size()][];
