@@ -4,7 +4,7 @@ import com.baomidou.plugin.idea.mybatisx.codegenerator.view.DBInfo;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
 
-public class ConfigMysql extends AnAction {
+public class ConfigDatabase extends AnAction {
 
     @Override
     public void actionPerformed(AnActionEvent e) {

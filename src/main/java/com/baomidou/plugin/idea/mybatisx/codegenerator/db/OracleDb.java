@@ -13,12 +13,18 @@ public class OracleDb extends BaseDb {
     private Logger logger = LoggerFactory.getLogger(OracleDb.class);
     @Override
     String getTableSql() {
-        return "SELECT * FROM ALL_TAB_COMMENTS WHERE OWNER='"+getUsername()+"' ";
+        String username = getUsername().toUpperCase();
+        return "SELECT table_name,table_type,comments FROM ALL_TAB_COMMENTS WHERE OWNER='" + username + "' ";
     }
 
     @Override
     String getColumnSql(String tableName) {
-        return "SELECT A.COLUMN_NAME, CASE WHEN A.DATA_TYPE='NUMBER' THEN (CASE WHEN A.DATA_PRECISION IS NULL THEN A.DATA_TYPE WHEN NVL(A.DATA_SCALE, 0) > 0 THEN A.DATA_TYPE||'('||A.DATA_PRECISION||','||A.DATA_SCALE||')' ELSE A.DATA_TYPE||'('||A.DATA_PRECISION||')' END) ELSE A.DATA_TYPE END DATA_TYPE, B.COMMENTS,DECODE(C.POSITION, '1', 'PRI') KEY FROM ALL_TAB_COLUMNS A  INNER JOIN ALL_COL_COMMENTS B ON A.TABLE_NAME = B.TABLE_NAME AND A.COLUMN_NAME = B.COLUMN_NAME AND B.OWNER = '"+getUsername()+"' LEFT JOIN ALL_CONSTRAINTS D ON D.TABLE_NAME = A.TABLE_NAME AND D.CONSTRAINT_TYPE = 'P' AND D.OWNER = '"+getUsername()+"' LEFT JOIN ALL_CONS_COLUMNS C ON C.CONSTRAINT_NAME = D.CONSTRAINT_NAME AND C.COLUMN_NAME=A.COLUMN_NAME AND C.OWNER = '"+getUsername()+"'WHERE A.OWNER = '"+getUsername()+"' AND A.TABLE_NAME = '"+tableName+"' ORDER BY A.COLUMN_ID";
+        String username = getUsername().toUpperCase();
+        tableName = tableName.toUpperCase();
+        return "SELECT A.NULLABLE,A.COLUMN_NAME, CASE WHEN A.DATA_TYPE='NUMBER' THEN (CASE WHEN A.DATA_PRECISION IS NULL THEN A.DATA_TYPE WHEN NVL(A.DATA_SCALE, 0) > 0 THEN A.DATA_TYPE||'('||A.DATA_PRECISION||','||A.DATA_SCALE||')' ELSE A.DATA_TYPE||'('||A.DATA_PRECISION||')' END) ELSE A.DATA_TYPE END DATA_TYPE, B.COMMENTS,DECODE(C.POSITION, '1', 'PRI') KEY FROM ALL_TAB_COLUMNS A  " +
+            "INNER JOIN ALL_COL_COMMENTS B ON A.TABLE_NAME = B.TABLE_NAME AND A.COLUMN_NAME = B.COLUMN_NAME AND B.OWNER = '" + username + "' " +
+            "LEFT JOIN ALL_CONSTRAINTS D ON D.TABLE_NAME = A.TABLE_NAME AND D.CONSTRAINT_TYPE = 'P' AND D.OWNER = '" + username + "' " +
+            "LEFT JOIN ALL_CONS_COLUMNS C ON C.CONSTRAINT_NAME = D.CONSTRAINT_NAME AND C.COLUMN_NAME=A.COLUMN_NAME AND C.OWNER = '" + username + "'WHERE A.OWNER = '" + username + "' AND A.TABLE_NAME = '" + tableName + "' ORDER BY A.COLUMN_ID";
     }
 
     @Override
@@ -38,16 +44,16 @@ public class OracleDb extends BaseDb {
             ResultSet rs = stmt.executeQuery(getTableSql());
             while(rs.next()){
                 String tableName  = rs.getString("table_name");
-                String createTime = rs.getString("create_time");
-                String engine = rs.getString("engine");
-                String coding = rs.getString("table_collation");
-                String remark = rs.getString("table_comment");
+//                String createTime = rs.getString("create_time");
+//                String engine = rs.getString("engine");
+//                String coding = rs.getString("table_collation");
+                String remark = rs.getString("comments");
                 tableInfos.add(new TableInfo()
                     .setTableName(tableName)
-                    .setCreateTime(createTime)
-                    .setEngine(engine)
-                    .setCoding(coding)
-                    .setRemark(remark)
+                    .setCreateTime("")
+                    .setEngine("")
+                    .setCoding("")
+                    .setRemark(remark==null?"":remark)
                 );
             }
             stmt.close();
@@ -71,17 +77,17 @@ public class OracleDb extends BaseDb {
             ResultSet rs = stmt.executeQuery(getColumnSql(tableName));
             while(rs.next()){
                 String columnName  = rs.getString("column_name");
-                String isNullable = rs.getString("is_nullable");
-                String dataType = rs.getString("data_type");
-                String columnComment = rs.getString("column_comment");
-                String columnKey = rs.getString("column_key");
-                String extra = rs.getString("extra");
+                String isNullable = rs.getString("NULLABLE");
+                String dataType = rs.getString("DATA_TYPE");
+                String columnComment = rs.getString("COMMENTS");
+                String columnKey = rs.getString("key");
+//                String extra = rs.getString("extra");
                 columnInfoList.add(new ColumnInfo().setColumnName(columnName)
                     .setIsNullable(isNullable)
                     .setColumnType(dataType)
                     .setColumnComment(columnComment)
                     .setColumnKey(columnKey)
-                    .setExtra(extra) );
+                    .setExtra("") );
             }
             stmt.close();
             conn.close();

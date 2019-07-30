@@ -15,7 +15,7 @@ idea -> Other
 
 ### 配置mysql信息
 
-config mysql 
+config database 
 
 ### 配置代码生成路径 生成代码
 

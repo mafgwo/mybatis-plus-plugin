@@ -36,9 +36,9 @@ public class MysqlDb extends BaseDb {
         Statement stmt;
         try {
             Class.forName(getJdbcDriver());
-            System.out.println("连接数据库...");
+           // System.out.println("连接数据库...");
             conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
-            System.out.println(" 实例化Statement对象...");
+           // System.out.println(" 实例化Statement对象...");
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(getTableSql());
             while(rs.next()){
