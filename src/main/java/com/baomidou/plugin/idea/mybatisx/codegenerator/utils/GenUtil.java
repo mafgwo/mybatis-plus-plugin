@@ -3,17 +3,13 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.utils;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
-import com.baomidou.mybatisplus.generator.config.builder.ConfigBuilder;
 import com.baomidou.mybatisplus.generator.config.po.TableFill;
 import com.baomidou.mybatisplus.generator.config.po.TableInfo;
-import com.baomidou.mybatisplus.generator.config.rules.FileType;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
-import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MyFreemarkerTemplateEngine;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
@@ -124,7 +120,7 @@ public class GenUtil {
 //        开启 baseColumnList
         gc.setBaseColumnList(genConfig.isBaseColumnList());
         //设置主键id
-        gc.setIdType(IDTYPES[genConfig.getIdtype()].getIdType() );
+        gc.setIdType(IDTYPES[genConfig.getIdtype()].getIdType());
 
         mpg.setGlobalConfig(gc);
 
@@ -165,7 +161,7 @@ public class GenUtil {
         // 如果模板引擎是 freemarker
 //        String templatePath = "/templates/mapper.xml.ftl";
         String templatePath = "/templates";
-        String mapperTemplatePath = templatePath +"/mapper.xml.ftl";
+        String mapperTemplatePath = templatePath + "/mapper.xml.ftl";
         // 如果模板引擎是 velocity
         // String templatePath = "/templates/mapper.xml.vm";
 
@@ -219,7 +215,7 @@ public class GenUtil {
         // 表前缀
         strategy.setTablePrefix(pc.getModuleName() + "_");
         // 是否使用自动填充
-        if(genConfig.isFill()) {
+        if (genConfig.isFill()) {
             List<TableFill> tableFillList = new ArrayList<>();
             tableFillList.add(new TableFill("create_time", FieldFill.INSERT));
             tableFillList.add(new TableFill("update_time", FieldFill.INSERT_UPDATE));
@@ -246,13 +242,13 @@ public class GenUtil {
         map.put("author", genConfig.getAuthor());
         map.put("date", LocalDate.now().toString());
         map.put("tableName", tableName);
-        String className = StringUtils.toCapitalizeCamelCase(tableName);
-        String changeClassName = StringUtils.toCamelCase(tableName);
+        String className = MyStringUtils.toCapitalizeCamelCase(tableName);
+        String changeClassName = MyStringUtils.toCamelCase(tableName);
 
         // 判断是否去除表前缀
-        if (StringUtils.isNotEmpty(genConfig.getPrefix())) {
-            className = StringUtils.toCapitalizeCamelCase(StrUtil.removePrefix(tableName, genConfig.getPrefix()));
-            changeClassName = StringUtils.toCamelCase(StrUtil.removePrefix(tableName, genConfig.getPrefix()));
+        if (MyStringUtils.isNotEmpty(genConfig.getPrefix())) {
+            className = MyStringUtils.toCapitalizeCamelCase(StrUtil.removePrefix(tableName, genConfig.getPrefix()));
+            changeClassName = MyStringUtils.toCamelCase(StrUtil.removePrefix(tableName, genConfig.getPrefix()));
         }
         map.put("className", className);
         map.put("upperCaseClassName", className.toUpperCase());
@@ -269,9 +265,9 @@ public class GenUtil {
             listMap.put("columnComment", column.getColumnComment());
             listMap.put("columnKey", column.getColumnKey());
 
-            String colType = ColUtil.cloToJava(column.getColumnType().toString());
-            String changeColumnName = StringUtils.toCamelCase(column.getColumnName().toString());
-            String capitalColumnName = StringUtils.toCapitalizeCamelCase(column.getColumnName().toString());
+            String colType = ColUtil.columnToJava(column.getColumnType().toString());
+            String changeColumnName = MyStringUtils.toCamelCase(column.getColumnName().toString());
+            String capitalColumnName = MyStringUtils.toCapitalizeCamelCase(column.getColumnName().toString());
             if (PK.equals(column.getColumnKey())) {
                 map.put("pkColumnType", colType);
                 map.put("pkChangeColName", changeColumnName);
@@ -294,7 +290,7 @@ public class GenUtil {
             listMap.put("capitalColumnName", capitalColumnName);
 
             // 判断是否有查询，如有则把查询的字段set进columnQuery
-            if (!StringUtils.isBlank(column.getColumnQuery())) {
+            if (!MyStringUtils.isBlank(column.getColumnQuery())) {
                 listMap.put("columnQuery", column.getColumnQuery());
                 map.put("hasQuery", true);
                 queryColumns.add(listMap);
@@ -355,7 +351,7 @@ public class GenUtil {
 
 //        genConfig.setPath(packagePath);
 
-        if (!StringUtils.isEmpty(genConfig.getPack())) {
+        if (!MyStringUtils.isEmpty(genConfig.getPack())) {
             packagePath += genConfig.getPack().replace(".", File.separator) + File.separator;
         }
 
@@ -398,7 +394,7 @@ public class GenUtil {
      * 定义前端文件路径以及名称
      */
     public static String getFrontFilePath(String templateName, GenConfig genConfig, String apiName) {
-        String path = StringUtils.isEmpty(genConfig.getPath()) ? genConfig.getApiPath() : genConfig.getPath();
+        String path = MyStringUtils.isEmpty(genConfig.getPath()) ? genConfig.getApiPath() : genConfig.getPath();
 
         if ("api".equals(templateName)) {
             return genConfig.getApiPath() + File.separator + apiName + ".js";

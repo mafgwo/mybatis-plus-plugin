@@ -10,18 +10,16 @@ public class ColUtil {
 
     /**
      * 转换mysql数据类型为java数据类型
-     * @param type
-     * @return
      */
-    public static String cloToJava(String type){
+    public static String columnToJava(String type){
         Configuration config = getConfig();
-        return config.getString(type,"unknowType");
+        return config.getString(type,"unknownType");
     }
 
     /**
      * 获取配置信息
      */
-    public static PropertiesConfiguration getConfig() {
+    private static PropertiesConfiguration getConfig() {
         PropertiesConfiguration config = new PropertiesConfiguration();
         // 数据库类型转换成java类型
         config.addProperty("tinyint","Integer");

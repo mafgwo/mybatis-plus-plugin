@@ -6,11 +6,12 @@ import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.intellij.openapi.ui.Messages;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.List;
 
-public abstract class BaseDb implements db{
+public abstract class BaseDb {
 
     private Logger logger = LoggerFactory.getLogger(BaseDb.class);
 
@@ -22,15 +23,12 @@ public abstract class BaseDb implements db{
 
     abstract String getColumnSql(String tableName);
 
-    public abstract  String dbName();
+    public abstract String dbName();
 
-    @Override
     public abstract List<TableInfo> getTableInfo();
 
-    @Override
     public abstract List<ColumnInfo> getColumns(String tableName);
 
-    @Override
     public void testConnect() {
         String result = "test successful！";
         try {

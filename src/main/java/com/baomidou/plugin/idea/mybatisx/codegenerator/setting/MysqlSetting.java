@@ -20,8 +20,8 @@ import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenera
  *
  */
 @State(
-        name = "MybatisSettings",
-        storages = @Storage(value = "$APP_CONFIG$/mybatis-plus-config.xml"))
+    name = "MybatisSettings",
+    storages = @Storage(value = "$APP_CONFIG$/mybatis-plus-config.xml"))
 public class MysqlSetting implements PersistentStateComponent<Element> {
 
     private GenerateModel statementGenerateModel;
@@ -56,6 +56,7 @@ public class MysqlSetting implements PersistentStateComponent<Element> {
 
     /**
      * 从文件读取数据
+     *
      * @param state
      */
     @Override

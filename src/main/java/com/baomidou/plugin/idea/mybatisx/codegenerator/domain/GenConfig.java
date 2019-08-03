@@ -21,9 +21,6 @@ public class GenConfig {
     /** 前端文件路径 **/
     private String apiPath;
 
-    /** 作者 **/
-//    private String author;
-
     /** 表前缀 **/
     private String prefix;
 
@@ -35,7 +32,6 @@ public class GenConfig {
     private String username;
     private String password;
 
-//    private String module = "mybmodule";
     private String author = "author";
 
     private boolean isLombok = true;

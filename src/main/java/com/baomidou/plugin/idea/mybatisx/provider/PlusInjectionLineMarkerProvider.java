@@ -31,19 +31,30 @@ public class PlusInjectionLineMarkerProvider extends RelatedItemLineMarkerProvid
 
     @Override
     protected void collectNavigationMarkers(@NotNull PsiElement element, Collection<? super RelatedItemLineMarkerInfo> result) {
-        if (!(element instanceof PsiField)) return;
+        if (!(element instanceof PsiField)) {
+            return;
+        }
         PsiField field = (PsiField) element;
-        if (!isTargetField(field)) return;
+        if (!isTargetField(field)) {
+            return;
+        }
 
         PsiType type = field.getType();
-        if (!(type instanceof PsiClassReferenceType)) return;
+        if (!(type instanceof PsiClassReferenceType)){
+            return;
+        }
+
 
         Optional<PsiClass> clazz = JavaUtils.findClazz(element.getProject(), type.getCanonicalText());
-        if (!clazz.isPresent()) return;
+        if (!clazz.isPresent()){
+            return;
+        }
 
         PsiClass psiClass = clazz.get();
         Optional<Mapper> mapper = MapperUtils.findFirstMapper(element.getProject(), psiClass);
-        if (!mapper.isPresent()) return;
+        if (!mapper.isPresent()) {
+            return;
+        }
 
         NavigationGutterIconBuilder<PsiElement> builder =
                 NavigationGutterIconBuilder.create(Icons.SPRING_INJECTION_ICON)

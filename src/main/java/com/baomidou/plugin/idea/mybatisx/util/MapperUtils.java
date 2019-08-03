@@ -89,9 +89,9 @@ public final class MapperUtils {
     public static Collection<Mapper> findMappers(@NotNull Project project, @NotNull String namespace) {
         List<Mapper> result = Lists.newArrayList();
         for (Mapper mapper : findMappers(project)) {
-            if (getNamespace(mapper).equals(namespace)) {
+//            if (getNamespace(mapper).equals(namespace)) {
                 result.add(mapper);
-            }
+//            }
         }
         return result;
     }
