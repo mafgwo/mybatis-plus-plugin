@@ -11,6 +11,7 @@ import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst;
 import com.intellij.ide.util.PropertiesComponent;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import java.util.List;
 
 import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.dbTypeDriver;
@@ -21,12 +22,12 @@ public class MysqlUtil {
 
     private BaseDb baseDb;
 
-    private MysqlUtil(){
-       resetDbInfo();
+    private MysqlUtil() {
+        resetDbInfo();
     }
 
     public void resetDbInfo() {
-        int dbType = PropertiesComponent.getInstance().getInt(MybatisConst.PLUS_DBTYPE,0);
+        int dbType = PropertiesComponent.getInstance().getInt(MybatisConst.PLUS_DBTYPE, 0);
         if ("mysql".equals(dbTypeDriver[dbType].getName())) {
             baseDb = new MysqlDb();
             baseDb.setDbUrl(PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_DBURL));
@@ -40,33 +41,13 @@ public class MysqlUtil {
         }
     }
 
-    private  static MysqlUtil mysqlUtil;
+    private static MysqlUtil mysqlUtil;
 
     public static MysqlUtil getInstance() {
         if (mysqlUtil == null) {
             mysqlUtil = new MysqlUtil();
         }
         return mysqlUtil;
-    }
-
-    public static void main(String[] args) {
-//        List<TableInfo> tableInfoList = MysqlUtil.getInstance().getTableInfo();
-//        tableInfoList.forEach(item->{
-//            System.out.println(item);
-//        });
-//        List<ColumnInfo> columnInfoList = MysqlUtil.getInstance().getColumns("unit");
-//        columnInfoList.forEach(item->{
-//            System.out.println(item);
-//        });
-
-        DataSourceConfig dataSourceConfig = new DataSourceConfig();
-        dataSourceConfig.setDbType(DbType.MYSQL);
-        dataSourceConfig.setDriverName("com.mysql.cj.jdbc.Driver");
-        dataSourceConfig.setUsername("root");
-        dataSourceConfig.setPassword("123456");
-        dataSourceConfig.setUrl("jdbc:mysql://localhost:3306/mysql?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC");
-        dataSourceConfig.getConn();
-        dataSourceConfig.getDbQuery().tablesSql();
     }
 
     public List<TableInfo> getTableInfo() {
@@ -84,7 +65,6 @@ public class MysqlUtil {
     public String getJdbcDriver() {
         return baseDb.getJdbcDriver();
     }
-
 
     public String getUsername() {
         return baseDb.getUsername();

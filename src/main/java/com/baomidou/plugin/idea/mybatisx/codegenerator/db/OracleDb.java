@@ -11,6 +11,7 @@ import java.util.List;
 
 public class OracleDb extends BaseDb {
     private Logger logger = LoggerFactory.getLogger(OracleDb.class);
+
     @Override
     String getTableSql() {
         String username = getUsername().toUpperCase();
@@ -39,21 +40,19 @@ public class OracleDb extends BaseDb {
         Statement stmt;
         try {
             Class.forName(getJdbcDriver());
-            conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
+            conn = DriverManager.getConnection(getDbUrl(), getUsername(), getPassword());
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(getTableSql());
-            while(rs.next()){
-                String tableName  = rs.getString("table_name");
-//                String createTime = rs.getString("create_time");
-//                String engine = rs.getString("engine");
-//                String coding = rs.getString("table_collation");
+            while (rs.next()) {
+                String tableName = rs.getString("table_name");
+                // todo 增加一下其他的信息
                 String remark = rs.getString("comments");
                 tableInfos.add(new TableInfo()
                     .setTableName(tableName)
                     .setCreateTime("")
                     .setEngine("")
                     .setCoding("")
-                    .setRemark(remark==null?"":remark)
+                    .setRemark(remark == null ? "" : remark)
                 );
             }
             stmt.close();
@@ -72,22 +71,22 @@ public class OracleDb extends BaseDb {
         Statement stmt;
         try {
             Class.forName(getJdbcDriver());
-            conn = DriverManager.getConnection(getDbUrl(),getUsername(),getPassword());
+            conn = DriverManager.getConnection(getDbUrl(), getUsername(), getPassword());
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(getColumnSql(tableName));
-            while(rs.next()){
-                String columnName  = rs.getString("column_name");
+            while (rs.next()) {
+                String columnName = rs.getString("column_name");
                 String isNullable = rs.getString("NULLABLE");
                 String dataType = rs.getString("DATA_TYPE");
                 String columnComment = rs.getString("COMMENTS");
                 String columnKey = rs.getString("key");
-//                String extra = rs.getString("extra");
+                // todo 增加一下其他的信息
                 columnInfoList.add(new ColumnInfo().setColumnName(columnName)
                     .setIsNullable(isNullable)
                     .setColumnType(dataType)
                     .setColumnComment(columnComment)
                     .setColumnKey(columnKey)
-                    .setExtra("") );
+                    .setExtra(""));
             }
             stmt.close();
             conn.close();
