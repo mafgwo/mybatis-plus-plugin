@@ -6,18 +6,29 @@ import com.intellij.psi.PsiElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * spring自带代码检测过滤
- *
- * @author makejava
- * @version 1.0.0
- * @since 2018/08/05 22:00
+ * @Autowire 注解忽略错误
  */
 public class PlusSpringInspectionsFilter implements InspectionSuppressor {
 
+    List<String> suppressedList = new ArrayList<>();
+
+    PlusSpringInspectionsFilter(){
+        suppressedList.add("SpringJavaInjectionPointsAutowiringInspection");
+    }
+
     @Override
     public boolean isSuppressedFor(@NotNull PsiElement element, @NotNull String toolId) {
-        return "SpringJavaAutowiredFieldsWarningInspection".equals(toolId);
+        for (String suppress : suppressedList) {
+            if (toolId.equals(suppress)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @NotNull

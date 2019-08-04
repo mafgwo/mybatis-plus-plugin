@@ -37,7 +37,7 @@ intellij {
 // https://www.jetbrains.com/intellij-repository/releases
 
 group 'com.baomidou.plugin.idea.mybatisPlus'
-version '1.2.2'
+version '1.2.3'
 
 repositories {
     mavenLocal()

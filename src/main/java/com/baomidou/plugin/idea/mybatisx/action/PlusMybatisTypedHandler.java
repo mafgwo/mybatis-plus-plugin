@@ -43,26 +43,14 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
             autoPopupParameter(project, editor);
             return Result.STOP;
         } else if (!parameterCase && mybatisFile) {
-            autoPopupParameter2(project, editor);
+            autoPopupParameter(project, editor);
             return Result.STOP;
         }
         return super.charTyped(c, project, editor, file);
     }
 
-    private static void autoPopupParameter2(final Project project, final Editor editor) {
-        AutoPopupController.runTransactionWithEverythingCommitted(project,new Runnable() {
-            @Override
-            public void run() {
-                if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
-                    new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, editor, 1);
-                }
-            }
-        });
-
-    }
-
     private static void autoPopupParameter(final Project project, final Editor editor) {
-        CompletionAutoPopupHandler.runLaterWithCommitted(project, editor.getDocument(), new Runnable() {
+        AutoPopupController.runTransactionWithEverythingCommitted(project,new Runnable() {
             @Override
             public void run() {
                 if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
