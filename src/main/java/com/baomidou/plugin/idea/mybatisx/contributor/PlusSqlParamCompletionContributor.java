@@ -60,7 +60,6 @@ public class PlusSqlParamCompletionContributor extends CompletionContributor {
     }
 
     private void process(PsiFile xmlFile, CompletionResultSet resultSet, PsiElement position) {
-        //System.out.println(xmlFile.getName());
         int mapperIndex = xmlFile.getName().indexOf("Mapper");
         String tableName = xmlFile.getName().substring(0, mapperIndex);
         List<String> suggests = suggestMaps.get(tableName.toLowerCase());
@@ -70,7 +69,6 @@ public class PlusSqlParamCompletionContributor extends CompletionContributor {
                 resultSet.addElement(LookupElementBuilder.create(suggest));
             }
         }
-//        resultSet.addElement(LookupElementBuilder.create("Hello I am completion"));
     }
 
     private boolean shouldAddElement(PsiFile file, int offset) {

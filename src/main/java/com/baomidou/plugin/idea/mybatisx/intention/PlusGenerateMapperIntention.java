@@ -30,12 +30,7 @@ import com.baomidou.plugin.idea.mybatisx.util.MapperUtils;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.*;
 
 /**
  * @author yanglin
@@ -78,7 +73,7 @@ public class PlusGenerateMapperIntention extends GenericIntention {
         ListSelectionListener popupListener = new ListSelectionListener() {
             @Override
             public void selected(int index) {
-                processGenerate(editor, clazz, pathMap.get(keys.get(index)));
+                processGenerate(project, editor, clazz, pathMap.get(keys.get(index)));
             }
 
             @Override
@@ -114,7 +109,7 @@ public class PlusGenerateMapperIntention extends GenericIntention {
         VirtualFile baseDir = project.getBaseDir();
         VirtualFile vf = uiComponentFacade.showSingleFolderSelectionDialog("Select target folder", baseDir, baseDir);
         if (null != vf) {
-            processGenerate(editor, clazz, PsiManager.getInstance(project).findDirectory(vf));
+            processGenerate(project, editor, clazz, PsiManager.getInstance(project).findDirectory(vf));
         }
     }
 
@@ -124,7 +119,10 @@ public class PlusGenerateMapperIntention extends GenericIntention {
         Collection<String> result = Lists.newArrayList(Collections2.transform(paths, new Function<String, String>() {
             @Override
             public String apply(String input) {
-                String relativePath = FileUtil.getRelativePath(projectBasePath, input, File.separatorChar);
+                String relativePath = null;
+                if (projectBasePath != null) {
+                    relativePath = FileUtil.getRelativePath(projectBasePath, input, File.separatorChar);
+                }
                 Module module = ModuleUtil.findModuleForPsiElement(pathMap.get(input));
                 return null == module ? relativePath : ("[" + module.getName() + "] " + relativePath);
             }
@@ -136,14 +134,12 @@ public class PlusGenerateMapperIntention extends GenericIntention {
         Map<String, PsiDirectory> result = Maps.newHashMap();
         for (PsiDirectory directory : directories) {
             String presentableUrl = directory.getVirtualFile().getPresentableUrl();
-            if (presentableUrl != null) {
-                result.put(presentableUrl, directory);
-            }
+            result.put(presentableUrl, directory);
         }
         return result;
     }
 
-    private void processGenerate(Editor editor, PsiClass clazz, PsiDirectory directory) {
+    private void processGenerate(Project project, Editor editor, PsiClass clazz, PsiDirectory directory) {
         if (null == directory) {
             return;
         }
@@ -154,8 +150,9 @@ public class PlusGenerateMapperIntention extends GenericIntention {
         try {
             Properties properties = new Properties();
             properties.setProperty("NAMESPACE", clazz.getQualifiedName());
+
             PsiElement psiFile = MapperUtils.createMapperFromFileTemplate(PlusMybatisFileTemplateDescriptorFactory.MYBATIS_MAPPER_XML_TEMPLATE,
-                    clazz.getName(), directory, properties);
+                Objects.requireNonNull(clazz.getName()), directory, properties, project);
             PlusEditorService.getInstance(clazz.getProject()).scrollTo(psiFile, 0);
         } catch (Exception e) {
             HintManager.getInstance().showErrorHint(editor, "Failed: " + e.getCause());

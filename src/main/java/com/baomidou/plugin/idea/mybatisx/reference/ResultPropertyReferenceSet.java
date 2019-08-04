@@ -14,13 +14,11 @@ import org.jetbrains.annotations.Nullable;
  *  xml关联
  *  <result column="phone" property="phone"/>
  *   Result Property
- * @author yanglin
  */
 public class ResultPropertyReferenceSet extends ReferenceSetBase<PsiReference> {
 
     public ResultPropertyReferenceSet(String text, @NotNull PsiElement element, int offset) {
         super(text, element, offset, DOT_SEPARATOR);
-        //System.out.println("text: "+text);
     }
 
     @Nullable
