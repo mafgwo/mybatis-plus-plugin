@@ -31,6 +31,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Set;
 
+import static com.intellij.psi.util.PropertyUtilBase.*;
+
 /**
  * @author yanglin
  */
@@ -47,7 +49,18 @@ public final class JavaUtils {
     @NotNull
     public static Optional<PsiField> findSettablePsiField(@NotNull PsiClass clazz, @Nullable String propertyName) {
         PsiMethod propertySetter = PropertyUtil.findPropertySetter(clazz, propertyName, false, true);
-        return null == propertySetter ? Optional.<PsiField>absent() : Optional.fromNullable(PropertyUtil.findPropertyFieldByMember(propertySetter));
+        return null == propertySetter ? Optional.<PsiField>absent() : Optional.fromNullable(MyPropertyUtil.findPropertyFieldByMember(clazz, propertySetter));
+    }
+
+    @Nullable
+    public static String getPropertyName(@NotNull PsiMethod method) {
+        if (isSimplePropertyGetter(method)) {
+            return getPropertyNameByGetter(method);
+        }
+        if (isSimplePropertySetter(method)) {
+            return getPropertyNameBySetter(method);
+        }
+        return null;
     }
 
     @NotNull
@@ -55,12 +68,13 @@ public final class JavaUtils {
         PsiMethod[] methods = clazz.getAllMethods();
         List<PsiField> fields = Lists.newArrayList();
         for (PsiMethod method : methods) {
-            if (PropertyUtil.isSimplePropertySetter(method)) {
-                Optional<PsiField> psiField = findSettablePsiField(clazz, PropertyUtil.getPropertyName(method));
-                if (psiField.isPresent()) {
+            if (MyPropertyUtil.isSimplePropertySetter(clazz,method)) {
+                Optional<PsiField> psiField = findSettablePsiField(clazz, MyPropertyUtil.getPropertyName(clazz,method));
+//                if (psiField.isPresent()) {
                     fields.add(psiField.get());
-                }
+//                }
             }
+
         }
         return fields.toArray(new PsiField[fields.size()]);
     }
