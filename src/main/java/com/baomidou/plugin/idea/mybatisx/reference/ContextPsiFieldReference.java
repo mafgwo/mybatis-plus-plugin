@@ -56,6 +56,7 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
                 return PlusJavaService.getInstance(myElement.getProject()).getReferenceClazzOfPsiField(resolved.get());
             }
         } else {
+            // show suggest   <id column="id" property="id"/> 的  property 自动提示
             return MapperBacktrackingUtils.getPropertyClazz(myElement);
         }
         return Optional.absent();

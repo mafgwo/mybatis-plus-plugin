@@ -8,7 +8,7 @@ buildscript {
         mavenCentral()
     }
 }
-// todo 使用spock测试
+
 plugins {
     id 'java'
     id "org.jetbrains.intellij" version "0.4.7"
