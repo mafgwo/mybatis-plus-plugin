@@ -9,7 +9,7 @@ public interface MybatisConst {
     String PLUS_DBURL = "mybatisplus_dbUrl";
     String PLUS_DBTYPE = "mybatisplus_dbtype";
     String PLUS_USERNAME = "mybatisplus_username";
-    String PLUS_PASSWORD = "mybatisplus_password";
+    String PLUS_PASSWORD = "mybatisplus_userpp";
 
     String GEN_CONFIG = "genconfig";
 

@@ -58,8 +58,8 @@ public final class MapperUtils {
     public static PsiElement createMapperFromFileTemplate(@NotNull String fileTemplateName,
                                                           @NotNull String fileName,
                                                           @NotNull PsiDirectory directory,
-                                                          @Nullable Properties pops) throws Exception {
-        FileTemplate fileTemplate = FileTemplateManager.getInstance().getJ2eeTemplate(fileTemplateName);
+                                                          @Nullable Properties pops, @NotNull Project project) throws Exception {
+        FileTemplate fileTemplate = FileTemplateManager.getInstance(project).getJ2eeTemplate(fileTemplateName);
         return FileTemplateUtil.createFromTemplate(fileTemplate, fileName, pops, directory);
     }
 

@@ -21,10 +21,10 @@
 
     <depends>com.intellij.modules.lang</depends>
 
-    <idea-version since-build="145.0"/>
-    <!--        <depends optional="true">com.intellij.spring</depends>-->
-    <!--        <depends optional="true">com.intellij.spring.boot</depends>-->
-    <!--    <depends optional="true">com.intellij.database</depends>-->
+    <idea-version since-build="181.0"/>
+    <depends optional="true">com.intellij.spring</depends>
+    <depends optional="true">com.intellij.spring.boot</depends>
+<!--    <depends optional="true">com.intellij.database</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
 
@@ -138,15 +138,17 @@
     </actions>
 
     <change-notes><![CDATA[
-         <h4>update 2019.08.02</h4>
+         <h4>update 2019.08.05</h4>
          <ul>
-          <li> icon change </li>
+          <li> 1. <id column="id" property="id">  property'value auto complete  </li>
+          <li> 2. TestMapper testMapper field reference remove error tip </li>
+          <li> 3. icon change </li>
+          <li> 4. auto complete table column name in SimpleMapper.xml about #{xxx}</li>
+          <li> 5. add custom config about code generate</li>
          </ul>
         <h4>update 2019.07.30</h4>
         <ul>
           <li> MybatisPlus-1.2.1 </li>
-          <li> auto complete table column name in SimpleMapper.xml about #{xxx}</li>
-          <li> add custom config about code generate</li>
         </ul>
          <h4>update 2019.07.23</h4>
         <ul>

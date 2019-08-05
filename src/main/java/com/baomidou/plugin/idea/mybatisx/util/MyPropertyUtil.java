@@ -3,6 +3,7 @@ package com.baomidou.plugin.idea.mybatisx.util;
 import com.intellij.openapi.util.Comparing;
 import com.intellij.psi.*;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
+import com.intellij.psi.impl.source.PsiImmediateClassType;
 import com.intellij.psi.util.PsiUtil;
 import com.intellij.psi.util.TypeConversionUtil;
 import org.jetbrains.annotations.NotNull;
@@ -13,25 +14,29 @@ import static kotlin.reflect.jvm.internal.impl.load.java.JvmAbi.isSetterName;
 
 public class MyPropertyUtil {
     public static boolean isSimplePropertySetter(@NotNull PsiClass clazz, PsiMethod method) {
-        if (method == null) return false;
-
-        if (method.isConstructor()) return false;
-
+        if (method == null) {
+            return false;
+        }
+        if (method.isConstructor()) {
+            return false;
+        }
         String methodName = method.getName();
-
-        if (!isSetterName(methodName)) return false;
-
+        if (!isSetterName(methodName)) {
+            return false;
+        }
         if (method.getParameterList().getParametersCount() != 1) {
             return false;
         }
-
-
         final PsiType returnType = method.getReturnType();
         if (returnType == null || PsiType.VOID.equals(returnType)) {
             return true;
         }
-
-        String className = ((PsiClassReferenceType) returnType).getClassName();
+        String className = "";
+        if (returnType instanceof PsiClassReferenceType) {
+            className = ((PsiClassReferenceType) returnType).getClassName();
+        } else if (returnType instanceof PsiImmediateClassType) {
+            className = ((PsiImmediateClassType) returnType).getClassName();
+        }
         if (className.equals(clazz.getName())) {
             return true;
         }
@@ -54,11 +59,12 @@ public class MyPropertyUtil {
         if (psiMember instanceof PsiField) {
             return (PsiField)psiMember;
         }
-        if (psiMember instanceof PsiMethod) {
-            final PsiMethod psiMethod = (PsiMethod)psiMember;
-            final PsiType returnType = psiMethod.getReturnType();
-            if (returnType == null) return null;
-            final PsiCodeBlock body = psiMethod.getBody();
+        if (psiMember != null) {
+            final PsiType returnType = psiMember.getReturnType();
+            if (returnType == null) {
+                return null;
+            }
+            final PsiCodeBlock body = psiMember.getBody();
             final PsiStatement[] statements = body == null ? null : body.getStatements();
             final PsiStatement statement = statements == null || statements.length < 1 ? null : statements[0];
             final PsiElement target;

@@ -14,7 +14,6 @@ import org.jetbrains.annotations.Nullable;
  *  xml关联
  *  <result column="phone" property="phone"/>
  *   Result Property
- * @author yanglin
  */
 public class ResultPropertyReferenceSet extends ReferenceSetBase<PsiReference> {
 
