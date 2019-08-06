@@ -42,9 +42,13 @@ public class ContextPsiFieldReference extends PsiReferenceBase<XmlAttributeValue
     @NotNull
     @Override
     public Object[] getVariants() {
-        // todo   <result column="batch" property="batch" /> property 提示
+        // <result column="batch" property="batch" /> property 提示
         Optional<PsiClass> clazz = getTargetClazz();
-        return clazz.isPresent() ? JavaUtils.findSettablePsiFields(clazz.get()) : PsiReference.EMPTY_ARRAY;
+        if (clazz.isPresent()) {
+           return JavaUtils.findSettablePsiFields(clazz.get());
+        }else {
+            return PsiReference.EMPTY_ARRAY;
+        }
     }
 
     @SuppressWarnings("unchecked")

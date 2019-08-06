@@ -1,28 +1,17 @@
 package com.baomidou.plugin.idea.mybatisx.service;
 
-import com.google.common.base.Optional;
-
-import com.intellij.openapi.components.ServiceManager;
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiElementFactory;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiImportList;
-import com.intellij.psi.PsiImportStatement;
-import com.intellij.psi.PsiJavaFile;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiType;
-import com.intellij.psi.impl.source.PsiClassReferenceType;
-import com.intellij.util.CommonProcessors;
-import com.intellij.util.Processor;
-import com.intellij.util.xml.DomElement;
 import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
 import com.baomidou.plugin.idea.mybatisx.dom.model.Mapper;
 import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import com.baomidou.plugin.idea.mybatisx.util.MapperUtils;
-
+import com.google.common.base.Optional;
+import com.intellij.openapi.components.ServiceManager;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.*;
+import com.intellij.psi.impl.source.PsiClassReferenceType;
+import com.intellij.util.CommonProcessors;
+import com.intellij.util.Processor;
+import com.intellij.util.xml.DomElement;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

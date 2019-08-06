@@ -22,8 +22,8 @@ class DBTest extends Specification {
         db = new OracleDb()
 
         then:
-        db.dbName() == "mysql"
-        db.getJdbcDriver() == "com.mysql.cj.jdbc.Driver"
+        db.dbName() == "oracle"
+        db.getJdbcDriver() == "oracle.jdbc.driver.OracleDriver"
     }
 
 

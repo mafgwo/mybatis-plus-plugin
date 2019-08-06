@@ -1,28 +1,13 @@
 package com.baomidou.plugin.idea.mybatisx.util;
 
-import com.google.common.base.Optional;
-import com.google.common.collect.Lists;
-
-import com.intellij.openapi.project.Project;
-import com.intellij.psi.JavaPsiFacade;
-import com.intellij.psi.PsiAnnotation;
-import com.intellij.psi.PsiAnnotationMemberValue;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiField;
-import com.intellij.psi.PsiImportList;
-import com.intellij.psi.PsiImportStatement;
-import com.intellij.psi.PsiJavaFile;
-import com.intellij.psi.PsiMethod;
-import com.intellij.psi.PsiModifierList;
-import com.intellij.psi.PsiModifierListOwner;
-import com.intellij.psi.PsiParameter;
-import com.intellij.psi.search.GlobalSearchScope;
-import com.intellij.psi.util.PropertyUtil;
-import com.intellij.psi.util.PsiTreeUtil;
 import com.baomidou.plugin.idea.mybatisx.annotation.Annotation;
 import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
-
+import com.google.common.base.Optional;
+import com.google.common.collect.Lists;
+import com.intellij.openapi.project.Project;
+import com.intellij.psi.*;
+import com.intellij.psi.search.GlobalSearchScope;
+import com.intellij.psi.util.PsiTreeUtil;
 import org.apache.commons.lang.ArrayUtils;
 import org.apache.commons.lang.StringUtils;
 import org.jetbrains.annotations.NotNull;
@@ -48,7 +33,7 @@ public final class JavaUtils {
 
     @NotNull
     public static Optional<PsiField> findSettablePsiField(@NotNull PsiClass clazz, @Nullable String propertyName) {
-        PsiMethod propertySetter = PropertyUtil.findPropertySetter(clazz, propertyName, false, true);
+        PsiMethod propertySetter = MyPropertyUtil.findPropertySetter(clazz, propertyName, false, true);
         return null == propertySetter ? Optional.<PsiField>absent() : Optional.fromNullable(MyPropertyUtil.findPropertyFieldByMember(clazz, propertySetter));
     }
 
@@ -70,9 +55,9 @@ public final class JavaUtils {
         for (PsiMethod method : methods) {
             if (MyPropertyUtil.isSimplePropertySetter(clazz,method)) {
                 Optional<PsiField> psiField = findSettablePsiField(clazz, MyPropertyUtil.getPropertyName(clazz,method));
-//                if (psiField.isPresent()) {
+                if (psiField.isPresent()) {
                     fields.add(psiField.get());
-//                }
+                }
             }
 
         }

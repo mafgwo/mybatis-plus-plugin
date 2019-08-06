@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import static com.intellij.psi.util.PropertyUtilBase.*;
-import static kotlin.reflect.jvm.internal.impl.load.java.JvmAbi.isSetterName;
+
 
 public class MyPropertyUtil {
     public static boolean isSimplePropertySetter(@NotNull PsiClass clazz, PsiMethod method) {
@@ -59,6 +59,7 @@ public class MyPropertyUtil {
         if (psiMember instanceof PsiField) {
             return (PsiField)psiMember;
         }
+
         if (psiMember != null) {
             final PsiType returnType = psiMember.getReturnType();
             if (returnType == null) {
@@ -71,6 +72,8 @@ public class MyPropertyUtil {
             String className = "";
             if (returnType instanceof PsiClassReferenceType) {
                 className = ((PsiClassReferenceType) returnType).getClassName();
+            } else {
+                className =  returnType.getPresentableText();
             }
             if (PsiType.VOID.equals(returnType)|| className.equals(clazz.getName())) {
                 final PsiExpression expression =
@@ -90,6 +93,34 @@ public class MyPropertyUtil {
                 }
             }
         }
+        return null;
+    }
+
+
+    @Nullable
+    public static PsiMethod findPropertySetter(PsiClass aClass,
+                                               @NotNull String propertyName,
+                                               boolean isStatic,
+                                               boolean checkSuperClasses) {
+        if (aClass == null) {
+            return null;
+        }
+        String setterName = suggestSetterName(propertyName);
+
+        PsiMethod[] methods = aClass.findMethodsByName(setterName, checkSuperClasses);
+
+        for (PsiMethod method : methods) {
+            if (method.hasModifierProperty(PsiModifier.STATIC) != isStatic) {
+                continue;
+            }
+
+            if (isSimplePropertySetter(aClass,method)) {
+                if (getPropertyNameBySetter(method).equals(propertyName)) {
+                    return method;
+                }
+            }
+        }
+
         return null;
     }
 }

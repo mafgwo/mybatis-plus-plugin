@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * spring自带代码检测过滤
+ * todo spring自带代码检测过滤
  * @Autowire 注解忽略错误
  */
 public class PlusSpringInspectionsFilter implements InspectionSuppressor {
@@ -18,7 +18,7 @@ public class PlusSpringInspectionsFilter implements InspectionSuppressor {
     List<String> suppressedList = new ArrayList<>();
 
     PlusSpringInspectionsFilter(){
-        suppressedList.add("SpringJavaInjectionPointsAutowiringInspection");
+//        suppressedList.add("SpringJavaInjectionPointsAutowiringInspection");
     }
 
     @Override
