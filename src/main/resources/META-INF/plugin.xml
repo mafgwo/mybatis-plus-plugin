@@ -138,9 +138,9 @@
     </actions>
 
     <change-notes><![CDATA[
-         <h4>update 2019.08.05</h4>
+         <h4>update 2019.08.06</h4>
          <ul>
-          <li> 1. <id column="id" property="id">  property'value auto complete  </li>
+          <li> 1. <id column="id" property="id">  property's value auto complete(support lombok @Accessors)  </li>
           <li> 2. TestMapper testMapper field reference remove error tip </li>
           <li> 3. icon change </li>
           <li> 4. auto complete table column name in SimpleMapper.xml about #{xxx}</li>
