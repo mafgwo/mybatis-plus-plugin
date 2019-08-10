@@ -14,9 +14,6 @@ import com.intellij.util.xml.DomElement;
  * <p>
  * 定义 Mapper 搜索
  * </p>
- *
- * @author yanglin
- * @since 2018-08-05
  */
 public class PlusMapperDefinitionSearch extends QueryExecutorBase<XmlElement, PsiElement> {
 
@@ -33,15 +30,4 @@ public class PlusMapperDefinitionSearch extends QueryExecutorBase<XmlElement, Ps
         Processor<DomElement> processor = domElement -> consumer.process(domElement.getXmlElement());
         PlusJavaService.getInstance(element.getProject()).process(element, processor);
     }
-
-   /* @Override
-    public void processQuery(@NotNull PsiElement element, @NotNull final Processor<XmlElement> consumer) {
-
-        if (!(element instanceof PsiTypeParameterListOwner)) {
-            return;
-        }
-
-        Processor<DomElement> processor = domElement -> consumer.process(domElement.getXmlElement());
-        PlusJavaService.getInstance(element.getProject()).process(element, processor);
-    }*/
 }

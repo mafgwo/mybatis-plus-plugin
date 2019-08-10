@@ -28,7 +28,7 @@ public class PlusEntityPropInspection extends CustomLocalComponentsDiscoverer {
     private Logger logger = LoggerFactory.getLogger(PlusEntityPropInspection.class);
 
     private void getVirtualFile(VirtualFile virtualFile, Project project, Set<CommonSpringBean> psiClassSet) {
-        if (null == virtualFile) {
+        if (!Optional.ofNullable(virtualFile).isPresent()) {
             return;
         }
         if (virtualFile.isDirectory()) {
@@ -40,12 +40,11 @@ public class PlusEntityPropInspection extends CustomLocalComponentsDiscoverer {
             PsiJavaFile psiDaoFile = (PsiJavaFile) PsiManager.getInstance(project).findFile(virtualFile);
             if (psiDaoFile != null) {
                 PsiClass psiClass = psiDaoFile.getClasses()[0];
-                // todo 找到是mybatis的类
+                // 找到是mybatis的类
                 if (Optional.ofNullable(psiClass.getName()).isPresent() && psiClass.getName().contains("Mapper")) {
                     psiClassSet.add(new CustomSpringComponent(psiClass));
                 }
             }
-
         }
     }
 
@@ -73,12 +72,12 @@ public class PlusEntityPropInspection extends CustomLocalComponentsDiscoverer {
             return new HashSet<>();
         }
 
-        if (null == localModel.getModule() || null == localModel.getModule().getModuleFile()) {
+        if (!Optional.ofNullable(localModel.getModule()).isPresent()
+            || !Optional.ofNullable(localModel.getModule().getModuleFile()).isPresent()) {
             return new HashSet<>();
         }
         VirtualFile virtualFile = localModel.getModule().getModuleFile().getParent();
         VirtualFile daoFile = virtualFile.findFileByRelativePath("src/main/java/");
-//        return Collections.singleton(new CustomSpringComponent(psiClass));
         Set<CommonSpringBean> psiClassSet = new HashSet<>();
         if (null != daoFile) {
             getVirtualFile(daoFile, localModel.getModule().getProject(), psiClassSet);
