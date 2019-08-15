@@ -36,8 +36,8 @@ public class GenConfig {
 
     private boolean isLombok = true;
     private boolean isSwagger = true;
-    private boolean isRestcontroller = true;
-    private boolean isResultmap = false;
+    private boolean isRestController = true;
+    private boolean isResultMap = false;
     private boolean isFill = false;
 
     private String templatePath = "/templates";
@@ -132,20 +132,20 @@ public class GenConfig {
         isSwagger = swagger;
     }
 
-    public boolean isRestcontroller() {
-        return isRestcontroller;
+    public boolean isRestController() {
+        return isRestController;
     }
 
-    public void setRestcontroller(boolean restcontroller) {
-        isRestcontroller = restcontroller;
+    public void setRestController(boolean restController) {
+        isRestController = restController;
     }
 
-    public boolean isResultmap() {
-        return isResultmap;
+    public boolean isResultMap() {
+        return isResultMap;
     }
 
-    public void setResultmap(boolean resultmap) {
-        isResultmap = resultmap;
+    public void setResultMap(boolean resultMap) {
+        isResultMap = resultMap;
     }
 
     public boolean isFill() {

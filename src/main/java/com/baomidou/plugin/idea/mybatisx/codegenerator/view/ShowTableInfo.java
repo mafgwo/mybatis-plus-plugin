@@ -199,8 +199,8 @@ public class ShowTableInfo extends JFrame {
         isOver.setSelected(genConfig.isCover());
         lombokCheckBox.setSelected(genConfig.isLombok());
         swaggerCheckBox.setSelected(genConfig.isSwagger());
-        restControllerCheckBox.setSelected(genConfig.isRestcontroller());
-        resultMapCheckBox.setSelected(genConfig.isResultmap());
+        restControllerCheckBox.setSelected(genConfig.isRestController());
+        resultMapCheckBox.setSelected(genConfig.isResultMap());
         isFillCheckBox.setSelected(genConfig.isFill());
         isEnableCacheCheckBox.setSelected(genConfig.isEnableCache());
         isBaseColumnCheckBox.setSelected(genConfig.isBaseColumnList());
@@ -227,8 +227,8 @@ public class ShowTableInfo extends JFrame {
 
         genConfig.setLombok(lombokCheckBox.isSelected());
         genConfig.setSwagger(swaggerCheckBox.isSelected());
-        genConfig.setRestcontroller(restControllerCheckBox.isSelected());
-        genConfig.setResultmap(resultMapCheckBox.isSelected());
+        genConfig.setRestController(restControllerCheckBox.isSelected());
+        genConfig.setResultMap(resultMapCheckBox.isSelected());
         genConfig.setFill(isFillCheckBox.isSelected());
         genConfig.setEnableCache(isEnableCacheCheckBox.isSelected());
         genConfig.setBaseColumnList(isBaseColumnCheckBox.isSelected());

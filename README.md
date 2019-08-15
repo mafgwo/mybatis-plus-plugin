@@ -27,6 +27,11 @@ linux | module/submodule/submodule
   
 * package 包路径
 
+##  注意
+
+把templates文件夹复制到项目根目录下，可以自定义修改模板，
+这里要注意模板里面的变量，如果没有变量会报错。
+
 
 
 

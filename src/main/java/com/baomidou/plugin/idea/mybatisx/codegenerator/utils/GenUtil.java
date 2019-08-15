@@ -3,7 +3,9 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.utils;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
@@ -13,6 +15,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MyFreemarkerTemplateEngine;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
+import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.MyPackageConfig;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
@@ -20,11 +23,9 @@ import freemarker.template.TemplateException;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
+import static com.baomidou.mybatisplus.generator.config.rules.NamingStrategy.capitalFirst;
 import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.*;
 
 /**
@@ -42,7 +43,6 @@ public class GenUtil {
 
     /**
      * 获取后端代码模板名称
-     *
      * @return
      */
     public static List<String> getAdminTemplateNames() {
@@ -112,7 +112,7 @@ public class GenUtil {
         // 实体属性 Swagger2 注解
         gc.setSwagger2(genConfig.isSwagger());
         // 设置基础resultMap
-        gc.setBaseResultMap(genConfig.isResultmap());
+        gc.setBaseResultMap(genConfig.isResultMap());
         // 是否在xml中添加二级缓存配置
         gc.setEnableCache(genConfig.isEnableCache());
 //        时间类型对应策略
@@ -152,6 +152,12 @@ public class GenUtil {
             @Override
             public void initMap() {
                 // to do nothing
+                // todo 生成obj.Result
+                Map<String, Object> map = new HashMap<>();
+                map.put("obj", pc.getParent()+".obj");
+                String idType  = "String";
+                map.put("camelTableName", underlineToCamel(tableName));
+                setMap(map);
             }
         };
 
@@ -205,7 +211,7 @@ public class GenUtil {
         // entity 是否使用lombok
         strategy.setEntityLombokModel(genConfig.isLombok());
         // 是否使用restController
-        strategy.setRestControllerStyle(genConfig.isRestcontroller());
+        strategy.setRestControllerStyle(genConfig.isRestController());
         // 公共父类
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
@@ -227,6 +233,34 @@ public class GenUtil {
         mpg.setStrategy(strategy);
         mpg.setTemplateEngine(new MyFreemarkerTemplateEngine(projectPath));
         mpg.execute();
+    }
+
+    public static String underlineToCamel(String name) {
+        // 快速检查
+        if (StringUtils.isEmpty(name)) {
+            // 没必要转换
+            return StringPool.EMPTY;
+        }
+        String tempName = name;
+        // 大写数字下划线组成转为小写 , 允许混合模式转为小写
+        if (StringUtils.isCapitalMode(name) || StringUtils.isMixedMode(name)) {
+            tempName = name.toLowerCase();
+        }
+        StringBuilder result = new StringBuilder();
+        // 用下划线将原始字符串分割
+        String[] camels = tempName.split(ConstVal.UNDERLINE);
+        // 跳过原始字符串中开头、结尾的下换线或双重下划线
+        // 处理真正的驼峰片段
+        Arrays.stream(camels).filter(camel -> !StringUtils.isEmpty(camel)).forEach(camel -> {
+            if (result.length() == 0) {
+                // 第一个驼峰片段，全部字母都小写
+                result.append(camel);
+            } else {
+                // 其他的驼峰片段，首字母大写
+                result.append(capitalFirst(camel));
+            }
+        });
+        return result.toString();
     }
 
     /**
