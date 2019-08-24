@@ -16,7 +16,7 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public class SingleAliasResolver extends AliasResolver {
+public class SingleAliasResolver extends AbstractAliasResolver {
 
     public SingleAliasResolver(Project project) {
         super(project);

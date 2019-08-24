@@ -10,7 +10,7 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public abstract class PackageProvider {
+public abstract class AbstractPackageProvider {
 
     @NotNull
     public abstract Set<PsiPackage> getPackages(@NotNull Project project);

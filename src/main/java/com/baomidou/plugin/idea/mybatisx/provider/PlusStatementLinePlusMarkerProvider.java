@@ -26,7 +26,7 @@ import javax.swing.*;
 /**
  * @author yanglin
  */
-public class PlusStatementLinePlusMarkerProvider extends SimpleLinePlusMarkerProvider<XmlTag, PsiMethod> {
+public class PlusStatementLinePlusMarkerProvider extends AbstractSimpleLinePlusMarkerProvider<XmlTag, PsiMethod> {
 
     private static final ImmutableList<Class<? extends GroupTwo>> TARGET_TYPES = ImmutableList.of(
             Select.class,
@@ -53,8 +53,9 @@ public class PlusStatementLinePlusMarkerProvider extends SimpleLinePlusMarkerPro
     private boolean isTargetType(PsiElement element) {
         DomElement domElement = DomUtil.getDomElement(element);
         for (Class<?> clazz : TARGET_TYPES) {
-            if (clazz.isInstance(domElement))
+            if (clazz.isInstance(domElement)) {
                 return true;
+            }
         }
         return false;
     }

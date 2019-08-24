@@ -22,14 +22,16 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author yanglin
  */
-public class AliasConverter extends ConverterAdaptor<PsiClass> implements CustomReferenceConverter<PsiClass> {
+public class AliasConverter extends AbstractConverterAdaptor<PsiClass> implements CustomReferenceConverter<PsiClass> {
 
     private PsiClassConverter delegate = new PsiClassConverter();
 
     @Nullable
     @Override
     public PsiClass fromString(@Nullable @NonNls String s, ConvertContext context) {
-        if (StringUtil.isEmptyOrSpaces(s)) return null;
+        if (StringUtil.isEmptyOrSpaces(s)) {
+            return null;
+        }
         if (!s.contains(MybatisConstants.DOT_SEPARATOR)) {
             return PlusAliasFacade.getInstance(context.getProject()).findPsiClass(context.getXmlElement(), s).orNull();
         }

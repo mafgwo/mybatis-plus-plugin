@@ -49,11 +49,5 @@ public class ColUtil {
         config.addProperty("datetime","Timestamp");
         config.addProperty("timestamp","Timestamp");
         return config;
-        /*try {
-            return new PropertiesConfiguration("generator.properties" );
-        } catch (ConfigurationException e) {
-            e.printStackTrace();
-        }
-        return null;*/
     }
 }

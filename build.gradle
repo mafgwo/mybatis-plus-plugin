@@ -39,31 +39,29 @@ intellij {
 // https://www.jetbrains.com/intellij-repository/releases
 
 group 'com.baomidou.plugin.idea.mybatisPlus'
-version '1.2.2'
+version '1.2.3'
 
 repositories {
     mavenLocal()
     maven { url 'http://maven.aliyun.com/nexus/content/repositories/central/' }
-//    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-//    jcenter()
-    mavenCentral()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    jcenter()
 }
 
 dependencies {
 //    testCompile "junit:junit:4.12"
-    compile "org.codehaus.groovy:groovy-all:2.4.15"
+    testCompile "org.codehaus.groovy:groovy-all:2.4.15"
     testCompile "org.spockframework:spock-core:1.1-groovy-2.4-rc-2"
 
     compile "org.springframework:spring-core:5.0.6.RELEASE"
-    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.22'
+//    compile group: 'org.slf4j', name: 'slf4j-log4j12', version: '1.7.22'
     compile group: 'com.baomidou', name: 'mybatis-plus-generator', version: '3.1.2'
     compile group: 'org.freemarker', name: 'freemarker', version: '2.3.28'
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
-    runtime group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
+//    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.1'
+//    runtime group: 'mysql', name: 'mysql-connector-java', version: '5.1.44'
     compile group: 'mysql', name: 'mysql-connector-java', version: '8.0.16'
     compile group: 'cn.easyproject', name: 'ojdbc5', version: '11.2.0.4'
     compile group: 'commons-configuration', name: 'commons-configuration', version: '1.9'
-    compile 'cn.hutool:hutool-all:4.5.16'
 }
 
 tasks.withType(JavaCompile) {

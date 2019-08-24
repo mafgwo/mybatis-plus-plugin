@@ -12,7 +12,7 @@ import java.util.Collection;
 /**
  * @author yanglin
  */
-public class SqlConverter extends IdBasedTagConverter {
+public class SqlConverter extends AbstractIdBasedTagConverter {
 
     @NotNull
     @Override

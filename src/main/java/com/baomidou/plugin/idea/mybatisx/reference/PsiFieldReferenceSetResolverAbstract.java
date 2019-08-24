@@ -16,9 +16,9 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author yanglin
  */
-public class PsiFieldReferenceSetResolver extends ContextReferenceSetResolver<XmlAttributeValue, PsiField> {
+public class PsiFieldReferenceSetResolverAbstract extends AbstractContextReferenceSetResolver<XmlAttributeValue, PsiField> {
 
-    protected PsiFieldReferenceSetResolver(XmlAttributeValue from) {
+    protected PsiFieldReferenceSetResolverAbstract(XmlAttributeValue from) {
         super(from);
     }
 

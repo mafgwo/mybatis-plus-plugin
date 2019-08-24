@@ -10,15 +10,15 @@ import java.util.Collection;
  * @author yanglin jobob
  * @since 2018-07-30
  */
-public abstract class GenerateModel {
+public abstract class AbstractGenerateModel {
 
-    public static final GenerateModel START_WITH_MODEL = new StartWithModel();
+    public static final AbstractGenerateModel START_WITH_MODEL = new StartWithModelAbstract();
 
-    public static final GenerateModel END_WITH_MODEL = new EndWithModel();
+    public static final AbstractGenerateModel END_WITH_MODEL = new EndWithModelAbstract();
 
-    public static final GenerateModel CONTAIN_MODEL = new ContainModel();
+    public static final AbstractGenerateModel CONTAIN_MODEL = new ContainModelAbstract();
 
-    public static GenerateModel getInstance(String identifier) {
+    public static AbstractGenerateModel getInstance(String identifier) {
         try {
             return getInstance(Integer.valueOf(identifier));
         } catch (Exception e) {
@@ -26,7 +26,7 @@ public abstract class GenerateModel {
         }
     }
 
-    public static GenerateModel getInstance(int identifier) {
+    public static AbstractGenerateModel getInstance(int identifier) {
         switch (identifier) {
             case 0:
                 return START_WITH_MODEL;
@@ -56,7 +56,7 @@ public abstract class GenerateModel {
 
     public abstract int getIdentifier();
 
-    static class StartWithModel extends GenerateModel {
+    static class StartWithModelAbstract extends AbstractGenerateModel {
 
         @Override
         protected boolean apply(String pattern, String target) {
@@ -69,7 +69,7 @@ public abstract class GenerateModel {
         }
     }
 
-    static class EndWithModel extends GenerateModel {
+    static class EndWithModelAbstract extends AbstractGenerateModel {
 
         @Override
         protected boolean apply(String pattern, String target) {
@@ -82,7 +82,7 @@ public abstract class GenerateModel {
         }
     }
 
-    static class ContainModel extends GenerateModel {
+    static class ContainModelAbstract extends AbstractGenerateModel {
 
         @Override
         protected boolean apply(String pattern, String target) {

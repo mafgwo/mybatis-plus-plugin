@@ -1,24 +1,21 @@
 package com.baomidou.plugin.idea.mybatisx.inspection;
 
+import com.baomidou.plugin.idea.mybatisx.annotation.Annotation;
+import com.baomidou.plugin.idea.mybatisx.dom.model.Select;
+import com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenerator;
+import com.baomidou.plugin.idea.mybatisx.locator.PlusMapperLocator;
 import com.baomidou.plugin.idea.mybatisx.service.PlusJavaService;
+import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
-
 import com.intellij.codeInspection.InspectionManager;
 import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.DomElement;
-import com.baomidou.plugin.idea.mybatisx.annotation.Annotation;
-import com.baomidou.plugin.idea.mybatisx.dom.model.Select;
-import com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenerator;
-import com.baomidou.plugin.idea.mybatisx.locator.PlusMapperLocator;
-import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,7 +25,7 @@ import java.util.List;
 /**
  * @author yanglin
  */
-public class MapperPlusMethodInspection extends MapperInspection {
+public class MapperPlusMethodInspection extends AbstractMapperInspection {
 
     /**
      * 检查方法
@@ -74,7 +71,7 @@ public class MapperPlusMethodInspection extends MapperInspection {
             DomElement domElement = ele.get();
             if (domElement instanceof Select) {
                 Select select = (Select) domElement;
-                Optional<PsiClass> target = AbstractStatementGenerator.getSelectResultType(method);
+                java.util.Optional<PsiClass> target = AbstractStatementGenerator.getSelectResultType(method);
                 PsiClass clazz = select.getResultType().getValue();
                 PsiIdentifier ide = method.getNameIdentifier();
                 if (null != ide && null == select.getResultMap().getValue()) {

@@ -139,6 +139,14 @@
     </actions>
 
     <change-notes><![CDATA[
+         <h4>update 2019.08.04</h4>
+         <ul>
+          <li> MybatisPlus-1.2.3 </li>
+          <li> 1. add generate CRUD in XXXController.java by customized controller.ftl
+          [customized files](https://github.com/kana112233/mybatis-plus-plugin/README-USE.md/)
+          </li>
+          <li> 2. delete unused jar</li>
+         </ul>
          <h4>update 2019.08.08</h4>
          <ul>
           <li> MybatisPlus-1.2.2 </li>

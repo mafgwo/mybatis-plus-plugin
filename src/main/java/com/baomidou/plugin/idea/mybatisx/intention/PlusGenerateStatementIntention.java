@@ -14,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public class PlusGenerateStatementIntention extends GenericIntention {
+public class PlusGenerateStatementIntention extends AbstractGenericIntention {
 
     public PlusGenerateStatementIntention() {
         super(GenerateStatementChooser.INSTANCE);

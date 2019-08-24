@@ -18,7 +18,7 @@ import java.util.Collection;
 /**
  * @author yanglin
  */
-public class ResultMapConverter extends IdBasedTagConverter {
+public class ResultMapConverter extends AbstractIdBasedTagConverter {
 
     @NotNull
     @Override

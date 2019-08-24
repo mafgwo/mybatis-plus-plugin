@@ -22,7 +22,7 @@ public interface MybatisConst {
         new IdTypeObj(IdType.ID_WORKER_STR, "ID_WORKER_STR(字符串全局唯一ID)")
     };
 
-    DbTypeDriver[] dbTypeDriver = new DbTypeDriver[]{
+    DbTypeDriver[] DB_TYPE_DRIVERS = new DbTypeDriver[]{
         new DbTypeDriver(DbType.MYSQL, "mysql"),
         new DbTypeDriver(DbType.ORACLE, "oracle")
     };

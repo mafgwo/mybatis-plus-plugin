@@ -23,7 +23,9 @@ public class PlusMapperRefactoringProvider implements RefactoringElementListener
     @Nullable
     @Override
     public RefactoringElementListener getListener(final PsiElement element) {
-        if (!(element instanceof PsiClass)) return null;
+        if (!(element instanceof PsiClass)) {
+            return null;
+        }
         return new RefactoringElementListener() {
             @Override
             public void elementMoved(@NotNull PsiElement newElement) {

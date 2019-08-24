@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
  * @author yanglin
  * @since 2018-07-30
  */
-public class StatementNotExistsQuickFix extends GenericQuickFix {
+public class StatementNotExistsQuickFix extends AbstractGenericQuickFix {
 
     private PsiMethod method;
 

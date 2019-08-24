@@ -73,8 +73,8 @@ public final class JavaUtils {
     }
 
     @NotNull
-    public static Optional<PsiClass> findClazz(@NotNull Project project, @NotNull String clazzName) {
-        return Optional.fromNullable(JavaPsiFacade.getInstance(project).findClass(clazzName, GlobalSearchScope.allScope(project)));
+    public static java.util.Optional<PsiClass> findClazz(@NotNull Project project, @NotNull String clazzName) {
+        return java.util.Optional.ofNullable(JavaPsiFacade.getInstance(project).findClass(clazzName, GlobalSearchScope.allScope(project)));
     }
 
     @NotNull
@@ -82,7 +82,7 @@ public final class JavaUtils {
         if (StringUtils.isBlank(clazzName) && StringUtils.isBlank(methodName)) {
             return Optional.absent();
         }
-        Optional<PsiClass> clazz = findClazz(project, clazzName);
+        java.util.Optional<PsiClass> clazz = findClazz(project, clazzName);
         if (clazz.isPresent()) {
             PsiMethod[] methods = clazz.get().findMethodsByName(methodName, true);
             return ArrayUtils.isEmpty(methods) ? Optional.<PsiMethod>absent() : Optional.of(methods[0]);

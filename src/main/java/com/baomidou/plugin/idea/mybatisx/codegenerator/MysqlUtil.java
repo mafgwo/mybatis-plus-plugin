@@ -1,7 +1,5 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator;
 
-import com.baomidou.mybatisplus.annotation.DbType;
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.db.BaseDb;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.db.MysqlDb;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.db.OracleDb;
@@ -14,7 +12,7 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.dbTypeDriver;
+import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.DB_TYPE_DRIVERS;
 
 public class MysqlUtil {
 
@@ -28,12 +26,12 @@ public class MysqlUtil {
 
     public void resetDbInfo() {
         int dbType = PropertiesComponent.getInstance().getInt(MybatisConst.PLUS_DBTYPE, 0);
-        if ("mysql".equals(dbTypeDriver[dbType].getName())) {
+        if ("mysql".equals(DB_TYPE_DRIVERS[dbType].getName())) {
             baseDb = new MysqlDb();
             baseDb.setDbUrl(PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_DBURL));
             baseDb.setUsername(PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_USERNAME));
             baseDb.setPassword(PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_PASSWORD));
-        } else if ("oracle".equals(dbTypeDriver[dbType].getName())) {
+        } else if ("oracle".equals(DB_TYPE_DRIVERS[dbType].getName())) {
             baseDb = new OracleDb();
             baseDb.setDbUrl(PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_DBURL));
             baseDb.setUsername(PropertiesComponent.getInstance().getValue(MybatisConst.PLUS_USERNAME));
