@@ -10,10 +10,10 @@ public class GenConfig {
     private Long id;
 
     /** 包路径 **/
-    private String pack = "org.py.mybmodule.submodule";
+    private String pack = "org.py.mymodule.submodule";
 
     /** 模块名 **/
-    private String moduleName = "mybmodule";
+    private String moduleName = "mymodule";
 
     /** 前端文件路径 **/
     private String path;
