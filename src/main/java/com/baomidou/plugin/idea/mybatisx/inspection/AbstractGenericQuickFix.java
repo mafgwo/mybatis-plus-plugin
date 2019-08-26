@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  * @author yanglin
  * @since 2018-07-30
  */
-public abstract class GenericQuickFix implements LocalQuickFix {
+public abstract class AbstractGenericQuickFix implements LocalQuickFix {
 
     @NotNull
     @Override

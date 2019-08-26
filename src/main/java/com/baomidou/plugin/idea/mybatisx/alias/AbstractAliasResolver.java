@@ -15,11 +15,11 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public abstract class AliasResolver {
+public abstract class AbstractAliasResolver {
 
     protected Project project;
 
-    public AliasResolver(Project project) {
+    public AbstractAliasResolver(Project project) {
         this.project = project;
     }
 

@@ -1,15 +1,16 @@
 package com.baomidou.plugin.idea.mybatisx.generate;
 
+import com.baomidou.plugin.idea.mybatisx.dom.model.GroupTwo;
+import com.baomidou.plugin.idea.mybatisx.dom.model.Mapper;
+import com.baomidou.plugin.idea.mybatisx.service.PlusEditorService;
 import com.baomidou.plugin.idea.mybatisx.service.PlusJavaService;
 import com.baomidou.plugin.idea.mybatisx.setting.MybatisPlusSetting;
+import com.baomidou.plugin.idea.mybatisx.ui.ListSelectionListener;
+import com.baomidou.plugin.idea.mybatisx.ui.UiComponentFacade;
+import com.baomidou.plugin.idea.mybatisx.util.CollectionUtils;
+import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import com.google.common.base.Function;
-import com.google.common.base.Optional;
-import com.google.common.collect.Collections2;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
+import com.google.common.collect.*;
 import com.intellij.openapi.command.WriteCommandAction;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.popup.JBPopupFactory;
@@ -20,20 +21,10 @@ import com.intellij.psi.*;
 import com.intellij.psi.impl.source.PsiClassReferenceType;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.CommonProcessors.CollectProcessor;
-import com.baomidou.plugin.idea.mybatisx.dom.model.GroupTwo;
-import com.baomidou.plugin.idea.mybatisx.dom.model.Mapper;
-import com.baomidou.plugin.idea.mybatisx.service.PlusEditorService;
-import com.baomidou.plugin.idea.mybatisx.ui.ListSelectionListener;
-import com.baomidou.plugin.idea.mybatisx.ui.UiComponentFacade;
-import com.baomidou.plugin.idea.mybatisx.util.CollectionUtils;
-import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * <p>
@@ -53,24 +44,26 @@ public abstract class AbstractStatementGenerator {
 
     public static final AbstractStatementGenerator INSERT_GENERATOR = new InsertGenerator("insert", "add", "new");
 
-    public static final Set<AbstractStatementGenerator> ALL = ImmutableSet.of(UPDATE_GENERATOR, SELECT_GENERATOR, DELETE_GENERATOR, INSERT_GENERATOR);
+    private static final Set<AbstractStatementGenerator> ALL = ImmutableSet.of(UPDATE_GENERATOR, SELECT_GENERATOR, DELETE_GENERATOR, INSERT_GENERATOR);
 
     private static final Function<Mapper, String> FUN = new Function<Mapper, String>() {
         @Override
         public String apply(Mapper mapper) {
-            VirtualFile vf = mapper.getXmlTag().getContainingFile().getVirtualFile();
-            if (null == vf) return "";
+            VirtualFile vf = Objects.requireNonNull(mapper.getXmlTag()).getContainingFile().getVirtualFile();
+            if (null == vf) {
+                return "";
+            }
             return vf.getCanonicalPath();
         }
     };
 
     public static Optional<PsiClass> getSelectResultType(@Nullable PsiMethod method) {
         if (null == method) {
-            return Optional.absent();
+            return Optional.empty();
         }
         PsiType returnType = method.getReturnType();
-        if (returnType instanceof PsiPrimitiveType && returnType != PsiType.VOID) {
-            return JavaUtils.findClazz(method.getProject(), ((PsiPrimitiveType) returnType).getBoxedTypeName());
+        if (returnType instanceof PsiPrimitiveType && !PsiType.VOID.equals(returnType)) {
+            return JavaUtils.findClazz(method.getProject(), Objects.requireNonNull(((PsiPrimitiveType) returnType).getBoxedTypeName()));
         } else if (returnType instanceof PsiClassReferenceType) {
             PsiClassReferenceType type = (PsiClassReferenceType) returnType;
             if (type.hasParameters()) {
@@ -79,9 +72,9 @@ public abstract class AbstractStatementGenerator {
                     type = (PsiClassReferenceType) parameters[0];
                 }
             }
-            return Optional.fromNullable(type.resolve());
+            return Optional.ofNullable(type.resolve());
         }
-        return Optional.absent();
+        return Optional.empty();
     }
 
     private static void doGenerate(@NotNull final AbstractStatementGenerator generator, @NotNull final PsiMethod method) {
@@ -93,9 +86,14 @@ public abstract class AbstractStatementGenerator {
         }).execute();
     }
 
-    //javaMapper 生成 xmlMapper
+    /**
+     * javaMapper 生成 xmlMapper
+     * @param method 方法
+     */
     public static void applyGenerate(@Nullable final PsiMethod method) {
-        if (null == method) return;
+        if (null == method) {
+            return;
+        }
         final Project project = method.getProject();
         final AbstractStatementGenerator[] generators = getGenerators(method);
         if (1 == generators.length) {
@@ -105,7 +103,8 @@ public abstract class AbstractStatementGenerator {
                 new BaseListPopupStep("[ Statement type for method: " + method.getName() + "]", generators) {
                     @Override
                     public PopupStep onChosen(Object selectedValue, boolean finalChoice) {
-                        return this.doFinalStep(new Runnable() {
+                        PopupStep popupStep =
+                            this.doFinalStep(new Runnable() {
                             @Override
                             public void run() {
                                 WriteCommandAction.runWriteCommandAction(project, new Runnable() {
@@ -116,6 +115,7 @@ public abstract class AbstractStatementGenerator {
                                 });
                             }
                         });
+                        return popupStep;
                     }
                 }
             ).showInFocusCenter();
@@ -123,8 +123,8 @@ public abstract class AbstractStatementGenerator {
     }
 
     @NotNull
-    public static AbstractStatementGenerator[] getGenerators(@NotNull PsiMethod method) {
-        GenerateModel model = MybatisPlusSetting.getInstance().getStatementGenerateModel();
+    private static AbstractStatementGenerator[] getGenerators(@NotNull PsiMethod method) {
+        AbstractGenerateModel model = MybatisPlusSetting.getInstance().getStatementAbstractGenerateModel();
         String target = method.getName();
         List<AbstractStatementGenerator> result = Lists.newArrayList();
         for (AbstractStatementGenerator generator : ALL) {
@@ -141,10 +141,12 @@ public abstract class AbstractStatementGenerator {
         this.patterns = Sets.newHashSet(patterns);
     }
 
-    public void execute(@NotNull final PsiMethod method) {
+    private void execute(@NotNull final PsiMethod method) {
         PsiClass psiClass = method.getContainingClass();
-        if (null == psiClass) return;
-        CollectProcessor processor = new CollectProcessor();
+        if (null == psiClass) {
+            return;
+        }
+        CollectProcessor<Mapper> processor = new CollectProcessor<>();
         PlusJavaService.getInstance(method.getProject()).process(psiClass, processor);
         final List<Mapper> mappers = Lists.newArrayList(processor.getResults());
         if (1 == mappers.size()) {
@@ -161,7 +163,7 @@ public abstract class AbstractStatementGenerator {
                 public boolean isWriteAction() {
                     return true;
                 }
-            }, paths.toArray(new String[paths.size()]));
+            }, paths.toArray(new String[0]));
         }
     }
 
@@ -205,4 +207,20 @@ public abstract class AbstractStatementGenerator {
         this.patterns = patterns;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        AbstractStatementGenerator that = (AbstractStatementGenerator) o;
+        return Objects.equals(patterns, that.patterns);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(patterns);
+    }
 }

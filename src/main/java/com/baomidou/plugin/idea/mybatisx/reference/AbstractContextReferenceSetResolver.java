@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author yanglin
  */
-public abstract class ContextReferenceSetResolver<F extends PsiElement, K extends PsiElement> {
+public abstract class AbstractContextReferenceSetResolver<F extends PsiElement, K extends PsiElement> {
 
     private static final Splitter SPLITTER = Splitter.on(MybatisConstants.DOT_SEPARATOR);
 
@@ -27,7 +27,7 @@ public abstract class ContextReferenceSetResolver<F extends PsiElement, K extend
 
     protected List<String> texts;
 
-    protected ContextReferenceSetResolver(@NotNull F element) {
+    protected AbstractContextReferenceSetResolver(@NotNull F element) {
         this.element = element;
         this.project = element.getProject();
         this.texts = Lists.newArrayList(SPLITTER.split(getText()));

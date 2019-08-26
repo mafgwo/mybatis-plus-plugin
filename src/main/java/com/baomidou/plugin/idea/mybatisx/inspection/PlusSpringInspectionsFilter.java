@@ -11,14 +11,14 @@ import java.util.List;
 
 /**
  * spring自带代码检测过滤
- * @Autowire 注解忽略错误
+ * mapper使用@Autowire注解时忽略错误
  */
 public class PlusSpringInspectionsFilter implements InspectionSuppressor {
 
     List<String> suppressedList = new ArrayList<>();
 
     PlusSpringInspectionsFilter(){
-        suppressedList.add("SpringJavaInjectionPointsAutowiringInspection");
+//        suppressedList.add("SpringJavaInjectionPointsAutowiringInspection");
     }
 
     @Override

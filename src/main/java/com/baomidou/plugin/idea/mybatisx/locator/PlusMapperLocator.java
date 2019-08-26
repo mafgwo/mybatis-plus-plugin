@@ -14,7 +14,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public class PlusMapperLocator {
 
-    public static LocateStrategy dfltLocateStrategy = new PackageLocateStrategy();
+    public static AbstractLocateStrategy dfltLocateStrategy = new PackageLocateStrategy();
 
     public static PlusMapperLocator getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, PlusMapperLocator.class);

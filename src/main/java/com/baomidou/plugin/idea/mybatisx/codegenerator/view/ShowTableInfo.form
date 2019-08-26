@@ -78,7 +78,7 @@
                   </grid>
                 </constraints>
                 <properties>
-                  <text value="org.py.mybmodule.submodule"/>
+                  <text value="org.py.mymodule.submodule"/>
                 </properties>
               </component>
               <component id="9dc51" class="javax.swing.JTextField" binding="mymoduleTextField">

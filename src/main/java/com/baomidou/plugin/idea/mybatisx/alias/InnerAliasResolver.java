@@ -1,11 +1,9 @@
 package com.baomidou.plugin.idea.mybatisx.alias;
 
+import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import com.google.common.collect.ImmutableSet;
-
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
-import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -14,7 +12,7 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public class InnerAliasResolver extends AliasResolver {
+public class InnerAliasResolver extends AbstractAliasResolver {
 
     private final Set<AliasDesc> innerAliasDescs = ImmutableSet.of(
             AliasDesc.create(JavaUtils.findClazz(project, "java.lang.String").get(), "string"),

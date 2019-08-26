@@ -2,9 +2,7 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.DbTypeDriver;
-import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.IdTypeObj;
 import com.intellij.ide.util.PropertiesComponent;
-import com.intellij.openapi.ui.Messages;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -36,6 +34,7 @@ public class DBInfo extends JFrame {
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
@@ -66,7 +65,7 @@ public class DBInfo extends JFrame {
             }
         });
 
-        for (DbTypeDriver dbTypeDriver : dbTypeDriver) {
+        for (DbTypeDriver dbTypeDriver : DB_TYPE_DRIVERS) {
             jdbcDriverComboBox.addItem(dbTypeDriver.getName());
         }
         setMysqlFieldText();

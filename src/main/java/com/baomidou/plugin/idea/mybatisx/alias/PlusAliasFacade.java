@@ -26,7 +26,7 @@ public class PlusAliasFacade {
 
     private JavaPsiFacade javaPsiFacade;
 
-    private List<AliasResolver> resolvers;
+    private List<AbstractAliasResolver> resolvers;
 
     public static final PlusAliasFacade getInstance(@NotNull Project project) {
         return ServiceManager.getService(project, PlusAliasFacade.class);
@@ -57,7 +57,7 @@ public class PlusAliasFacade {
         if (null != clazz) {
             return Optional.of(clazz);
         }
-        for (AliasResolver resolver : resolvers) {
+        for (AbstractAliasResolver resolver : resolvers) {
             for (AliasDesc desc : resolver.getClassAliasDescriptions(element)) {
                 if (desc.getAlias().equals(shortName)) {
                     return Optional.of(desc.getClazz());
@@ -70,7 +70,7 @@ public class PlusAliasFacade {
     @NotNull
     public Collection<AliasDesc> getAliasDescs(@Nullable PsiElement element) {
         ArrayList<AliasDesc> result = Lists.newArrayList();
-        for (AliasResolver resolver : resolvers) {
+        for (AbstractAliasResolver resolver : resolvers) {
             result.addAll(resolver.getClassAliasDescriptions(element));
         }
         return result;
@@ -80,7 +80,7 @@ public class PlusAliasFacade {
         if (null == clazz) {
             return Optional.absent();
         }
-        for (AliasResolver resolver : resolvers) {
+        for (AbstractAliasResolver resolver : resolvers) {
             for (AliasDesc desc : resolver.getClassAliasDescriptions(clazz)) {
                 if (desc.getClazz().equals(clazz)) {
                     return Optional.of(desc);
@@ -90,7 +90,7 @@ public class PlusAliasFacade {
         return Optional.absent();
     }
 
-    public void registerResolver(@NotNull AliasResolver resolver) {
+    public void registerResolver(@NotNull AbstractAliasResolver resolver) {
         this.resolvers.add(resolver);
     }
 

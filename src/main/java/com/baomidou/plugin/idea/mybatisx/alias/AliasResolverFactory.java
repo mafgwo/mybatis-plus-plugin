@@ -10,27 +10,27 @@ import org.jetbrains.annotations.NotNull;
 public class AliasResolverFactory {
 
     @NotNull
-    public static AliasResolver createInnerAliasResolver(@NotNull Project project) {
+    public static AbstractAliasResolver createInnerAliasResolver(@NotNull Project project) {
         return new InnerAliasResolver(project);
     }
 
     @NotNull
-    public static AliasResolver createAnnotationResolver(@NotNull Project project) {
+    public static AbstractAliasResolver createAnnotationResolver(@NotNull Project project) {
         return new AnnotationAliasResolver(project);
     }
 
     @NotNull
-    public static AliasResolver createBeanResolver(@NotNull Project project) {
+    public static AbstractAliasResolver createBeanResolver(@NotNull Project project) {
         return new BeanAliasResolver(project);
     }
 
     @NotNull
-    public static AliasResolver createConfigPackageResolver(@NotNull Project project) {
+    public static AbstractAliasResolver createConfigPackageResolver(@NotNull Project project) {
         return new ConfigPackageAliasResolver(project);
     }
 
     @NotNull
-    public static AliasResolver createSingleAliasResolver(@NotNull Project project) {
+    public static AbstractAliasResolver createSingleAliasResolver(@NotNull Project project) {
         return new SingleAliasResolver(project);
     }
 }

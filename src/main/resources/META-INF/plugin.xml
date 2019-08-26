@@ -20,6 +20,7 @@
     </description>
 
     <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.modules.java</depends>
 
     <idea-version since-build="181.0"/>
     <depends optional="true">com.intellij.spring</depends>
@@ -96,8 +97,8 @@
         <!--实体类属性检测-->
 
 
-        <!-- spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中-->
-        <!--        <spring.customLocalComponentsDiscoverer implementation="com.baomidou.plugin.idea.mybatisx.inspection.PlusEntityPropInspection"/>-->
+         spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中
+                <spring.customLocalComponentsDiscoverer implementation="com.baomidou.plugin.idea.mybatisx.inspection.PlusEntityPropInspection"/>
 
 
         <!--代码检测抑制器,用于过滤一些spring自带的校验规则-->
@@ -138,18 +139,23 @@
     </actions>
 
     <change-notes><![CDATA[
-         <h4>update 2019.08.06</h4>
+         <h4>update 2019.08.04</h4>
          <ul>
+          <li> MybatisPlus-1.2.3 </li>
+          <li> 1. add generate CRUD in XXXController.java by customized controller.ftl
+          [customized files](https://github.com/kana112233/mybatis-plus-plugin/README-USE.md/)
+          </li>
+          <li> 2. delete unused jar</li>
+         </ul>
+         <h4>update 2019.08.08</h4>
+         <ul>
+          <li> MybatisPlus-1.2.2 </li>
           <li> 1. <id column="id" property="id">  property's value auto complete(support lombok @Accessors)  </li>
           <li> 2. TestMapper testMapper field reference remove error tip </li>
           <li> 3. icon change </li>
           <li> 4. auto complete table column name in SimpleMapper.xml about #{xxx}</li>
           <li> 5. add custom config about code generate</li>
          </ul>
-        <h4>update 2019.07.30</h4>
-        <ul>
-          <li> MybatisPlus-1.2.1 </li>
-        </ul>
          <h4>update 2019.07.23</h4>
         <ul>
           <li>MybatisPlus-1.1.2  Generate the correct file </li>

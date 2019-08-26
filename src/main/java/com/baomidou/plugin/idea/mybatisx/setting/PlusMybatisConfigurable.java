@@ -6,7 +6,7 @@ import com.google.common.collect.Sets;
 
 import com.intellij.openapi.options.ConfigurationException;
 import com.intellij.openapi.options.SearchableConfigurable;
-import com.baomidou.plugin.idea.mybatisx.generate.GenerateModel;
+import com.baomidou.plugin.idea.mybatisx.generate.AbstractGenerateModel;
 
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
@@ -70,7 +70,7 @@ public class PlusMybatisConfigurable implements SearchableConfigurable {
 
     @Override
     public boolean isModified() {
-        return mybatisSetting.getStatementGenerateModel().getIdentifier() != mybatisSettingForm.modelComboBox.getSelectedIndex()
+        return mybatisSetting.getStatementAbstractGenerateModel().getIdentifier() != mybatisSettingForm.modelComboBox.getSelectedIndex()
                 || !joiner.join(INSERT_GENERATOR.getPatterns()).equals(mybatisSettingForm.insertPatternTextField.getText())
                 || !joiner.join(DELETE_GENERATOR.getPatterns()).equals(mybatisSettingForm.deletePatternTextField.getText())
                 || !joiner.join(UPDATE_GENERATOR.getPatterns()).equals(mybatisSettingForm.updatePatternTextField.getText())
@@ -79,7 +79,7 @@ public class PlusMybatisConfigurable implements SearchableConfigurable {
 
     @Override
     public void apply() throws ConfigurationException {
-        mybatisSetting.setStatementGenerateModel(GenerateModel.getInstance(mybatisSettingForm.modelComboBox.getSelectedIndex()));
+        mybatisSetting.setStatementAbstractGenerateModel(AbstractGenerateModel.getInstance(mybatisSettingForm.modelComboBox.getSelectedIndex()));
         INSERT_GENERATOR.setPatterns(Sets.newHashSet(splitter.split(mybatisSettingForm.insertPatternTextField.getText())));
         DELETE_GENERATOR.setPatterns(Sets.newHashSet(splitter.split(mybatisSettingForm.deletePatternTextField.getText())));
         UPDATE_GENERATOR.setPatterns(Sets.newHashSet(splitter.split(mybatisSettingForm.updatePatternTextField.getText())));
@@ -88,7 +88,7 @@ public class PlusMybatisConfigurable implements SearchableConfigurable {
 
     @Override
     public void reset() {
-        mybatisSettingForm.modelComboBox.setSelectedIndex(mybatisSetting.getStatementGenerateModel().getIdentifier());
+        mybatisSettingForm.modelComboBox.setSelectedIndex(mybatisSetting.getStatementAbstractGenerateModel().getIdentifier());
         mybatisSettingForm.insertPatternTextField.setText(joiner.join(INSERT_GENERATOR.getPatterns()));
         mybatisSettingForm.deletePatternTextField.setText(joiner.join(DELETE_GENERATOR.getPatterns()));
         mybatisSettingForm.updatePatternTextField.setText(joiner.join(UPDATE_GENERATOR.getPatterns()));

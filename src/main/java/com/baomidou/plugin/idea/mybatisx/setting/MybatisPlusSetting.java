@@ -1,5 +1,6 @@
 package com.baomidou.plugin.idea.mybatisx.setting;
 
+import com.baomidou.plugin.idea.mybatisx.generate.AbstractGenerateModel;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -7,7 +8,6 @@ import com.intellij.openapi.components.PersistentStateComponent;
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.components.State;
 import com.intellij.openapi.components.Storage;
-import com.baomidou.plugin.idea.mybatisx.generate.GenerateModel;
 import com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenerator;
 
 import org.jdom.Element;
@@ -29,7 +29,7 @@ import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenera
         storages = @Storage(file = "$APP_CONFIG$/mybatis.xml"))
 public class MybatisPlusSetting implements PersistentStateComponent<Element> {
 
-    private GenerateModel statementGenerateModel;
+    private AbstractGenerateModel statementAbstractGenerateModel;
 
     private Gson gson = new Gson();
 
@@ -37,7 +37,7 @@ public class MybatisPlusSetting implements PersistentStateComponent<Element> {
     }.getType();
 
     public MybatisPlusSetting() {
-        statementGenerateModel = GenerateModel.START_WITH_MODEL;
+        statementAbstractGenerateModel = AbstractGenerateModel.START_WITH_MODEL;
     }
 
     public static MybatisPlusSetting getInstance() {
@@ -55,7 +55,7 @@ public class MybatisPlusSetting implements PersistentStateComponent<Element> {
         element.setAttribute(DELETE_GENERATOR.getId(), gson.toJson(DELETE_GENERATOR.getPatterns()));
         element.setAttribute(UPDATE_GENERATOR.getId(), gson.toJson(UPDATE_GENERATOR.getPatterns()));
         element.setAttribute(SELECT_GENERATOR.getId(), gson.toJson(SELECT_GENERATOR.getPatterns()));
-        element.setAttribute("statementGenerateModel", String.valueOf(statementGenerateModel.getIdentifier()));
+        element.setAttribute("statementAbstractGenerateModel", String.valueOf(statementAbstractGenerateModel.getIdentifier()));
         return element;
     }
 
@@ -69,7 +69,7 @@ public class MybatisPlusSetting implements PersistentStateComponent<Element> {
         loadState(state, DELETE_GENERATOR);
         loadState(state, UPDATE_GENERATOR);
         loadState(state, SELECT_GENERATOR);
-        statementGenerateModel = GenerateModel.getInstance(state.getAttributeValue("statementGenerateModel"));
+        statementAbstractGenerateModel = AbstractGenerateModel.getInstance(state.getAttributeValue("statementAbstractGenerateModel"));
     }
 
     private void loadState(Element state, AbstractStatementGenerator generator) {
@@ -79,11 +79,11 @@ public class MybatisPlusSetting implements PersistentStateComponent<Element> {
         }
     }
 
-    public GenerateModel getStatementGenerateModel() {
-        return statementGenerateModel;
+    public AbstractGenerateModel getStatementAbstractGenerateModel() {
+        return statementAbstractGenerateModel;
     }
 
-    public void setStatementGenerateModel(GenerateModel statementGenerateModel) {
-        this.statementGenerateModel = statementGenerateModel;
+    public void setStatementAbstractGenerateModel(AbstractGenerateModel statementAbstractGenerateModel) {
+        this.statementAbstractGenerateModel = statementAbstractGenerateModel;
     }
 }

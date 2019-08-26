@@ -36,15 +36,15 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeValue> implements CustomReferenceConverter<XmlAttributeValue> {
+public abstract class AbstractIdBasedTagConverter extends AbstractConverterAdaptor<XmlAttributeValue> implements CustomReferenceConverter<XmlAttributeValue> {
 
     private final boolean crossMapperSupported;
 
-    public IdBasedTagConverter() {
+    public AbstractIdBasedTagConverter() {
         this(true);
     }
 
-    protected IdBasedTagConverter(boolean crossMapperSupported) {
+    protected AbstractIdBasedTagConverter(boolean crossMapperSupported) {
         this.crossMapperSupported = crossMapperSupported;
     }
 
@@ -77,7 +77,7 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
         return MapperUtils.getIdSignature((IdDomElement) domElement, contextMapper);
     }
 
-    private TraverseStrategy selectStrategy(ConvertContext context) {
+    private AbstractTraverseStrategy selectStrategy(ConvertContext context) {
         return crossMapperSupported ? new CrossMapperStrategy(context) : new InsideMapperStrategy(context);
     }
 
@@ -88,17 +88,17 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
     @NotNull
     public abstract Collection<? extends IdDomElement> getComparisons(@Nullable Mapper mapper, ConvertContext context);
 
-    private abstract class TraverseStrategy {
+    private abstract class AbstractTraverseStrategy {
         protected ConvertContext context;
 
-        public TraverseStrategy(@NotNull ConvertContext context) {
+        public AbstractTraverseStrategy(@NotNull ConvertContext context) {
             this.context = context;
         }
 
         public abstract Collection<? extends IdDomElement> getValue();
     }
 
-    private class InsideMapperStrategy extends TraverseStrategy {
+    private class InsideMapperStrategy extends AbstractTraverseStrategy {
 
         public InsideMapperStrategy(@NotNull ConvertContext context) {
             super(context);
@@ -111,7 +111,7 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
 
     }
 
-    private class CrossMapperStrategy extends TraverseStrategy {
+    private class CrossMapperStrategy extends AbstractTraverseStrategy {
 
         public CrossMapperStrategy(@NotNull ConvertContext context) {
             super(context);
@@ -185,7 +185,7 @@ public abstract class IdBasedTagConverter extends ConverterAdaptor<XmlAttributeV
         @Nullable
         @Override
         public PsiElement resolve() {
-            return IdBasedTagConverter.this.fromString(text, context);
+            return AbstractIdBasedTagConverter.this.fromString(text, context);
         }
 
         @NotNull

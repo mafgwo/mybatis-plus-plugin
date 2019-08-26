@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public abstract class LocateStrategy {
+public abstract class AbstractLocateStrategy {
 
     public abstract boolean apply(@NotNull PsiClass clazz);
 

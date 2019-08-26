@@ -13,7 +13,7 @@ import java.util.Collections;
 /**
  * @author yanglin
  */
-public abstract class ConverterAdaptor<T> extends ResolvingConverter<T> {
+public abstract class AbstractConverterAdaptor<T> extends ResolvingConverter<T> {
 
     @NotNull
     @Override
