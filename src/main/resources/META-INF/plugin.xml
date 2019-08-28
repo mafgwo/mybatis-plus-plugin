@@ -139,7 +139,7 @@
     </actions>
 
     <change-notes><![CDATA[
-         <h4>update 2019.08.04</h4>
+         <h4>update 2019.08.28</h4>
          <ul>
           <li> MybatisPlus-1.2.3 </li>
           <li> 1. add generate CRUD in XXXController.java by customized controller.ftl
