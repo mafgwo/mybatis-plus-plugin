@@ -97,7 +97,7 @@
         <!--实体类属性检测-->
 
 
-         spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中
+<!--         spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中-->
                 <spring.customLocalComponentsDiscoverer implementation="com.baomidou.plugin.idea.mybatisx.inspection.PlusEntityPropInspection"/>
 
 
