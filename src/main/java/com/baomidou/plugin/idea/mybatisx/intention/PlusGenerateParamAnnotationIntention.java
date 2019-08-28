@@ -15,7 +15,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public class PlusGenerateParamAnnotationIntention extends GenericIntention {
+public class PlusGenerateParamAnnotationIntention extends AbstractGenericIntention {
 
     public PlusGenerateParamAnnotationIntention() {
         super(GenerateParamChooser.INSTANCE);

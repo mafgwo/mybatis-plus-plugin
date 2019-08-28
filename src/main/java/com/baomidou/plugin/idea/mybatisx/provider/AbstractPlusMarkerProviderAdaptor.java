@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @author yanglin
  */
-public abstract class PlusMarkerProviderAdaptor implements LineMarkerProvider {
+public abstract class AbstractPlusMarkerProviderAdaptor implements LineMarkerProvider {
 
     @Override
     public void collectSlowLineMarkers(@NotNull List<PsiElement> elements, @NotNull Collection<LineMarkerInfo> result) {

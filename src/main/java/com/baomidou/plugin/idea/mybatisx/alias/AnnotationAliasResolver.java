@@ -23,13 +23,15 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public class AnnotationAliasResolver extends AliasResolver {
+public class AnnotationAliasResolver extends AbstractAliasResolver {
 
     private static final Function FUN = new Function<PsiClass, AliasDesc>() {
         @Override
         public AliasDesc apply(PsiClass psiClass) {
             Optional<String> txt = JavaUtils.getAnnotationValueText(psiClass, Annotation.ALIAS);
-            if (!txt.isPresent()) return null;
+            if (!txt.isPresent()) {
+                return null;
+            }
             AliasDesc ad = new AliasDesc();
             ad.setAlias(txt.get());
             ad.setClazz(psiClass);

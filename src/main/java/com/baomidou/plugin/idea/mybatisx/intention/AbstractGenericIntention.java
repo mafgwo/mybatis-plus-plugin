@@ -10,11 +10,11 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public abstract class GenericIntention implements IntentionAction {
+public abstract class AbstractGenericIntention implements IntentionAction {
 
     protected IntentionChooser chooser;
 
-    public GenericIntention(@NotNull IntentionChooser chooser) {
+    public AbstractGenericIntention(@NotNull IntentionChooser chooser) {
         this.chooser = chooser;
     }
 

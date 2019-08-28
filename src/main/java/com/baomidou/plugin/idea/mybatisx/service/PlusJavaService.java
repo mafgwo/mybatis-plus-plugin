@@ -53,7 +53,9 @@ public class PlusJavaService {
     @SuppressWarnings("unchecked")
     public void process(@NotNull PsiMethod psiMethod, @NotNull Processor<IdDomElement> processor) {
         PsiClass psiClass = psiMethod.getContainingClass();
-        if (null == psiClass) return;
+        if (null == psiClass) {
+            return;
+        }
         String id = psiClass.getQualifiedName() + "." + psiMethod.getName();
         for (Mapper mapper : MapperUtils.findMappers(psiMethod.getProject())) {
             for (IdDomElement idDomElement : mapper.getDaoElements()) {
@@ -92,7 +94,7 @@ public class PlusJavaService {
 
     public void importClazz(PsiJavaFile file, String clazzName) {
         if (!JavaUtils.hasImportClazz(file, clazzName)) {
-            Optional<PsiClass> clazz = JavaUtils.findClazz(project, clazzName);
+            java.util.Optional<PsiClass> clazz = JavaUtils.findClazz(project, clazzName);
             PsiImportList importList = file.getImportList();
             if (clazz.isPresent() && null != importList) {
                 PsiElementFactory elementFactory = javaPsiFacade.getElementFactory();

@@ -21,7 +21,7 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public class MapperXmlPackageProvider extends PackageProvider {
+public class MapperXmlPackageProvider extends AbstractPackageProvider {
 
     @NotNull
     @Override

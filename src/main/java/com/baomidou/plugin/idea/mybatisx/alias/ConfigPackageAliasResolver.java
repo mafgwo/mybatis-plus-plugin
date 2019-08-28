@@ -17,7 +17,7 @@ import java.util.Collection;
 /**
  * @author yanglin
  */
-public class ConfigPackageAliasResolver extends PackageAliasResolver {
+public class ConfigPackageAliasResolver extends AbstractPackageAliasResolver {
 
     public ConfigPackageAliasResolver(Project project) {
         super(project);

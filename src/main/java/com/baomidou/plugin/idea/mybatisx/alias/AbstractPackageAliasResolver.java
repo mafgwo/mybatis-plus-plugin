@@ -17,11 +17,11 @@ import java.util.Set;
 /**
  * @author yanglin
  */
-public abstract class PackageAliasResolver extends AliasResolver {
+public abstract class AbstractPackageAliasResolver extends AbstractAliasResolver {
 
     private JavaPsiFacade javaPsiFacade;
 
-    public PackageAliasResolver(Project project) {
+    public AbstractPackageAliasResolver(Project project) {
         super(project);
         this.javaPsiFacade = JavaPsiFacade.getInstance(project);
     }

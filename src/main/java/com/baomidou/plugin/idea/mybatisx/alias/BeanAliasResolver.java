@@ -1,8 +1,7 @@
 package com.baomidou.plugin.idea.mybatisx.alias;
 
-import com.google.common.base.Optional;
+import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import com.google.common.collect.Sets;
-
 import com.intellij.openapi.module.Module;
 import com.intellij.openapi.module.ModuleManager;
 import com.intellij.openapi.project.Project;
@@ -13,18 +12,17 @@ import com.intellij.spring.SpringManager;
 import com.intellij.spring.model.SpringBeanPointer;
 import com.intellij.spring.model.utils.SpringPropertyUtils;
 import com.intellij.spring.model.xml.beans.SpringPropertyDefinition;
-
-import com.baomidou.plugin.idea.mybatisx.util.JavaUtils;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 /**
  * @author yanglin
  */
-public class BeanAliasResolver extends PackageAliasResolver {
+public class BeanAliasResolver extends AbstractPackageAliasResolver {
 
     private static final String MAPPER_ALIAS_PACKAGE_CLASS = "org.mybatis.spring.SqlSessionFactoryBean";
     private static final String MAPPER_ALIAS_PROPERTY = "typeAliasesPackage";
@@ -50,7 +48,7 @@ public class BeanAliasResolver extends PackageAliasResolver {
     }
 
     private void addPackages(Set<String> res, CommonSpringModel springModel) {
-        Optional sqlSessionFactoryClazzOpt = JavaUtils.findClazz(project, MAPPER_ALIAS_PACKAGE_CLASS);
+        Optional<PsiClass> sqlSessionFactoryClazzOpt = JavaUtils.findClazz(project, MAPPER_ALIAS_PACKAGE_CLASS);
         if (sqlSessionFactoryClazzOpt.isPresent()) {
             Collection domBeans = springModel.getAllDomBeans();
             PsiClass sqlSessionFactoryClazz = (PsiClass) sqlSessionFactoryClazzOpt.get();

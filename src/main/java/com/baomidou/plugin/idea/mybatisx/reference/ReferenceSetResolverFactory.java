@@ -13,8 +13,8 @@ public final class ReferenceSetResolverFactory {
         throw new UnsupportedOperationException();
     }
 
-    public static <F extends XmlAttributeValue> ContextReferenceSetResolver createPsiFieldResolver(@NotNull F target) {
-        return new PsiFieldReferenceSetResolver(target);
+    public static <F extends XmlAttributeValue> AbstractContextReferenceSetResolver createPsiFieldResolver(@NotNull F target) {
+        return new PsiFieldReferenceSetResolverAbstract(target);
     }
 
 }

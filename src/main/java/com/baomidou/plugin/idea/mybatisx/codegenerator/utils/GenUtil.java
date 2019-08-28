@@ -1,9 +1,9 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator.utils;
 
-import cn.hutool.core.io.FileUtil;
-import cn.hutool.core.util.StrUtil;
+
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
@@ -14,21 +14,16 @@ import com.baomidou.plugin.idea.mybatisx.codegenerator.MyFreemarkerTemplateEngin
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
-import freemarker.template.Configuration;
-import freemarker.template.Template;
-import freemarker.template.TemplateException;
 
-import java.io.*;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.File;
+import java.util.*;
 
-import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.*;
+import static com.baomidou.mybatisplus.generator.config.rules.NamingStrategy.capitalFirst;
+import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.IDTYPES;
 
 /**
  * 代码生成
+ * // todo 生成Result类
  */
 public class GenUtil {
 
@@ -42,7 +37,6 @@ public class GenUtil {
 
     /**
      * 获取后端代码模板名称
-     *
      * @return
      */
     public static List<String> getAdminTemplateNames() {
@@ -112,7 +106,7 @@ public class GenUtil {
         // 实体属性 Swagger2 注解
         gc.setSwagger2(genConfig.isSwagger());
         // 设置基础resultMap
-        gc.setBaseResultMap(genConfig.isResultmap());
+        gc.setBaseResultMap(genConfig.isResultMap());
         // 是否在xml中添加二级缓存配置
         gc.setEnableCache(genConfig.isEnableCache());
 //        时间类型对应策略
@@ -151,12 +145,14 @@ public class GenUtil {
         InjectionConfig cfg = new InjectionConfig() {
             @Override
             public void initMap() {
-                // to do nothing
+                // 生成自定义的Map obj.Result
+                Map<String, Object> map = new HashMap<>();
+                map.put("obj", pc.getParent()+".obj");
+                String idType  = "String";
+                map.put("camelTableName", underlineToCamel(tableName));
+                setMap(map);
             }
         };
-
-        // 1 从用户读取自定义模板文件
-        //
 
         // 如果模板引擎是 freemarker
 //        String templatePath = "/templates/mapper.xml.ftl";
@@ -205,7 +201,7 @@ public class GenUtil {
         // entity 是否使用lombok
         strategy.setEntityLombokModel(genConfig.isLombok());
         // 是否使用restController
-        strategy.setRestControllerStyle(genConfig.isRestcontroller());
+        strategy.setRestControllerStyle(genConfig.isRestController());
         // 公共父类
 //        strategy.setSuperControllerClass("com.baomidou.ant.common.BaseController");
         // 写于父类中的公共字段
@@ -229,200 +225,32 @@ public class GenUtil {
         mpg.execute();
     }
 
-    /**
-     * 生成代码
-     *
-     * @param columnInfos 表元数据
-     * @param genConfig   生成代码的参数配置，如包路径，作者
-     */
-    public static void generatorCode123(String tableName, List<ColumnInfo> columnInfos, GenConfig genConfig) throws IOException {
-        Map<String, Object> map = new HashMap();
-        map.put("package", genConfig.getPack());
-        map.put("moduleName", genConfig.getModuleName());
-        map.put("author", genConfig.getAuthor());
-        map.put("date", LocalDate.now().toString());
-        map.put("tableName", tableName);
-        String className = MyStringUtils.toCapitalizeCamelCase(tableName);
-        String changeClassName = MyStringUtils.toCamelCase(tableName);
-
-        // 判断是否去除表前缀
-        if (MyStringUtils.isNotEmpty(genConfig.getPrefix())) {
-            className = MyStringUtils.toCapitalizeCamelCase(StrUtil.removePrefix(tableName, genConfig.getPrefix()));
-            changeClassName = MyStringUtils.toCamelCase(StrUtil.removePrefix(tableName, genConfig.getPrefix()));
+    public static String underlineToCamel(String name) {
+        // 快速检查
+        if (StringUtils.isEmpty(name)) {
+            // 没必要转换
+            return StringPool.EMPTY;
         }
-        map.put("className", className);
-        map.put("upperCaseClassName", className.toUpperCase());
-        map.put("changeClassName", changeClassName);
-        map.put("hasTimestamp", false);
-        map.put("hasBigDecimal", false);
-        map.put("hasQuery", false);
-        map.put("auto", false);
-
-        List<Map<String, Object>> columns = new ArrayList<>();
-        List<Map<String, Object>> queryColumns = new ArrayList<>();
-        for (ColumnInfo column : columnInfos) {
-            Map<String, Object> listMap = new HashMap();
-            listMap.put("columnComment", column.getColumnComment());
-            listMap.put("columnKey", column.getColumnKey());
-
-            String colType = ColUtil.columnToJava(column.getColumnType().toString());
-            String changeColumnName = MyStringUtils.toCamelCase(column.getColumnName().toString());
-            String capitalColumnName = MyStringUtils.toCapitalizeCamelCase(column.getColumnName().toString());
-            if (PK.equals(column.getColumnKey())) {
-                map.put("pkColumnType", colType);
-                map.put("pkChangeColName", changeColumnName);
-                map.put("pkCapitalColName", capitalColumnName);
-            }
-            if (TIMESTAMP.equals(colType)) {
-                map.put("hasTimestamp", true);
-            }
-            if (BIGDECIMAL.equals(colType)) {
-                map.put("hasBigDecimal", true);
-            }
-            if (EXTRA.equals(column.getExtra())) {
-                map.put("auto", true);
-            }
-            listMap.put("columnType", colType);
-            listMap.put("columnName", column.getColumnName());
-            listMap.put("isNullable", column.getIsNullable());
-            listMap.put("columnShow", column.getColumnShow());
-            listMap.put("changeColumnName", changeColumnName);
-            listMap.put("capitalColumnName", capitalColumnName);
-
-            // 判断是否有查询，如有则把查询的字段set进columnQuery
-            if (!MyStringUtils.isBlank(column.getColumnQuery())) {
-                listMap.put("columnQuery", column.getColumnQuery());
-                map.put("hasQuery", true);
-                queryColumns.add(listMap);
-            }
-            columns.add(listMap);
+        String tempName = name;
+        // 大写数字下划线组成转为小写 , 允许混合模式转为小写
+        if (StringUtils.isCapitalMode(name) || StringUtils.isMixedMode(name)) {
+            tempName = name.toLowerCase();
         }
-        map.put("columns", columns);
-        map.put("queryColumns", queryColumns);
-//        TemplateEngine engine = TemplateUtil.createEngine(new TemplateConfig("template", TemplateConfig.ResourceMode.CLASSPATH));
-
-        Configuration configuration = new Configuration();
-        configuration.setClassLoaderForTemplateLoading(configuration.getClass().getClassLoader(), "template");
-        // 生成后端代码
-        List<String> templates = getAdminTemplateNames();
-        for (String templateName : templates) {
-
-            Template template = configuration.getTemplate("generator/admin/" + templateName + ".ftl");
-
-
-            String filePath = getAdminFilePath(templateName, genConfig, className);
-
-            File file = new File(filePath);
-
-            // 如果非覆盖生成
-            if (!genConfig.isCover() && FileUtil.exist(file)) {
-                continue;
+        StringBuilder result = new StringBuilder();
+        // 用下划线将原始字符串分割
+        String[] camels = tempName.split(ConstVal.UNDERLINE);
+        // 跳过原始字符串中开头、结尾的下换线或双重下划线
+        // 处理真正的驼峰片段
+        Arrays.stream(camels).filter(camel -> !StringUtils.isEmpty(camel)).forEach(camel -> {
+            if (result.length() == 0) {
+                // 第一个驼峰片段，全部字母都小写
+                result.append(camel);
+            } else {
+                // 其他的驼峰片段，首字母大写
+                result.append(capitalFirst(camel));
             }
-            // 生成代码
-            genFile(file, template, map);
-        }
-
-        // 生成前端代码
-        templates = getFrontTemplateNames();
-        for (String templateName : templates) {
-//            Template template = engine.getTemplate("generator/front/"+templateName+".ftl");
-            String filePath = getFrontFilePath(templateName, genConfig, map.get("changeClassName").toString());
-            Template template = configuration.getTemplate("generator/front/" + templateName + ".ftl");
-
-            File file = new File(filePath);
-
-            // 如果非覆盖生成
-            if (!genConfig.isCover() && FileUtil.exist(file)) {
-                continue;
-            }
-            // 生成代码
-            genFile(file, template, map);
-        }
+        });
+        return result.toString();
     }
 
-
-    /**
-     * 定义后端文件路径以及名称
-     */
-    public static String getAdminFilePath(String templateName, GenConfig genConfig, String className) {
-        String projectPath = genConfig.getRootFolder() + File.separator + genConfig.getModuleName();
-
-        String packagePath = projectPath + File.separator + "src" + File.separator + "main" + File.separator + "java" + File.separator;
-
-//        genConfig.setPath(packagePath);
-
-        if (!MyStringUtils.isEmpty(genConfig.getPack())) {
-            packagePath += genConfig.getPack().replace(".", File.separator) + File.separator;
-        }
-
-        if ("Entity".equals(templateName)) {
-            return packagePath + "domain" + File.separator + className + ".java";
-        }
-
-        if ("Controller".equals(templateName)) {
-            return packagePath + "rest" + File.separator + className + "Controller.java";
-        }
-
-        if ("Service".equals(templateName)) {
-            return packagePath + "service" + File.separator + className + "Service.java";
-        }
-
-        if ("ServiceImpl".equals(templateName)) {
-            return packagePath + "service" + File.separator + "impl" + File.separator + className + "ServiceImpl.java";
-        }
-
-        if ("Dto".equals(templateName)) {
-            return packagePath + "service" + File.separator + "dto" + File.separator + className + "DTO.java";
-        }
-
-        if ("QueryCriteria".equals(templateName)) {
-            return packagePath + "service" + File.separator + "dto" + File.separator + className + "QueryCriteria.java";
-        }
-
-        if ("Mapper".equals(templateName)) {
-            return packagePath + "service" + File.separator + "mapper" + File.separator + className + "Mapper.java";
-        }
-
-        if ("Repository".equals(templateName)) {
-            return packagePath + "repository" + File.separator + className + "Repository.java";
-        }
-
-        return null;
-    }
-
-    /**
-     * 定义前端文件路径以及名称
-     */
-    public static String getFrontFilePath(String templateName, GenConfig genConfig, String apiName) {
-        String path = MyStringUtils.isEmpty(genConfig.getPath()) ? genConfig.getApiPath() : genConfig.getPath();
-
-        if ("api".equals(templateName)) {
-            return genConfig.getApiPath() + File.separator + apiName + ".js";
-        }
-
-        if ("index".equals(templateName)) {
-            return path + File.separator + "index.vue";
-        }
-
-        if ("eForm".equals(templateName)) {
-            return path + File.separator + File.separator + "form.vue";
-        }
-        return null;
-    }
-
-    public static void genFile(File file, Template template, Map<String, Object> map) throws IOException {
-        // 生成目标文件
-        Writer writer = null;
-        try {
-            FileUtil.touch(file);
-            writer = new FileWriter(file);
-            template.process(map, writer);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        } catch (TemplateException e) {
-            e.printStackTrace();
-        } finally {
-            writer.close();
-        }
-    }
 }

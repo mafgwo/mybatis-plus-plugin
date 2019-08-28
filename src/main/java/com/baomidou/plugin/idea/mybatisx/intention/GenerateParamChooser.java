@@ -12,9 +12,9 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public class GenerateParamChooser extends JavaFileIntentionChooser {
+public class GenerateParamChooser extends AbstractJavaFileIntentionChooser {
 
-    public static final JavaFileIntentionChooser INSTANCE = new GenerateParamChooser();
+    public static final AbstractJavaFileIntentionChooser INSTANCE = new GenerateParamChooser();
 
     @Override
     public boolean isAvailable(@NotNull PsiElement element) {

@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public abstract class JavaFileIntentionChooser implements IntentionChooser {
+public abstract class AbstractJavaFileIntentionChooser implements IntentionChooser {
 
     @Override
     public boolean isAvailable(@NotNull Project project, Editor editor, PsiFile file) {

@@ -18,7 +18,13 @@ import java.util.Map;
  * 只能读取外部的文件，要提供全部文件，不然不能找到
  */
 public class MyFreemarkerTemplateEngine extends AbstractTemplateEngine {
+    /**
+     * 从用户读取自定义模板文件
+     */
     private Configuration configurationOut;
+    /**
+     * 读取系统的模板文件
+     */
     private Configuration configurationSelf;
 
     private String projectPath;

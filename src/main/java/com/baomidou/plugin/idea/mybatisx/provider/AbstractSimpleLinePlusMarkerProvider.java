@@ -22,7 +22,7 @@ import javax.swing.*;
 /**
  * @author yanglin
  */
-public abstract class SimpleLinePlusMarkerProvider<F extends PsiElement, T> extends PlusMarkerProviderAdaptor {
+public abstract class AbstractSimpleLinePlusMarkerProvider<F extends PsiElement, T> extends AbstractPlusMarkerProviderAdaptor {
 
     @Override
     public void collectSlowLineMarkers(@NotNull List<PsiElement> elements, @NotNull Collection<LineMarkerInfo> result) {
@@ -32,7 +32,9 @@ public abstract class SimpleLinePlusMarkerProvider<F extends PsiElement, T> exte
     @Nullable
     @Override
     public LineMarkerInfo getLineMarkerInfo(@NotNull PsiElement element) {
-        if (!isTheElement(element)) return null;
+        if (!isTheElement(element)) {
+            return null;
+        }
 
         Optional<T> processResult = apply((F) element);
         return processResult.isPresent() ? new LineMarkerInfo<F>(

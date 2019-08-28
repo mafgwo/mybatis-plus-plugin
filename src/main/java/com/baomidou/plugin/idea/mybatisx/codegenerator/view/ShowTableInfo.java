@@ -8,6 +8,7 @@ import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.GenUtil;
 import com.google.gson.Gson;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.ui.JBColor;
 
 import javax.swing.*;
 import javax.swing.table.*;
@@ -24,13 +25,11 @@ public class ShowTableInfo extends JFrame {
     private JButton showColumn;
     private JButton codeGenerator;
     private JTable tableInfo;
-    //    private JTextField frontPathTextField;
     private JTextField authorTextField;
     private JTextField mymoduleTextField;
     private JTextField myPackTextField;
     private JCheckBox isOver;
     private JLabel myModule;
-    //    private JTextField apiPathTextField;
     private JButton saveButton;
     private JTextField entityTextField;
     private JTextField mapperTextField;
@@ -43,10 +42,8 @@ public class ShowTableInfo extends JFrame {
     private JCheckBox isFillCheckBox;
     private JComboBox idTypecomboBox;
     private JCheckBox swaggerCheckBox;
-//    private JTextField templatesTextField;
     private JCheckBox isEnableCacheCheckBox;
     private JCheckBox isBaseColumnCheckBox;
-    private JButton button1;
     List<TableInfo> tableInfoList = null;
     private String projectFilePath;
 
@@ -78,8 +75,8 @@ public class ShowTableInfo extends JFrame {
         // 表格所有行数据
         Object[][] rowData = new Object[tableInfoList.size()][];
 
-        for (int i = 0; i < tableInfoList.size(); i++) {//循环遍历所有行
-            TableInfo tableInfo = tableInfoList.get(i);//每行的列数
+        for (int i = 0; i < tableInfoList.size(); i++) {
+            TableInfo tableInfo = tableInfoList.get(i);
             String[] tableInfoArr = {
                 tableInfo.getTableName(),
                 tableInfo.getCreateTime(),
@@ -94,17 +91,26 @@ public class ShowTableInfo extends JFrame {
         DefaultTableModel tableModel = new DefaultTableModel(rowData, columnNames);
 
         // 设置表格内容颜色
-        tableInfo.setForeground(Color.BLACK);                   // 字体颜色
-        tableInfo.setFont(new Font(null, Font.PLAIN, 14));      // 字体样式
-        tableInfo.setSelectionForeground(Color.DARK_GRAY);      // 选中后字体颜色
-        tableInfo.setSelectionBackground(Color.LIGHT_GRAY);     // 选中后字体背景
-        tableInfo.setGridColor(Color.GRAY);                     // 网格颜色
+        // 字体颜色
+        tableInfo.setForeground(JBColor.BLACK);
+        // 字体样式
+        tableInfo.setFont(new Font(null, Font.PLAIN, 14));
+        // 选中后字体颜色
+        tableInfo.setSelectionForeground(JBColor.DARK_GRAY);
+        // 选中后字体背景
+        tableInfo.setSelectionBackground(JBColor.LIGHT_GRAY);
+        // 网格颜色
+        tableInfo.setGridColor(JBColor.GRAY);
 
         // 设置表头
-        tableInfo.getTableHeader().setFont(new Font(null, Font.BOLD, 14));  // 设置表头名称字体样式
-        tableInfo.getTableHeader().setForeground(Color.RED);                // 设置表头名称字体颜色
-        tableInfo.getTableHeader().setResizingAllowed(false);               // 设置不允许手动改变列宽
-        tableInfo.getTableHeader().setReorderingAllowed(false);             // 设置不允许拖动重新排序各列
+        // 设置表头名称字体样式
+        tableInfo.getTableHeader().setFont(new Font(null, Font.BOLD, 14));
+        // 设置表头名称字体颜色
+        tableInfo.getTableHeader().setForeground(JBColor.RED);
+        // 设置不允许手动改变列宽
+        tableInfo.getTableHeader().setResizingAllowed(false);
+        // 设置不允许拖动重新排序各列
+        tableInfo.getTableHeader().setReorderingAllowed(false);
 
         // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
         tableInfo.setPreferredScrollableViewportSize(new Dimension(600, 300));
@@ -147,7 +153,6 @@ public class ShowTableInfo extends JFrame {
                 }
                 for (int selectedRow : selectedRows) {
                     String tableName = (String) ShowTableInfo.this.tableInfo.getValueAt(selectedRow, 0);
-//                    List<ColumnInfo> columnInfoList = MysqlUtil.getInstance().getColumns(tableName);
                     DoCodeGenerator(tableName, genConfig);
                 }
                 Messages.showInfoMessage("generator successful！", "Mybatis Plus");
@@ -170,12 +175,10 @@ public class ShowTableInfo extends JFrame {
     }
 
     public void DoCodeGenerator(String tableName, GenConfig genConfig) {
-        //
         // 获取数据库 读取数据库信息
         //  配置生成的位置
         //  修改ftl文件
         GenUtil.generatorCode(tableName, genConfig);
-
     }
 
     private void setMysqlFieldText() {
@@ -199,13 +202,12 @@ public class ShowTableInfo extends JFrame {
         isOver.setSelected(genConfig.isCover());
         lombokCheckBox.setSelected(genConfig.isLombok());
         swaggerCheckBox.setSelected(genConfig.isSwagger());
-        restControllerCheckBox.setSelected(genConfig.isRestcontroller());
-        resultMapCheckBox.setSelected(genConfig.isResultmap());
+        restControllerCheckBox.setSelected(genConfig.isRestController());
+        resultMapCheckBox.setSelected(genConfig.isResultMap());
         isFillCheckBox.setSelected(genConfig.isFill());
         isEnableCacheCheckBox.setSelected(genConfig.isEnableCache());
         isBaseColumnCheckBox.setSelected(genConfig.isBaseColumnList());
 
-//        templatesTextField.setText(genConfig.getTemplatePath());
         entityTextField.setText(genConfig.getEntityName());
         mapperTextField.setText(genConfig.getMapperName());
         controllerTextField.setText(genConfig.getControllerName());
@@ -227,13 +229,12 @@ public class ShowTableInfo extends JFrame {
 
         genConfig.setLombok(lombokCheckBox.isSelected());
         genConfig.setSwagger(swaggerCheckBox.isSelected());
-        genConfig.setRestcontroller(restControllerCheckBox.isSelected());
-        genConfig.setResultmap(resultMapCheckBox.isSelected());
+        genConfig.setRestController(restControllerCheckBox.isSelected());
+        genConfig.setResultMap(resultMapCheckBox.isSelected());
         genConfig.setFill(isFillCheckBox.isSelected());
         genConfig.setEnableCache(isEnableCacheCheckBox.isSelected());
         genConfig.setBaseColumnList(isBaseColumnCheckBox.isSelected());
 
-//        genConfig.setTemplatePath(templatesTextField.getText());
         genConfig.setEntityName(entityTextField.getText());
         genConfig.setMapperName(mapperTextField.getText());
         genConfig.setControllerName(controllerTextField.getText());
@@ -262,6 +263,5 @@ public class ShowTableInfo extends JFrame {
         dialog.setVisible(true);
         dialog.setLocationRelativeTo(null);
         dialog.setSize(800, 600);
-//        System.exit(0);
     }
 }

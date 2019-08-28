@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
  * @author yanglin
  * @since 2018-07-30
  */
-public class ResultTypeQuickFix extends GenericQuickFix {
+public class ResultTypeQuickFix extends AbstractGenericQuickFix {
 
     private Select select;
     private PsiClass target;

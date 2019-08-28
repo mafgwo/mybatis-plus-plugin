@@ -97,7 +97,7 @@
         <!--实体类属性检测-->
 
 
-         spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中
+<!--         spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中-->
                 <spring.customLocalComponentsDiscoverer implementation="com.baomidou.plugin.idea.mybatisx.inspection.PlusEntityPropInspection"/>
 
 
@@ -139,6 +139,14 @@
     </actions>
 
     <change-notes><![CDATA[
+         <h4>update 2019.08.28</h4>
+         <ul>
+          <li> MybatisPlus-1.2.3 </li>
+          <li> 1. add generate CRUD in XXXController.java by customized controller.ftl<br>
+          [manual](https://github.com/kana112233/mybatis-plus-plugin README-USE.md)
+          </li>
+          <li> 2. delete unused jar</li>
+         </ul>
          <h4>update 2019.08.08</h4>
          <ul>
           <li> MybatisPlus-1.2.2 </li>

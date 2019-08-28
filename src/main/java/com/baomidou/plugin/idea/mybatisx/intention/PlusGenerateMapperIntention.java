@@ -35,7 +35,7 @@ import java.util.*;
 /**
  * @author yanglin
  */
-public class PlusGenerateMapperIntention extends GenericIntention {
+public class PlusGenerateMapperIntention extends AbstractGenericIntention {
 
     public PlusGenerateMapperIntention() {
         super(GenerateMapperChooser.INSTANCE);

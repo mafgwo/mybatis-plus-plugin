@@ -10,9 +10,9 @@ import org.jetbrains.annotations.NotNull;
 /**
  * @author yanglin
  */
-public class PackageLocateStrategy extends LocateStrategy {
+public class PackageLocateStrategy extends AbstractLocateStrategy {
 
-    private PackageProvider provider = new MapperXmlPackageProvider();
+    private AbstractPackageProvider provider = new MapperXmlPackageProvider();
 
     @Override
     public boolean apply(@NotNull PsiClass clazz) {

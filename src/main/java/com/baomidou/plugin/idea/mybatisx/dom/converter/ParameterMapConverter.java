@@ -12,7 +12,7 @@ import java.util.Collection;
 /**
  * @author yanglin
  */
-public class ParameterMapConverter extends IdBasedTagConverter {
+public class ParameterMapConverter extends AbstractIdBasedTagConverter {
 
     @NotNull
     @Override
