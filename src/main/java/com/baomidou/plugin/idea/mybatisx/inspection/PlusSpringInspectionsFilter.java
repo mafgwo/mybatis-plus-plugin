@@ -18,7 +18,7 @@ public class PlusSpringInspectionsFilter implements InspectionSuppressor {
     List<String> suppressedList = new ArrayList<>();
 
     PlusSpringInspectionsFilter(){
-//        suppressedList.add("SpringJavaInjectionPointsAutowiringInspection");
+        suppressedList.add("SpringJavaInjectionPointsAutowiringInspection");
     }
 
     @Override
