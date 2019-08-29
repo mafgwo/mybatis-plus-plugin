@@ -37,6 +37,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.ui.JBColor;
 
+
 public class ShowTableInfo extends JFrame {
     private JPanel contentPane;
     private JButton showColumn;
@@ -62,7 +63,14 @@ public class ShowTableInfo extends JFrame {
     private JCheckBox isEnableCacheCheckBox;
     private JCheckBox isBaseColumnCheckBox;
     List<TableInfo> tableInfoList = null;
-    private String projectFilePath;
+    private String project
+    
+    
+    
+    
+    
+    
+    Path;
 
     public ShowTableInfo(String projectFilePath) {
         this.projectFilePath = projectFilePath;
