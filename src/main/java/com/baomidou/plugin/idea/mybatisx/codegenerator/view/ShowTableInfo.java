@@ -63,14 +63,7 @@ public class ShowTableInfo extends JFrame {
     private JCheckBox isEnableCacheCheckBox;
     private JCheckBox isBaseColumnCheckBox;
     List<TableInfo> tableInfoList = null;
-    private String project
-    
-    
-    
-    
-    
-    
-    Path;
+    private String projectFilePath;
 
     public ShowTableInfo(String projectFilePath) {
         this.projectFilePath = projectFilePath;
