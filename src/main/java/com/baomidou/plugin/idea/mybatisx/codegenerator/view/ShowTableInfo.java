@@ -1,5 +1,31 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 
+import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.GEN_CONFIG;
+import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.IDTYPES;
+
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.List;
+
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.KeyStroke;
+import javax.swing.table.DefaultTableModel;
+
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.GenConfig;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.IdTypeObj;
@@ -8,17 +34,9 @@ import com.baomidou.plugin.idea.mybatisx.codegenerator.utils.GenUtil;
 import com.google.gson.Gson;
 import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.openapi.vfs.VirtualFileManager;
 import com.intellij.ui.JBColor;
 
-import javax.swing.*;
-import javax.swing.table.*;
-import java.awt.*;
-import java.awt.event.*;
-import java.io.File;
-import java.util.List;
-
-import static com.baomidou.plugin.idea.mybatisx.codegenerator.utils.MybatisConst.*;
-import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenerator.INSERT_GENERATOR;
 
 public class ShowTableInfo extends JFrame {
     private JPanel contentPane;
@@ -155,6 +173,8 @@ public class ShowTableInfo extends JFrame {
                     String tableName = (String) ShowTableInfo.this.tableInfo.getValueAt(selectedRow, 0);
                     DoCodeGenerator(tableName, genConfig);
                 }
+                VirtualFileManager.getInstance().syncRefresh();
+
                 Messages.showInfoMessage("generator successful！", "Mybatis Plus");
             }
         });
