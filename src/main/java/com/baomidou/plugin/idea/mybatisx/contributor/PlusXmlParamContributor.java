@@ -41,8 +41,8 @@ public class PlusXmlParamContributor extends CompletionContributor {
             new CompletionProvider<CompletionParameters>() {
                     @Override
                     public void addCompletions(@NotNull CompletionParameters parameters, ProcessingContext context, @NotNull CompletionResultSet resultSet) {
-                        resultSet.addElement(LookupElementBuilder.create("Hello I am completion"));
-                        resultSet.addElement(LookupElementBuilder.create("OK i am 2"));
+//                        resultSet.addElement(LookupElementBuilder.create("Hello I am completion"));
+//                        resultSet.addElement(LookupElementBuilder.create("OK i am 2"));
 //                        PsiElement position = parameters.getPosition();
 //                        addElementForPsiParameter(position.getProject(), result, MapperUtils.findParentIdDomElement(position).orNull());
                     }
