@@ -25,8 +25,8 @@ import static com.baomidou.plugin.idea.mybatisx.generate.AbstractStatementGenera
  * @author yanglin
  */
 @State(
-        name = "MybatisSettings",
-        storages = @Storage(file = "$APP_CONFIG$/mybatis.xml"))
+    name = "MybatisSettings",
+    storages = @Storage(file = "$APP_CONFIG$/mybatis.xml"))
 public class MybatisPlusSetting implements PersistentStateComponent<Element> {
 
     private AbstractGenerateModel statementAbstractGenerateModel;
