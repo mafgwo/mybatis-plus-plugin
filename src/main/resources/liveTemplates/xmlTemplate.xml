@@ -1,0 +1,54 @@
+<templateSet group="MybatisPlusXml">
+
+    <template name="select" value='&lt;select id="$var1$" resultMap="$var2$"&gt;&#10;        select * from $END$&#10;&lt;/select&gt;&#10;'
+              description="Xml select MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="SQL" value="true" />
+        </context>
+    </template>
+
+    <template name="insert" value='&lt;insert id="$var0$" parameterType="$var1$"&gt;&#10;    insert into $var2$($var3$) values($END$)&#10;&lt;/insert&gt;&#10;'
+              description="Xml insert MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="SQL" value="true" />
+        </context>
+    </template>
+
+    <template name="resultMap" value='&lt;resultMap id="$var1$" type="$var2$"&gt;&#10;
+    &lt;result column="$var3$" property="$var4$"/&gt;&#10;
+    &lt;collection property="$var5$" ofType="$var6$"&gt;&#10;
+        &lt;id column="$var7$" property="$var8$"/&gt;&#10;
+    &lt;/collection&gt;&#10;
+&lt;/resultMap&gt;&#10;'
+              description="Xml resultMap MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="SQL" value="true" />
+        </context>
+    </template>
+
+    <template name="update" value='&lt;update id="$var1$" parameterType="$var2$"&gt;&#10;
+    update $var3$ set $var4$&#10;
+    where $END$&#10;
+&lt;/update&gt;&#10;'
+              description="Xml update MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="SQL" value="true" />
+        </context>
+    </template>
+
+    <template name="delete" value='&lt;delete id="$var1$" parameterType="$var2$"&gt;&#10;
+    delete from $var3$&#10;
+    where $END$&#10;
+&lt;/delete&gt;&#10;'
+              description="Xml delete MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="false" />
+        <context>
+            <option name="SQL" value="true" />
+        </context>
+    </template>
+
+</templateSet>

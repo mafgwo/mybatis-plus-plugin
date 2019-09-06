@@ -32,6 +32,9 @@
         <defaultLiveTemplatesProvider implementation="org.py.plugin.livetemplate.JavaTemplateProvider"/>
         <liveTemplateContext implementation="org.py.plugin.livetemplate.JavaContext"/>
 
+        <defaultLiveTemplatesProvider implementation="org.py.plugin.livetemplate.xml.XmlTemplateProvider"/>
+        <liveTemplateContext implementation="org.py.plugin.livetemplate.xml.XmlContext"/>
+
         <!--文件描述-->
         <!--mapper.xml文件属性提示-->
         <dom.fileDescription implementation="com.baomidou.plugin.idea.mybatisx.dom.description.PlusMapperDescription"/>

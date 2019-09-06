@@ -1,32 +1,32 @@
 <templateSet group="MybatisPlus">
-    <template name="update" value='@PutMapping("update$TEXT1$")&#10;@Transactional(rollbackFor = Exception.class)&#10;public Object update$TEXT1$(@RequestBody $TEXT2$){&#10;    return $END$;&#10;}'
+    <template name="mupdate" value="@PutMapping(&quot;update$TEXT1$&quot;)&#10;@Transactional(rollbackFor = Exception.class)&#10;public Object update$TEXT1$(@RequestBody $TEXT2$){&#10;    return $END$;&#10;}"
               description="Controller update MybatisPlus plugin"
-              toReformat="false" toShortenFQNames="false">
-        <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+              toReformat="false" toShortenFQNames="true">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="JAVA" value="true" />
         </context>
     </template>
 
-    <template name="add" value='@PostMapping("/add$TEXT1$")&#10;@Transactional(rollbackFor = Exception.class)&#10;public Object add$TEXT1$(@Valid @RequestBody $TEXT2$, BindingResult bindingResult){&#10;    $END$&#10;}&#10;'
-              description="Controller add MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
-        <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <template name="madd" value='@PostMapping("/add$TEXT1$")&#10;@Transactional(rollbackFor = Exception.class)&#10;public Object add$TEXT1$(@Valid @RequestBody $TEXT2$, BindingResult bindingResult){&#10;    $END$&#10;}&#10;'
+              description="Controller add MybatisPlus plugin" toReformat="false" toShortenFQNames="true">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="JAVA" value="true" />
         </context>
     </template>
 
-    <template name="delete" value='@DeleteMapping("/del$TEXT1$/{id}")&#10;@Transactional(rollbackFor = Exception.class)&#10;public Object del$TEXT1$(@PathVariable String id){&#10;    return $END$;&#10;}&#10;'
-              description="Controller delete MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
-        <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <template name="mdelete" value='@DeleteMapping("/del$TEXT1$/{id}")&#10;@Transactional(rollbackFor = Exception.class)&#10;public Object del$TEXT1$(@PathVariable String id){&#10;    return $END$;&#10;}&#10;'
+              description="Controller delete MybatisPlus plugin" toReformat="false" toShortenFQNames="true">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="JAVA" value="true" />
         </context>
     </template>
 
-    <template name="page" value='@GetMapping("page$TEXT1$")&#10;public Object getPage(Page page){&#10;    $END$&#10;}&#10;'
-              description="Controller page MybatisPlus plugin" toReformat="false" toShortenFQNames="false">
-        <variable name="TEXT" expression="" defaultValue="" alwaysStopAt="true" />
+    <template name="mpage" value='@GetMapping("page$TEXT1$")&#10;public Object getPage(Page page){&#10;    $END$&#10;}&#10;'
+              description="Controller page MybatisPlus plugin" toReformat="false" toShortenFQNames="true">
+        <variable name="SELECTION" expression="" defaultValue="" alwaysStopAt="true" />
         <context>
             <option name="JAVA" value="true" />
         </context>
