@@ -1,7 +1,5 @@
-##  开发
+##  develop
 
 todo
 
-## 使用代码生成
-
-see README-USE.md
+[code generate](README-USE.md)
