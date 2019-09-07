@@ -11,8 +11,18 @@ import org.jetbrains.annotations.Nullable;
 
 import static com.intellij.psi.util.PropertyUtilBase.*;
 
-
+/**
+ *  从下面的类改造
+ * @see com.intellij.psi.util.PropertyUtil
+ */
 public class MyPropertyUtil {
+    /**
+     *  从下面的函数改造
+     * @see com.intellij.psi.util.PropertyUtil#isSimplePropertyGetter(PsiMethod)
+     * @param clazz 类
+     * @param method 方法
+     * @return 是否是setter
+     */
     public static boolean isSimplePropertySetter(@NotNull PsiClass clazz, PsiMethod method) {
         if (method == null) {
             return false;
@@ -44,6 +54,13 @@ public class MyPropertyUtil {
         return Comparing.equal(PsiUtil.resolveClassInType(TypeConversionUtil.erasure(returnType)), method.getContainingClass());
     }
 
+    /**
+     * 从下面的函数改造
+     * @see com.intellij.psi.util.PropertyUtil#getPropertyName(PsiMember)
+     * @param clazz 类
+     * @param method 方法
+     * @return property value
+     */
     @Nullable
     public static String getPropertyName(@NotNull PsiClass clazz, @NotNull PsiMethod method) {
         if (isSimplePropertyGetter(method)) {
@@ -55,6 +72,13 @@ public class MyPropertyUtil {
         return null;
     }
 
+    /**
+     *
+     * @see com.intellij.psi.util.PropertyUtil#findPropertyFieldByMember(PsiMember)
+     * @param clazz 类
+     * @param psiMember 方法
+     * @return 字段
+     */
     public static PsiField findPropertyFieldByMember(@NotNull PsiClass clazz, PsiMethod psiMember) {
         if (psiMember instanceof PsiField) {
             return (PsiField)psiMember;
@@ -96,7 +120,14 @@ public class MyPropertyUtil {
         return null;
     }
 
-
+    /**
+     * @see com.intellij.psi.util.PropertyUtil#findPropertySetter(PsiClass, String, boolean, boolean)
+     * @param aClass 类
+     * @param propertyName property name
+     * @param isStatic is static
+     * @param checkSuperClasses is supper class
+     * @return 方法
+     */
     @Nullable
     public static PsiMethod findPropertySetter(PsiClass aClass,
                                                @NotNull String propertyName,
