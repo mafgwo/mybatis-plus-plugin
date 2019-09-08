@@ -23,6 +23,7 @@
     <depends>com.intellij.modules.java</depends>
 
     <idea-version since-build="181.0"/>
+
     <depends optional="true" config-file="">com.intellij.spring</depends>
     <depends optional="true" config-file="">com.intellij.spring.boot</depends>
     <!--    <depends optional="true">com.intellij.database</depends>-->
@@ -163,7 +164,7 @@
     <change-notes><![CDATA[
          <h4>update 2019.09.06</h4>
          <ul>
-           <li> MybatisPlus-1.3.1</li>
+           <li> MybatisPlus-1.3.1 update to ideaIU 2019.2.2</li>
            <li> feature:  1. add live template java and xml
                 java: madd mupdate mdelete mpage
                 example1:  Enter <Strong>madd</Strong> in java
@@ -182,6 +183,7 @@
                 ```
            </li>
            <li> fix: 1. Automatically refresh the file directory after code generate  </li>
+           <li> fix: 2. fix icon and better Navigation picture </li>
          </ul>
          <h4>update 2019.08.28</h4>
          <ul>

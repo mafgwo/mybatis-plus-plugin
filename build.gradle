@@ -25,11 +25,11 @@ targetCompatibility = JavaVersion.VERSION_1_8
 // https://github.com/JetBrains/gradle-intellij-plugin/
 // http://www.jetbrains.org/intellij/sdk/docs/tutorials/build_system/prerequisites.html
 intellij {
-    version '2019.1.3'
+    version '2019.2.2'
     type 'IU'
     //Bundled plugin dependencies 配置自带插件，lombok-plugin是手动复制进仓储中的\ideaIU-2019.1.2\plugins
     // 也可以删除'lombok-plugin'
-    plugins = ['Spring', 'SpringBoot', 'DatabaseTools'] // , 'lombok-plugin'
+    plugins = ['java','Spring', 'SpringBoot'] // , 'lombok-plugin' , 'DatabaseTools'
     pluginName 'MybatisPlus'
     sandboxDirectory = "${rootProject.rootDir}/idea-sandbox"
     updateSinceUntilBuild = false
