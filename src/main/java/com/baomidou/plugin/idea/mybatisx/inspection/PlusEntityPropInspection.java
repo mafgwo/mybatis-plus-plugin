@@ -38,7 +38,7 @@ public class PlusEntityPropInspection extends CustomLocalComponentsDiscoverer {
             }
         } else {
             PsiJavaFile psiDaoFile = (PsiJavaFile) PsiManager.getInstance(project).findFile(virtualFile);
-            if (psiDaoFile != null) {
+            if (psiDaoFile != null && psiDaoFile.getClasses() != null && psiDaoFile.getClasses().length > 0) {
                 PsiClass psiClass = psiDaoFile.getClasses()[0];
                 // 找到是mybatis的类
                 if (Optional.ofNullable(psiClass.getName()).isPresent() && psiClass.getName().contains("Mapper")) {

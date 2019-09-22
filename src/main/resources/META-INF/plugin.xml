@@ -108,8 +108,8 @@
 
 
         <!-- spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中-->
-        <spring.customLocalComponentsDiscoverer
-            implementation="com.baomidou.plugin.idea.mybatisx.inspection.PlusEntityPropInspection"/>
+        <!--<spring.customLocalComponentsDiscoverer
+            implementation="com.baomidou.plugin.idea.mybatisx.inspection.PlusEntityPropInspection"/>-->
 
 
         <!--代码检测抑制器,用于过滤一些spring自带的校验规则-->
@@ -164,75 +164,16 @@
     </actions>
 
     <change-notes><![CDATA[
-         <h4>update 2019.09.06</h4>
-         <ul>
-           <li> MybatisPlus-1.3.1 update to ideaIU 2019.2.2</li>
-           <li> feature:  1. add live template java and xml
-                java: madd mupdate mdelete mpage
-                example1:  Enter <Strong>madd</Strong> in java
-                ```java
-                @PostMapping("/add")
-                @Transactional(rollbackFor = Exception.class)
-                public Object add(@Valid @RequestBody , BindingResult bindingResult){
+        <h3>MybatisPlus-1.3.2 update 2019.09.06</h3>
+        <ul>
+        <li>fix: 1. [issue7](https://github.com/kana112233/mybatis-plus-plugin/issues/7) </li>
+         <li>[update document](https://github.com/kana112233/mybatis-plus-plugin/wiki) </li>
+        </ul>
 
-                }
-                ```
-                example2:  Enter <Strong>minsert</Strong> in xml
-                ```xml
-                <insert id="" parameterType="">
-                    insert into () values()
-                </insert>
-                ```
-           </li>
-           <li> fix: 1. Automatically refresh the file directory after code generate  </li>
-           <li> fix: 2. fix icon and better Navigation picture </li>
-         </ul>
-         <h4>update 2019.08.28</h4>
-         <ul>
-             <li> MybatisPlus-1.2.3 </li>
-             <li> 1. add generate CRUD in XXXController.java by customized controller.ftl<br>
-                 [manual](https://github.com/kana112233/mybatis-plus-plugin README-USE.md)
-             </li>
-             <li> 2. delete unused jar</li>
-         </ul>
-         <h4>update 2019.08.08</h4>
-         <ul>
-             <li> MybatisPlus-1.2.2 </li>
-             <li> 1. <id column="id" property="id">  property's value auto complete(support lombok @Accessors)  </li>
-             <li> 2. TestMapper testMapper field reference remove error tip </li>
-             <li> 3. icon change </li>
-             <li> 4. auto complete table column name in SimpleMapper.xml about #{xxx}</li>
-             <li> 5. add custom config about code generate</li>
-         </ul>
-         <h4>update 2019.07.23</h4>
-         <ul>
-             <li>MybatisPlus-1.1.2  Generate the correct file </li>
-         </ul>
-         <h4>update 2019.07.22</h4>
-         <ul>
-             <li>MybatisPlus-1.1.1  save file config and English show Information   </li>
-         </ul>
-         <h4>update 2019.07.21</h4>
-         <ul>
-             <li>MybatisPlus-1.1.0 add code generator  </li>
-         </ul>
-         <p>
-           idea -> Other <br>
-           1 config database 配置 mysql 信息<br>
-           2 code generator 配置代码生成路径 生成代码<br>
-         </p>
-         <h4>update 2019.07.09</h4>
-         <ul>
-             <li>MybatisPlus-1.0.2   fix LocalQuickFix  </li>
-         </ul>
-         <h4>update 2019.07.08</h4>
-         <ul>
-             <li>MybatisPlus-1.0.1  fix mybatisX conflict and fix mapper cast to IdDomElement  </li>
-         </ul>
-         <h4>from java to xml or from xml to java</h4>
-         <ul>
-              <li>MybatisPlus-1.0.0</li>
-         </ul>
+        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki">how to use</a>
+        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/change-log">changelog</a>
+        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/code-generate">code generate</a>
+         <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki">support</a>
       ]]>
     </change-notes>
 </idea-plugin>
