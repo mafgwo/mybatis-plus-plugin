@@ -78,16 +78,25 @@ public abstract class AbstractStatementGenerator {
     }
 
     private static void doGenerate(@NotNull final AbstractStatementGenerator generator, @NotNull final PsiMethod method) {
-        (new WriteCommandAction.Simple(method.getProject(), new PsiFile[]{method.getContainingFile()}) {
+        WriteCommandAction.writeCommandAction(method.getProject()).run(() -> {
+            generator.execute(method);
+        });
+        //1
+//        @SuppressWarnings("unchecked")
+//        ThrowableRunnable<RuntimeException> throwableRunnable = new MyThrowableRunnable(generator, method);
+//        WriteCommandAction.writeCommandAction(method.getProject()).run(throwableRunnable);
+        // @Deprecated give up
+        /*(new WriteCommandAction.Simple(method.getProject(), new PsiFile[]{method.getContainingFile()}) {
             @Override
             protected void run() throws Throwable {
                 generator.execute(method);
             }
-        }).execute();
+        }).execute();*/
     }
 
     /**
      * javaMapper 生成 xmlMapper
+     *
      * @param method 方法
      */
     public static void applyGenerate(@Nullable final PsiMethod method) {
@@ -100,21 +109,21 @@ public abstract class AbstractStatementGenerator {
             generators[0].execute(method);
         } else {
             JBPopupFactory.getInstance().createListPopup(
-                new BaseListPopupStep("[ Statement type for method: " + method.getName() + "]", generators) {
+                new BaseListPopupStep<AbstractStatementGenerator>("[ Statement type for method: " + method.getName() + "]", generators) {
                     @Override
-                    public PopupStep onChosen(Object selectedValue, boolean finalChoice) {
+                    public PopupStep onChosen(AbstractStatementGenerator selectedValue, boolean finalChoice) {
                         PopupStep popupStep =
                             this.doFinalStep(new Runnable() {
-                            @Override
-                            public void run() {
-                                WriteCommandAction.runWriteCommandAction(project, new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        AbstractStatementGenerator.doGenerate((AbstractStatementGenerator) selectedValue, method);
-                                    }
-                                });
-                            }
-                        });
+                                @Override
+                                public void run() {
+                                    WriteCommandAction.runWriteCommandAction(project, new Runnable() {
+                                        @Override
+                                        public void run() {
+                                            AbstractStatementGenerator.doGenerate((AbstractStatementGenerator) selectedValue, method);
+                                        }
+                                    });
+                                }
+                            });
                         return popupStep;
                     }
                 }
@@ -132,7 +141,7 @@ public abstract class AbstractStatementGenerator {
                 result.add(generator);
             }
         }
-        return CollectionUtils.isNotEmpty(result) ? result.toArray(new AbstractStatementGenerator[result.size()]) : ALL.toArray(new AbstractStatementGenerator[ALL.size()]);
+        return CollectionUtils.isNotEmpty(result) ? result.toArray(new AbstractStatementGenerator[0]) : ALL.toArray(new AbstractStatementGenerator[0]);
     }
 
     private Set<String> patterns;
@@ -141,7 +150,7 @@ public abstract class AbstractStatementGenerator {
         this.patterns = Sets.newHashSet(patterns);
     }
 
-    private void execute(@NotNull final PsiMethod method) {
+    void execute(@NotNull final PsiMethod method) {
         PsiClass psiClass = method.getContainingClass();
         if (null == psiClass) {
             return;
@@ -174,11 +183,11 @@ public abstract class AbstractStatementGenerator {
         if (parameters.length == 1) {
             //Integer id  getType() 参数值类型=Integer,  getName() 参数值=id
             String canonicalText = parameters[0].getType().getCanonicalText();
-            target.getParameterType().setStringValue(canonicalText );
+            target.getParameterType().setStringValue(canonicalText);
         }
         target.setValue(" ");
         XmlTag tag = target.getXmlTag();
-        int offset = tag.getTextOffset() + tag.getTextLength() - tag.getName().length() + 1;
+        int offset = Objects.requireNonNull(tag).getTextOffset() + tag.getTextLength() - tag.getName().length() + 1;
         PlusEditorService plusEditorService = PlusEditorService.getInstance(method.getProject());
         plusEditorService.format(tag.getContainingFile(), tag);
         //跳到xml位置
@@ -224,3 +233,18 @@ public abstract class AbstractStatementGenerator {
         return Objects.hash(patterns);
     }
 }
+
+/*class MyThrowableRunnable implements ThrowableRunnable {
+    private AbstractStatementGenerator generator;
+    private PsiMethod method;
+
+    MyThrowableRunnable(@NotNull final AbstractStatementGenerator generator, @NotNull final PsiMethod method) {
+        this.generator = generator;
+        this.method = method;
+    }
+
+    @Override
+    public void run() {
+        generator.execute(method);
+    }
+}*/

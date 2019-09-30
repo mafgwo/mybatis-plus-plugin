@@ -41,7 +41,7 @@ public abstract class AbstractSimpleLinePlusMarkerProvider<F extends PsiElement,
                 (F) element,
                 element.getTextRange(),
                 getIcon(),
-                Pass.UPDATE_ALL,
+//                Pass.UPDATE_ALL,
                 getTooltipProvider(processResult.get()),
                 getNavigationHandler(processResult.get()),
                 GutterIconRenderer.Alignment.CENTER

@@ -12,7 +12,9 @@
           <b>
               <a href="https://plugins.jetbrains.com/plugin/12670-mybatisplus">Website</a> |
               <a href="https://github.com/kana112233/mybatis-plus-plugin">GitHub</a> |
-              <a href="https://github.com/kana112233/mybatis-plus-plugin/issues">Issues</a>
+              <a href="https://github.com/kana112233/mybatis-plus-plugin/issues">Issues</a>|
+              <a href="https://github.com/kana112233/mybatis-plus-plugin/blob/dev/src/main/resources/images/wechat.png">support</a><br>
+
           </b>
           </p>
           <br/>
@@ -26,8 +28,8 @@
 
     <idea-version since-build="192.0"/>
 
-<!--    <depends optional="true" config-file="">com.intellij.spring</depends>-->
-<!--    <depends optional="true" config-file="">com.intellij.spring.boot</depends>-->
+    <!--    <depends optional="true" config-file="">com.intellij.spring</depends>-->
+    <!--    <depends optional="true" config-file="">com.intellij.spring.boot</depends>-->
     <!--    <depends optional="true">com.intellij.database</depends>-->
 
     <extensions defaultExtensionNs="com.intellij">
@@ -164,16 +166,15 @@
     </actions>
 
     <change-notes><![CDATA[
-        <h3>MybatisPlus-1.3.2 update 2019.09.06</h3>
+        <h3>MybatisPlus-1.3.2 update 2019.09.24</h3>
         <ul>
         <li>fix: 1. [issue7](https://github.com/kana112233/mybatis-plus-plugin/issues/7) </li>
          <li>[update document](https://github.com/kana112233/mybatis-plus-plugin/wiki) </li>
         </ul>
-
-        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki">how to use</a>
-        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/change-log">changelog</a>
-        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/code-generate">code generate</a>
-         <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki">support</a>
+        <br>
+        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki">how to use</a> <br>
+        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/change-log">changelog</a><br>
+        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/code-generate">code generate</a><br>
       ]]>
     </change-notes>
 </idea-plugin>
