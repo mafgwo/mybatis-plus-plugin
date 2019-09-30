@@ -1,18 +1,17 @@
 package com.baomidou.plugin.idea.mybatisx.action;
 
+import org.jetbrains.annotations.NotNull;
+
+import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
 import com.intellij.codeInsight.AutoPopupController;
 import com.intellij.codeInsight.completion.CodeCompletionHandlerBase;
 import com.intellij.codeInsight.completion.CompletionType;
-import com.intellij.codeInsight.editorActions.CompletionAutoPopupHandler;
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
-import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
-
-import org.jetbrains.annotations.NotNull;
 
 /**
  * xml 文件修改提示
@@ -43,7 +42,6 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
             autoPopupParameter(project, editor);
             return Result.STOP;
         } else if (!parameterCase && mybatisFile) {
-            autoPopupParameter(project, editor);
             return Result.STOP;
         }
         return super.charTyped(c, project, editor, file);

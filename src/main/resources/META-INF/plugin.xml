@@ -73,6 +73,10 @@
         <applicationService serviceInterface="com.baomidou.plugin.idea.mybatisx.setting.MybatisPlusSetting"
                             serviceImplementation="com.baomidou.plugin.idea.mybatisx.setting.MybatisPlusSetting"/>
 
+        <!--编辑mapper.xml文件时，实现参数提示-->
+        <typedHandler implementation="com.baomidou.plugin.idea.mybatisx.action.PlusMybatisTypedHandler" id="mybatis"
+                      order="first"/>
+
         <!--自动完成提示-->
         <completion.contributor language="XML"
                                 implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusXmlParamContributor"/>
@@ -85,10 +89,6 @@
         <!--文件模板组，新建文件选择模板-->
         <fileTemplateGroup
             implementation="com.baomidou.plugin.idea.mybatisx.template.PlusMybatisFileTemplateDescriptorFactory"/>
-
-        <!--编辑mapper.xml文件时，实现参数提示-->
-        <typedHandler implementation="com.baomidou.plugin.idea.mybatisx.action.PlusMybatisTypedHandler" id="mybatis"
-                      order="first"/>
 
         <!--附加的LiveTemplate模板-->
         <defaultLiveTemplatesProvider
