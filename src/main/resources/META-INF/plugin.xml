@@ -163,10 +163,10 @@
     </actions>
 
     <change-notes><![CDATA[
-        this is change note
+        this is change note<br>
         <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki">how to use</a> <br>
         <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/code-generate">code generate</a><br>
-         <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/change-log">changelog</a><br>
+        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/change-log">changelog</a><br>
       ]]>
     </change-notes>
 </idea-plugin>
