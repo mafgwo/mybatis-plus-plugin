@@ -16,8 +16,8 @@ public interface Icons {
 
     Icon MAPPER_LINE_MARKER_ICON = IconLoader.getIcon("/images/xml-mapper.png");
 
-    Icon STATEMENT_LINE_MARKER_ICON = IconLoader.getIcon("/images/java.png");
+    Icon STATEMENT_LINE_MARKER_ICON = IconLoader.getIcon("/images/java.svg");
 
-    Icon SPRING_INJECTION_ICON = IconLoader.getIcon("/images/java.png");
+    Icon SPRING_INJECTION_ICON = IconLoader.getIcon("/images/java.svg");
 }
 
