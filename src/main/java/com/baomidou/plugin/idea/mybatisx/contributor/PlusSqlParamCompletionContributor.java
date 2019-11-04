@@ -63,6 +63,9 @@ public class PlusSqlParamCompletionContributor extends CompletionContributor {
 
     private void process(PsiFile xmlFile, CompletionResultSet resultSet, PsiElement position) {
         int mapperIndex = xmlFile.getName().indexOf("Mapper");
+        if (-1 == mapperIndex) {
+            return;
+        }
         String tableName = xmlFile.getName().substring(0, mapperIndex);
         List<String> suggests = suggestMaps.get(tableName.toLowerCase());
         if (null != suggests) {

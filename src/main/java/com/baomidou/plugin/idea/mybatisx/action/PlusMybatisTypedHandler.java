@@ -22,8 +22,9 @@ import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
  */
 public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
 
+    @NotNull
     @Override
-    public Result checkAutoPopup(char charTyped, final Project project, final Editor editor, PsiFile file) {
+    public Result checkAutoPopup(char charTyped, @NotNull final Project project, @NotNull final Editor editor, @NotNull PsiFile file) {
         if (charTyped == '.' && DomUtils.isMybatisFile(file)) {
             autoPopupParameter(project, editor);
             return Result.STOP;
@@ -31,8 +32,9 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
         return super.checkAutoPopup(charTyped, project, editor, file);
     }
 
+    @NotNull
     @Override
-    public Result charTyped(char c, final Project project, @NotNull final Editor editor, @NotNull PsiFile file) {
+    public Result charTyped(char c, @NotNull final Project project, @NotNull final Editor editor, @NotNull PsiFile file) {
         int index = editor.getCaretModel().getOffset() - 2;
         PsiFile topLevelFile = InjectedLanguageManager.getInstance(project).getTopLevelFile(file);
 //        PsiFile topLevelFile = InjectedLanguageUtil.getTopLevelFile(file);
@@ -52,7 +54,7 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
     }
 
     private static void autoPopupParameter(final Project project, final Editor editor) {
-        AppUIExecutor.onUiThread().withDocumentsCommitted(project).inSmartMode(project).execute(
+       /* AppUIExecutor.onUiThread().withDocumentsCommitted(project).inSmartMode(project).execute(
             new Runnable() {
                 @Override
                 public void run() {
@@ -61,16 +63,16 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
                     }
                 }
             }
-        );
+        );*/
      //fix Invocation of unresolved method AutoPopupController.runTransactionWithEverythingCommitted() (1 problem)
-      /*  AutoPopupController.runTransactionWithEverythingCommitted(project,new Runnable() {
+        AutoPopupController.runTransactionWithEverythingCommitted(project,new Runnable() {
             @Override
             public void run() {
                 if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
                     new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, editor, 1);
                 }
             }
-        });*/
+        });
     }
 
 }
