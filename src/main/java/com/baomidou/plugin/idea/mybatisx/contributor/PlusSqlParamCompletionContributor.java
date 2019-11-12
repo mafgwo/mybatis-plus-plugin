@@ -11,7 +11,6 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.lang.injection.InjectedLanguageManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
 import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

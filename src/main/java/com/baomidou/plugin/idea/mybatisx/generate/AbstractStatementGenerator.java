@@ -150,7 +150,7 @@ public abstract class AbstractStatementGenerator {
         this.patterns = Sets.newHashSet(patterns);
     }
 
-    void execute(@NotNull final PsiMethod method) {
+    private void execute(@NotNull final PsiMethod method) {
         PsiClass psiClass = method.getContainingClass();
         if (null == psiClass) {
             return;

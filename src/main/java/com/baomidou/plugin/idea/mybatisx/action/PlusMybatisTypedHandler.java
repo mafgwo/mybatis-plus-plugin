@@ -12,9 +12,7 @@ import com.intellij.openapi.application.AppUIExecutor;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDocumentManager;
-import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.intellij.psi.impl.source.tree.injected.InjectedLanguageUtil;
 
 /**
  * xml 文件修改提示
@@ -54,18 +52,7 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
     }
 
     private static void autoPopupParameter(final Project project, final Editor editor) {
-       /* AppUIExecutor.onUiThread().withDocumentsCommitted(project).inSmartMode(project).execute(
-            new Runnable() {
-                @Override
-                public void run() {
-                    if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
-                        new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, editor, 1);
-                    }
-                }
-            }
-        );*/
-     //fix Invocation of unresolved method AutoPopupController.runTransactionWithEverythingCommitted() (1 problem)
-        AutoPopupController.runTransactionWithEverythingCommitted(project,new Runnable() {
+        AppUIExecutor.onUiThread().later().withDocumentsCommitted(project).inTransaction(project).execute(new Runnable() {
             @Override
             public void run() {
                 if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {

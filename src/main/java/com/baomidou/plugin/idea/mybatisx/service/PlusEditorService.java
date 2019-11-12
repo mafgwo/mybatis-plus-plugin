@@ -1,5 +1,6 @@
 package com.baomidou.plugin.idea.mybatisx.service;
 
+import com.intellij.application.options.CodeStyle;
 import com.intellij.codeInsight.navigation.NavigationUtil;
 import com.intellij.formatting.FormatTextRanges;
 import com.intellij.openapi.components.ServiceManager;
@@ -9,7 +10,9 @@ import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
+import com.intellij.psi.codeStyle.CodeStyleSettings;
 import com.intellij.psi.codeStyle.CodeStyleSettingsManager;
+import com.intellij.psi.codeStyle.CommonCodeStyleSettings;
 import com.intellij.psi.impl.source.codeStyle.CodeFormatterFacade;
 
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +39,8 @@ public class PlusEditorService {
     }
 
     public void format(@NotNull PsiFile file, @NotNull PsiElement element) {
-        this.codeFormatterFacade = new CodeFormatterFacade(CodeStyleSettingsManager.getSettings(element.getProject()), element.getLanguage());
+//        final CodeStyleSettings settings = CodeStyleSettingsManager.getSettings(element.getProject());
+        this.codeFormatterFacade = new CodeFormatterFacade(CodeStyle.getSettings(file), element.getLanguage());
         codeFormatterFacade.processText(file, new FormatTextRanges(element.getTextRange(), true), true);
     }
 
