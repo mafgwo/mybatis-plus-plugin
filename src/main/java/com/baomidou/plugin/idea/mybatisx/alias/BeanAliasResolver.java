@@ -20,7 +20,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * @author yanglin
+ *
  */
 public class BeanAliasResolver extends AbstractPackageAliasResolver {
 
@@ -39,8 +39,8 @@ public class BeanAliasResolver extends AbstractPackageAliasResolver {
     @Override
     public Collection<String> getPackages(@Nullable PsiElement element) {
         Set<String> res = Sets.newHashSet();
-        for (Module module : moduleManager.getModules()) {
-            for (CommonSpringModel springModel : springManager.getCombinedModel(module).getModelsToProcess()) {
+        for (Module module : moduleManager.getModules()) {  //.getModelsToProcess()
+            for (CommonSpringModel springModel : springManager.getCombinedModel(module).getRelatedModels()) {
                 addPackages(res, springModel);
             }
         }
@@ -50,7 +50,7 @@ public class BeanAliasResolver extends AbstractPackageAliasResolver {
     private void addPackages(Set<String> res, CommonSpringModel springModel) {
         Optional<PsiClass> sqlSessionFactoryClazzOpt = JavaUtils.findClazz(project, MAPPER_ALIAS_PACKAGE_CLASS);
         if (sqlSessionFactoryClazzOpt.isPresent()) {
-            Collection domBeans = springModel.getAllDomBeans();
+            Collection domBeans = springModel.getAllCommonBeans();//.getAllDomBeans();
             PsiClass sqlSessionFactoryClazz = (PsiClass) sqlSessionFactoryClazzOpt.get();
 
             for (Object domBean : domBeans) {

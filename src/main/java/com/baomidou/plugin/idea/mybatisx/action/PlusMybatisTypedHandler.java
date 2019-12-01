@@ -1,5 +1,6 @@
 package com.baomidou.plugin.idea.mybatisx.action;
 
+import com.intellij.codeInsight.editorActions.CompletionAutoPopupHandler;
 import org.jetbrains.annotations.NotNull;
 
 import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
@@ -52,7 +53,14 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
     }
 
     private static void autoPopupParameter(final Project project, final Editor editor) {
-        AppUIExecutor.onUiThread().later().withDocumentsCommitted(project).inTransaction(project).execute(new Runnable() {
+
+        /*AppUIExecutor.onUiThread().later().inTransaction(project).withDocumentsCommitted(project).execute(() -> {
+            if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
+                new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, editor, 1);
+            }
+        });*/
+
+        CompletionAutoPopupHandler.runLaterWithCommitted(project, editor.getDocument(), new Runnable() {
             @Override
             public void run() {
                 if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
