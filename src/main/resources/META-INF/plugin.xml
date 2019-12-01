@@ -27,8 +27,8 @@
     <depends>com.intellij.spring</depends>
     <depends>com.intellij.spring.boot</depends>
 
-<!--    <idea-version since-build="192"/>-->
-    <idea-version since-build="192" until-build="192.*"/>
+    <idea-version since-build="192"/>
+<!--    <idea-version since-build="192" until-build="192.*"/>-->
 
     <extensions defaultExtensionNs="com.intellij">
 
