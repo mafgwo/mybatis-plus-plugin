@@ -9,22 +9,34 @@ public class GenConfig {
 
     private Long id;
 
-    /** 包路径 **/
+    /**
+     * 包路径
+     **/
     private String pack = "org.py.mymodule.submodule";
 
-    /** 模块名 **/
+    /**
+     * 模块名
+     **/
     private String moduleName = "mymodule";
 
-    /** 前端文件路径 **/
+    /**
+     * 前端文件路径
+     **/
     private String path;
 
-    /** 前端文件路径 **/
+    /**
+     * 前端文件路径
+     **/
     private String apiPath;
 
-    /** 表前缀 **/
+    /**
+     * 表前缀
+     **/
     private String prefix;
 
-    /** 是否覆盖 **/
+    /**
+     * 是否覆盖
+     **/
     private boolean cover = false;
 
     private String dbUrl;

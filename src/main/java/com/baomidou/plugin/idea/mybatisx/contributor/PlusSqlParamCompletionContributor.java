@@ -3,6 +3,7 @@ package com.baomidou.plugin.idea.mybatisx.contributor;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
+import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
 import com.intellij.codeInsight.completion.CompletionContributor;
 import com.intellij.codeInsight.completion.CompletionParameters;
 import com.intellij.codeInsight.completion.CompletionResultSet;
@@ -11,7 +12,7 @@ import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.lang.injection.InjectedLanguageManager;
 import com.intellij.psi.PsiElement;
 import com.intellij.psi.PsiFile;
-import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -45,7 +46,7 @@ public class PlusSqlParamCompletionContributor extends CompletionContributor {
     }
 
     @Override
-    public void fillCompletionVariants(CompletionParameters parameters, final CompletionResultSet result) {
+    public void fillCompletionVariants(CompletionParameters parameters, @NotNull final CompletionResultSet result) {
         if (parameters.getCompletionType() != CompletionType.BASIC) {
             return;
         }

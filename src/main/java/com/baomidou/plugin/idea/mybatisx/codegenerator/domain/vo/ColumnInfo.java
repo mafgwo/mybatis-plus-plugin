@@ -7,28 +7,44 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo;
 
 public class ColumnInfo {
 
-    /** 数据库字段名称 **/
+    /**
+     * 数据库字段名称
+     **/
     private String columnName;
 
-    /** 允许空值 **/
+    /**
+     * 允许空值
+     **/
     private String isNullable;
 
-    /** 数据库字段类型 **/
+    /**
+     * 数据库字段类型
+     **/
     private String columnType;
 
-    /** 数据库字段注释 **/
+    /**
+     * 数据库字段注释
+     **/
     private String columnComment;
 
-    /** 数据库字段键类型 **/
+    /**
+     * 数据库字段键类型
+     **/
     private String columnKey;
 
-    /** 额外的参数 **/
+    /**
+     * 额外的参数
+     **/
     private String extra;
 
-    /** 查询 1:模糊 2：精确 **/
+    /**
+     * 查询 1:模糊 2：精确
+     **/
     private String columnQuery;
 
-    /** 是否在列表显示 **/
+    /**
+     * 是否在列表显示
+     **/
     private String columnShow = "true";
 
     @Override

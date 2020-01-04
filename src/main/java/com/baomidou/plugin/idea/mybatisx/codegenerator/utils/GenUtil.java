@@ -36,8 +36,7 @@ public class GenUtil {
     private static final String EXTRA = "auto_increment";
 
     /**
-     * 获取后端代码模板名称
-     * @return
+     * @return 获取后端代码模板名称
      */
     public static List<String> getAdminTemplateNames() {
         List<String> templateNames = new ArrayList<>();
@@ -53,9 +52,7 @@ public class GenUtil {
     }
 
     /**
-     * 获取前端代码模板名称
-     *
-     * @return
+     * @return 获取前端代码模板名称
      */
     public static List<String> getFrontTemplateNames() {
         List<String> templateNames = new ArrayList<>();
@@ -147,8 +144,8 @@ public class GenUtil {
             public void initMap() {
                 // 生成自定义的Map obj.Result
                 Map<String, Object> map = new HashMap<>();
-                map.put("obj", pc.getParent()+".obj");
-                String idType  = "String";
+                map.put("obj", pc.getParent() + ".obj");
+                String idType = "String";
                 map.put("camelTableName", underlineToCamel(tableName));
                 setMap(map);
             }
@@ -168,9 +165,8 @@ public class GenUtil {
             @Override
             public String outputFile(TableInfo tableInfo) {
                 // 自定义输出文件名 ， 如果你 Entity 设置了前后缀、此处注意 xml 的名称会跟着发生变化！！
-                String result = projectPath + "/" + genConfig.getModuleName() + "/src/main/resources/" + xmlName + "/"
+                return projectPath + "/" + genConfig.getModuleName() + "/src/main/resources/" + xmlName + "/"
                     + tableInfo.getEntityName() + "Mapper" + StringPool.DOT_XML;
-                return result;
             }
         });
 

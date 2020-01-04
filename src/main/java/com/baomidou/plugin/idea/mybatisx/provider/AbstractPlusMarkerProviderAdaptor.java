@@ -3,7 +3,6 @@ package com.baomidou.plugin.idea.mybatisx.provider;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
 import com.intellij.codeInsight.daemon.LineMarkerProvider;
 import com.intellij.psi.PsiElement;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +20,7 @@ public abstract class AbstractPlusMarkerProviderAdaptor implements LineMarkerPro
 
     @Nullable
     @Override
-    public LineMarkerInfo getLineMarkerInfo(@NotNull PsiElement element) {
+    public LineMarkerInfo<?> getLineMarkerInfo(@NotNull PsiElement element) {
         return null;
     }
 

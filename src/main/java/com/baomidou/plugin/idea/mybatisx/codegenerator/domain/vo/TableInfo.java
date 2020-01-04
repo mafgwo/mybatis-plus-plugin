@@ -2,15 +2,18 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo;
 
 /**
  * 表的数据信息
- *
  */
 
 public class TableInfo {
 
-    /** 表名称 **/
+    /**
+     * 表名称
+     **/
     private String tableName;
 
-    /** 创建日期 **/
+    /**
+     * 创建日期
+     **/
     private String createTime;
 
     // 数据库引擎

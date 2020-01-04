@@ -8,7 +8,8 @@ import com.baomidou.mybatisplus.annotation.DbType;
 public class DbTypeDriver {
     private DbType dbType;
     private String name;
-    public DbTypeDriver(DbType dbType,String name){
+
+    public DbTypeDriver(DbType dbType, String name) {
         this.dbType = dbType;
         this.name = name;
     }

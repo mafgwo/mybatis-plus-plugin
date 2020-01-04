@@ -1,25 +1,22 @@
 package com.baomidou.plugin.idea.mybatisx.util;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
-import com.intellij.psi.xml.XmlFile;
-import org.jetbrains.annotations.NonNls;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
 import com.google.common.base.Function;
 import com.google.common.collect.Collections2;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiFile;
 import com.intellij.psi.search.GlobalSearchScope;
-//import com.intellij.psi.xml.XmlFile;
+import com.intellij.psi.xml.XmlFile;
 import com.intellij.psi.xml.XmlTag;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomFileElement;
 import com.intellij.util.xml.DomService;
+import org.jetbrains.annotations.NonNls;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
+import java.util.List;
+
+//import com.intellij.psi.xml.XmlFile;
 
 public final class DomUtils {
 
@@ -38,8 +35,6 @@ public final class DomUtils {
                 return input.getRootElement();
             }
         });
-
-
     }
 
     /**
@@ -48,10 +43,10 @@ public final class DomUtils {
      * </p>
      *
      * @param file 判断文件
-     * @return
+     * @return it's mybatis xml mapper file
      */
-    public static boolean isMybatisFile(@Nullable PsiFile file) {
-        if (!isXmlFile(file)) {
+    public static boolean isMybatisFile(@NotNull PsiFile file) {
+        if (isNotXmlFile(file)) {
             return false;
         }
         XmlTag rootTag = ((XmlFile) file).getRootTag();
@@ -59,7 +54,7 @@ public final class DomUtils {
     }
 
     public static boolean isMybatisConfigurationFile(@NotNull PsiFile file) {
-        if (!isXmlFile(file)) {
+        if (isNotXmlFile(file)) {
             return false;
         }
         XmlTag rootTag = ((XmlFile) file).getRootTag();
@@ -67,15 +62,15 @@ public final class DomUtils {
     }
 
     public static boolean isBeansFile(@NotNull PsiFile file) {
-        if (!isXmlFile(file)) {
+        if (isNotXmlFile(file)) {
             return false;
         }
         XmlTag rootTag = ((XmlFile) file).getRootTag();
         return null != rootTag && rootTag.getName().equals("beans");
     }
 
-    static boolean isXmlFile(@NotNull PsiFile file) {
-        return file instanceof XmlFile;
+    static boolean isNotXmlFile(@NotNull PsiFile file) {
+        return !(file instanceof XmlFile);
     }
 
 }

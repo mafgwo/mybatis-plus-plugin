@@ -1,19 +1,16 @@
 package com.baomidou.plugin.idea.mybatisx.action;
 
-import com.intellij.codeInsight.editorActions.CompletionAutoPopupHandler;
-import org.jetbrains.annotations.NotNull;
-
 import com.baomidou.plugin.idea.mybatisx.util.DomUtils;
-import com.intellij.codeInsight.AutoPopupController;
 import com.intellij.codeInsight.completion.CodeCompletionHandlerBase;
 import com.intellij.codeInsight.completion.CompletionType;
+import com.intellij.codeInsight.editorActions.CompletionAutoPopupHandler;
 import com.intellij.codeInsight.editorActions.TypedHandlerDelegate;
 import com.intellij.lang.injection.InjectedLanguageManager;
-import com.intellij.openapi.application.AppUIExecutor;
 import com.intellij.openapi.editor.Editor;
 import com.intellij.openapi.project.Project;
 import com.intellij.psi.PsiDocumentManager;
 import com.intellij.psi.PsiFile;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * xml 文件修改提示
@@ -60,12 +57,9 @@ public class PlusMybatisTypedHandler extends TypedHandlerDelegate {
             }
         });*/
 
-        CompletionAutoPopupHandler.runLaterWithCommitted(project, editor.getDocument(), new Runnable() {
-            @Override
-            public void run() {
-                if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
-                    new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, editor, 1);
-                }
+        CompletionAutoPopupHandler.runLaterWithCommitted(project, editor.getDocument(), () -> {
+            if (PsiDocumentManager.getInstance(project).isCommitted(editor.getDocument())) {
+                new CodeCompletionHandlerBase(CompletionType.BASIC).invokeCompletion(project, editor, 1);
             }
         });
     }

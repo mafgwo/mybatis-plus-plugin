@@ -29,7 +29,7 @@ public class MyFreemarkerTemplateEngine extends AbstractTemplateEngine {
 
     private String projectPath;
 
-    public MyFreemarkerTemplateEngine(String projectPath){
+    public MyFreemarkerTemplateEngine(String projectPath) {
         this.projectPath = projectPath;
     }
 

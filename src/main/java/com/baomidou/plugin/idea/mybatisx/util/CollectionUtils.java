@@ -11,11 +11,11 @@ public final class CollectionUtils {
         throw new UnsupportedOperationException();
     }
 
-    public static boolean isEmpty(Collection collection) {
+    public static <T> boolean isEmpty(Collection<T> collection) {
         return null == collection || 0 == collection.size();
     }
 
-    public static boolean isNotEmpty(Collection collection) {
+    public static <T> boolean isNotEmpty(Collection<T> collection) {
         return !isEmpty(collection);
     }
 
