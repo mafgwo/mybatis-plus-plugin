@@ -156,6 +156,11 @@
             <add-to-group group-id="OtherMenu" anchor="first"/>
         </action>
 
+        <action id="org.py.code.generator.game" class="com.baomidou.plugin.idea.mybatisx.action.GameAction"
+                text="Game" description="Game">
+            <add-to-group group-id="OtherMenu" anchor="first"/>
+        </action>
+
         <action id="org.py.code.generator.plugin" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator"
                 text="CodeGenerator" description="Mybatis plus code generator ">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
