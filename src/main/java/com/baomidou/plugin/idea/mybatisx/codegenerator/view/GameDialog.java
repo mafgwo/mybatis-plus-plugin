@@ -7,29 +7,21 @@ import java.awt.*;
 import java.awt.event.*;
 
 /**
+ * 1. GameDialog.form custom Create resolve chessPanel's creation problem
  * chess
  */
-
-
-public class GameDialog extends JDialog {
-    private final JPanel chessPanel;
-    ChessUtil chessUtil = ChessUtil.singleInstance();
+public class GameDialog extends JFrame {
+    private final ChessUtil chessUtil = ChessUtil.singleInstance();
+    private JPanel chessPanel;
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JLabel currentPlayerLabel;
 
     public GameDialog() {
+        setTitle("90s Game");
         chessUtil.initChess();
-        setTitle("My Shapes");
-        chessPanel = new JPanel() {
-
-            @Override
-            public void paintComponent(Graphics g) {
-                chessUtil.updateChess(g);
-            }
-        };
-        this.getContentPane().add(chessPanel);
-
+        this.getContentPane().add(contentPane);
 
         chessPanel.addMouseListener(new MouseListener() {
             @Override
@@ -37,6 +29,7 @@ public class GameDialog extends JDialog {
                 final int x = e.getX();
                 final int y = e.getY();
                 chessUtil.putChess(x, y);
+                currentPlayerLabel.setText("turn " + chessUtil.getCurrentPlayer() + " to chess");
                 chessPanel.updateUI();
                 System.out.println("click");
             }
@@ -61,8 +54,9 @@ public class GameDialog extends JDialog {
 
             }
         });
-        setContentPane(chessPanel);
-        setModal(true);
+
+        setContentPane(contentPane);
+
         getRootPane().setDefaultButton(buttonOK);
 
         buttonOK.addActionListener(e -> onOK());
@@ -78,12 +72,7 @@ public class GameDialog extends JDialog {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
     }
 
@@ -91,27 +80,37 @@ public class GameDialog extends JDialog {
         GameDialog dialog = new GameDialog();
         dialog.pack();
         dialog.setVisible(true);
-        dialog.setAlwaysOnTop(true);
-        dialog.setResizable(false);
         dialog.setLocationRelativeTo(null);
-        dialog.setSize(1000, 800);
-
-        final Toolkit toolkit = Toolkit.getDefaultToolkit();
-        final Dimension screenSize = toolkit.getScreenSize();
-        final int x = (screenSize.width - dialog.getWidth()) / 2;
-        final int y = (screenSize.height - dialog.getHeight()) / 2;
-        dialog.setLocation(x, y);
+        dialog.setSize(800, 600);
         //        System.exit(0);
 
     }
 
     private void onOK() {
         // add your code here
-        dispose();
+        // start game
+        final Graphics g = chessPanel.getGraphics();
+        chessUtil.startGame(g);
+        chessPanel.updateUI();
+
     }
 
     private void onCancel() {
         // add your code here if necessary
         dispose();
+    }
+
+    private void createUIComponents() {
+        chessPanel = new JPanel() {
+            @Override
+            public void paintComponent(Graphics g) {
+                // If not the line, UI not update
+                super.paintComponent(g);
+
+                chessUtil.updateChess(g);
+            }
+
+        };
+
     }
 }

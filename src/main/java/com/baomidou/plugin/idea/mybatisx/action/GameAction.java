@@ -11,7 +11,7 @@ public class GameAction extends AnAction {
         GameDialog dialog = new GameDialog();
         dialog.pack();
         dialog.setVisible(true);
-        dialog.setAlwaysOnTop(true);
+//        dialog.setAlwaysOnTop(true);
         dialog.setLocationRelativeTo(null);
         dialog.setSize(1000, 800);
     }
