@@ -217,7 +217,7 @@ public class GenUtil {
 //        strategy.setVersionFieldName("version_name");
 
         mpg.setStrategy(strategy);
-        mpg.setTemplateEngine(new MyFreemarkerTemplateEngine(projectPath));
+        mpg.setTemplateEngine(new MyFreemarkerTemplateEngine(projectPath, genConfig));
         mpg.execute();
     }
 

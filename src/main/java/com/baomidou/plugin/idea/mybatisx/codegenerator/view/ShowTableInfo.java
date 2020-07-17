@@ -62,8 +62,12 @@ public class ShowTableInfo extends JFrame {
     private JCheckBox swaggerCheckBox;
     private JCheckBox isEnableCacheCheckBox;
     private JCheckBox isBaseColumnCheckBox;
-    List<TableInfo> tableInfoList = null;
-    private String projectFilePath;
+    private JCheckBox entityCheckBox;
+    private JCheckBox serviceCheckBox;
+    private JCheckBox mapperCheckBox;
+    private JCheckBox serviceImplCheckBox;
+    private JCheckBox controllerCheckBox;
+    private final String projectFilePath;
 
     public ShowTableInfo(String projectFilePath) {
         this.projectFilePath = projectFilePath;
@@ -81,14 +85,9 @@ public class ShowTableInfo extends JFrame {
         });
 
         // call onCancel() on ESCAPE
-        contentPane.registerKeyboardAction(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
 
-        tableInfoList = MysqlUtil.getInstance().getTableInfo();
+        List<TableInfo> tableInfoList = MysqlUtil.getInstance().getTableInfo();
 
         // 表格所有行数据
         Object[][] rowData = new Object[tableInfoList.size()][];
@@ -133,50 +132,44 @@ public class ShowTableInfo extends JFrame {
         // 设置滚动面板视口大小（超过该大小的行数据，需要拖动滚动条才能看到）
         tableInfo.setPreferredScrollableViewportSize(new Dimension(600, 300));
         tableInfo.setModel(tableModel);
-        showColumn.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                int[] selectedRows = tableInfo.getSelectedRows();
-                if (selectedRows.length <= 0) {
-                    Messages.showInfoMessage("select one line！", "Mybatis Plus");
-                    return;
-                }
-                for (int selectedRow : selectedRows) {
+        showColumn.addActionListener(e -> {
+            int[] selectedRows = tableInfo.getSelectedRows();
+            if (selectedRows.length <= 0) {
+                Messages.showInfoMessage("select one line！", "Mybatis Plus");
+                return;
+            }
+            for (int selectedRow : selectedRows) {
 //                    TableInfo tableInfo = tableInfoList.get(selectedRow);
-                    String tableName = (String) ShowTableInfo.this.tableInfo.getValueAt(selectedRow, 0);
-                    ShowColumnInfo dialog = new ShowColumnInfo(tableName);
-                    dialog.pack();
-                    dialog.setVisible(true);
-                    dialog.setLocationRelativeTo(null);
-                    dialog.setSize(800, 600);
-                }
+                String tableName = (String) ShowTableInfo.this.tableInfo.getValueAt(selectedRow, 0);
+                ShowColumnInfo dialog = new ShowColumnInfo(tableName);
+                dialog.pack();
+                dialog.setVisible(true);
+                dialog.setLocationRelativeTo(null);
+                dialog.setSize(800, 600);
             }
         });
-        codeGenerator.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
+        codeGenerator.addActionListener(e -> {
 
-                saveMybatisPlusGlobalConst();
+            saveMybatisPlusGlobalConst();
 
-                Gson gson = new Gson();
-                String configJson = PropertiesComponent.getInstance().getValue(GEN_CONFIG);
-                GenConfig genConfig = gson.fromJson(configJson, GenConfig.class);
-                // 设置项目根目录
-                genConfig.setRootFolder(projectFilePath);
+            Gson gson = new Gson();
+            String configJson = PropertiesComponent.getInstance().getValue(GEN_CONFIG);
+            GenConfig genConfig = gson.fromJson(configJson, GenConfig.class);
+            // 设置项目根目录
+            genConfig.setRootFolder(this.projectFilePath);
 
-                int[] selectedRows = tableInfo.getSelectedRows();
-                if (selectedRows.length <= 0) {
-                    Messages.showInfoMessage("select one line！", "Mybatis Plus");
-                    return;
-                }
-                for (int selectedRow : selectedRows) {
-                    String tableName = (String) ShowTableInfo.this.tableInfo.getValueAt(selectedRow, 0);
-                    DoCodeGenerator(tableName, genConfig);
-                }
-                VirtualFileManager.getInstance().syncRefresh();
-
-                Messages.showInfoMessage("generator successful！", "Mybatis Plus");
+            int[] selectedRows = tableInfo.getSelectedRows();
+            if (selectedRows.length <= 0) {
+                Messages.showInfoMessage("select one line！", "Mybatis Plus");
+                return;
             }
+            for (int selectedRow : selectedRows) {
+                String tableName = (String) ShowTableInfo.this.tableInfo.getValueAt(selectedRow, 0);
+                DoCodeGenerator(tableName, genConfig);
+            }
+            VirtualFileManager.getInstance().syncRefresh();
+
+            Messages.showInfoMessage("generator successful！", "Mybatis Plus");
         });
         saveButton.addMouseListener(new MouseAdapter() {
             @Override
@@ -210,6 +203,12 @@ public class ShowTableInfo extends JFrame {
             String configJson2 = gson.toJson(genConfig);
             PropertiesComponent.getInstance().setValue(GEN_CONFIG, configJson2);
         }
+        // new add
+        entityCheckBox.setSelected(genConfig.isEntity());
+        mapperCheckBox.setSelected(genConfig.isMapper());
+        serviceCheckBox.setSelected(genConfig.isServiceImpl());
+        serviceImplCheckBox.setSelected(genConfig.isServiceImpl());
+        controllerCheckBox.setSelected(genConfig.isController());
 
         mymoduleTextField.setText(genConfig.getModuleName());
 
@@ -242,6 +241,13 @@ public class ShowTableInfo extends JFrame {
 
     private void saveMybatisPlusGlobalConst() {
         GenConfig genConfig = new GenConfig();
+        // new add
+        genConfig.setEntity(entityCheckBox.isSelected());
+        genConfig.setMapper(mapperCheckBox.isSelected());
+        genConfig.setService(serviceCheckBox.isSelected());
+        genConfig.setServiceImpl(serviceImplCheckBox.isSelected());
+        genConfig.setController(controllerCheckBox.isSelected());
+
         genConfig.setModuleName(mymoduleTextField.getText());
         genConfig.setPack(myPackTextField.getText());
         genConfig.setAuthor(authorTextField.getText());
