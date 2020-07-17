@@ -64,6 +64,61 @@ public class GenConfig {
     private boolean isEnableCache = false;
     private boolean isBaseColumnList = false;
 
+    private boolean isAuthor;
+    private boolean isEntity;
+    private boolean isMapper;
+    private boolean isController;
+    private boolean isService;
+    private boolean isServiceImpl;
+
+    public boolean isAuthor() {
+        return isAuthor;
+    }
+
+    public void setAuthor(boolean author) {
+        isAuthor = author;
+    }
+
+    public boolean isEntity() {
+        return isEntity;
+    }
+
+    public void setEntity(boolean entity) {
+        isEntity = entity;
+    }
+
+    public boolean isMapper() {
+        return isMapper;
+    }
+
+    public void setMapper(boolean mapper) {
+        isMapper = mapper;
+    }
+
+    public boolean isController() {
+        return isController;
+    }
+
+    public void setController(boolean controller) {
+        isController = controller;
+    }
+
+    public boolean isService() {
+        return isService;
+    }
+
+    public void setService(boolean service) {
+        isService = service;
+    }
+
+    public boolean isServiceImpl() {
+        return isServiceImpl;
+    }
+
+    public void setServiceImpl(boolean serviceImpl) {
+        isServiceImpl = serviceImpl;
+    }
+
     public boolean isBaseColumnList() {
         return isBaseColumnList;
     }

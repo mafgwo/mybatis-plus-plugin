@@ -19,6 +19,7 @@ plugins {
 apply plugin: 'idea'
 apply plugin: 'org.jetbrains.intellij'
 apply plugin: 'java'
+apply plugin: 'checkstyle'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -40,7 +41,7 @@ intellij {
 // https://www.jetbrains.com/intellij-repository/releases
 
 group 'com.baomidou.plugin.idea.mybatisPlus'
-version '1.3.6'
+version '1.4.1'
 
 //　src/main/java classpath 需要的仓库
 repositories {
