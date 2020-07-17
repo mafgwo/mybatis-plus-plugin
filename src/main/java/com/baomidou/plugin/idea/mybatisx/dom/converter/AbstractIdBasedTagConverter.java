@@ -1,9 +1,12 @@
 package com.baomidou.plugin.idea.mybatisx.dom.converter;
 
+import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
+import com.baomidou.plugin.idea.mybatisx.dom.model.Mapper;
+import com.baomidou.plugin.idea.mybatisx.util.MapperUtils;
+import com.baomidou.plugin.idea.mybatisx.util.MybatisConstants;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.ElementManipulators;
@@ -13,17 +16,7 @@ import com.intellij.psi.PsiReferenceBase;
 import com.intellij.psi.impl.source.resolve.reference.impl.providers.JavaClassReferenceProvider;
 import com.intellij.psi.search.GlobalSearchScope;
 import com.intellij.psi.xml.XmlAttributeValue;
-import com.intellij.util.xml.ConvertContext;
-import com.intellij.util.xml.CustomReferenceConverter;
-import com.intellij.util.xml.DomElement;
-import com.intellij.util.xml.DomUtil;
-import com.intellij.util.xml.GenericDomValue;
-import com.intellij.util.xml.PsiClassConverter;
-import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
-import com.baomidou.plugin.idea.mybatisx.dom.model.Mapper;
-import com.baomidou.plugin.idea.mybatisx.util.MapperUtils;
-import com.baomidou.plugin.idea.mybatisx.util.MybatisConstants;
-
+import com.intellij.util.xml.*;
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -59,7 +52,7 @@ public abstract class AbstractIdBasedTagConverter extends AbstractConverterAdapt
         Mapper contextMapper = MapperUtils.getMapper(context.getInvocationElement());
         for (IdDomElement idDomElement : idDomElements) {
             if (MapperUtils.getIdSignature(idDomElement).equals(value) ||
-                    MapperUtils.getIdSignature(idDomElement, contextMapper).equals(value)) {
+                MapperUtils.getIdSignature(idDomElement, contextMapper).equals(value)) {
                 return Optional.of(idDomElement.getId().getXmlAttributeValue());
             }
         }
@@ -91,7 +84,7 @@ public abstract class AbstractIdBasedTagConverter extends AbstractConverterAdapt
     private abstract class AbstractTraverseStrategy {
         protected ConvertContext context;
 
-        public AbstractTraverseStrategy(@NotNull ConvertContext context) {
+        AbstractTraverseStrategy(@NotNull ConvertContext context) {
             this.context = context;
         }
 
@@ -100,7 +93,7 @@ public abstract class AbstractIdBasedTagConverter extends AbstractConverterAdapt
 
     private class InsideMapperStrategy extends AbstractTraverseStrategy {
 
-        public InsideMapperStrategy(@NotNull ConvertContext context) {
+        InsideMapperStrategy(@NotNull ConvertContext context) {
             super(context);
         }
 
@@ -113,7 +106,7 @@ public abstract class AbstractIdBasedTagConverter extends AbstractConverterAdapt
 
     private class CrossMapperStrategy extends AbstractTraverseStrategy {
 
-        public CrossMapperStrategy(@NotNull ConvertContext context) {
+        CrossMapperStrategy(@NotNull ConvertContext context) {
             super(context);
         }
 
@@ -176,7 +169,7 @@ public abstract class AbstractIdBasedTagConverter extends AbstractConverterAdapt
         private ConvertContext context;
         private String text;
 
-        public ValueReference(@NotNull PsiElement element, TextRange rng, ConvertContext context, String text) {
+        ValueReference(@NotNull PsiElement element, TextRange rng, ConvertContext context, String text) {
             super(element, rng, false);
             this.context = context;
             this.text = text;

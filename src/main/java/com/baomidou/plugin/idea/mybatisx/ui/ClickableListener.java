@@ -5,6 +5,6 @@ package com.baomidou.plugin.idea.mybatisx.ui;
  */
 public interface ClickableListener extends ExecutableListener {
 
-    public void clicked();
+    void clicked();
 
 }

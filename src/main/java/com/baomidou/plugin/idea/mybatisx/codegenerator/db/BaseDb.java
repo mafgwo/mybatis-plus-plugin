@@ -1,6 +1,5 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator.db;
 
-import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.intellij.openapi.ui.Messages;

@@ -1,14 +1,14 @@
 package com.baomidou.plugin.idea.mybatisx.gradle;
+
 import com.baomidou.mybatisplus.generator.AutoGenerator;
 import com.baomidou.mybatisplus.generator.InjectionConfig;
 import com.baomidou.mybatisplus.generator.config.*;
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 import com.baomidou.mybatisplus.generator.engine.FreemarkerTemplateEngine;
-import org.junit.Test;
 
 public class MybatisTests {
 
-//    @Test
+    //    @Test
     public void testMysql() {
         doGen();
     }

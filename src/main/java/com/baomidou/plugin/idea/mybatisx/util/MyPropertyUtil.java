@@ -12,16 +12,18 @@ import org.jetbrains.annotations.Nullable;
 import static com.intellij.psi.util.PropertyUtilBase.*;
 
 /**
- *  从下面的类改造
+ * 从下面的类改造
+ *
  * @see com.intellij.psi.util.PropertyUtil
  */
 public class MyPropertyUtil {
     /**
-     *  从下面的函数改造
-     * @see com.intellij.psi.util.PropertyUtil#isSimplePropertyGetter(PsiMethod)
-     * @param clazz 类
+     * 从下面的函数改造
+     *
+     * @param clazz  类
      * @param method 方法
      * @return 是否是setter
+     * @see com.intellij.psi.util.PropertyUtil#isSimplePropertyGetter(PsiMethod)
      */
     public static boolean isSimplePropertySetter(@NotNull PsiClass clazz, PsiMethod method) {
         if (method == null) {
@@ -56,10 +58,11 @@ public class MyPropertyUtil {
 
     /**
      * 从下面的函数改造
-     * @see com.intellij.psi.util.PropertyUtil#getPropertyName(PsiMember)
-     * @param clazz 类
+     *
+     * @param clazz  类
      * @param method 方法
      * @return property value
+     * @see com.intellij.psi.util.PropertyUtil#getPropertyName(PsiMember)
      */
     @Nullable
     public static String getPropertyName(@NotNull PsiClass clazz, @NotNull PsiMethod method) {
@@ -73,15 +76,14 @@ public class MyPropertyUtil {
     }
 
     /**
-     *
-     * @see com.intellij.psi.util.PropertyUtil#findPropertyFieldByMember(PsiMember)
-     * @param clazz 类
+     * @param clazz     类
      * @param psiMember 方法
      * @return 字段
+     * @see com.intellij.psi.util.PropertyUtil#findPropertyFieldByMember(PsiMember)
      */
     public static PsiField findPropertyFieldByMember(@NotNull PsiClass clazz, PsiMethod psiMember) {
         if (psiMember instanceof PsiField) {
-            return (PsiField)psiMember;
+            return (PsiField) psiMember;
         }
 
         if (psiMember != null) {
@@ -93,23 +95,22 @@ public class MyPropertyUtil {
             final PsiStatement[] statements = body == null ? null : body.getStatements();
             final PsiStatement statement = statements == null || statements.length < 1 ? null : statements[0];
             final PsiElement target;
-            String className = "";
+            String className;
             if (returnType instanceof PsiClassReferenceType) {
                 className = ((PsiClassReferenceType) returnType).getClassName();
             } else {
-                className =  returnType.getPresentableText();
+                className = returnType.getPresentableText();
             }
-            if (PsiType.VOID.equals(returnType)|| className.equals(clazz.getName())) {
+            if (PsiType.VOID.equals(returnType) || className.equals(clazz.getName())) {
                 final PsiExpression expression =
-                    statement instanceof PsiExpressionStatement ? ((PsiExpressionStatement)statement).getExpression() : null;
-                target = expression instanceof PsiAssignmentExpression ? ((PsiAssignmentExpression)expression).getLExpression() : null;
+                    statement instanceof PsiExpressionStatement ? ((PsiExpressionStatement) statement).getExpression() : null;
+                target = expression instanceof PsiAssignmentExpression ? ((PsiAssignmentExpression) expression).getLExpression() : null;
+            } else {
+                target = statement instanceof PsiReturnStatement ? ((PsiReturnStatement) statement).getReturnValue() : null;
             }
-            else {
-                target = statement instanceof PsiReturnStatement ? ((PsiReturnStatement)statement).getReturnValue() : null;
-            }
-            final PsiElement resolved = target instanceof PsiReferenceExpression ? ((PsiReferenceExpression)target).resolve() : null;
+            final PsiElement resolved = target instanceof PsiReferenceExpression ? ((PsiReferenceExpression) target).resolve() : null;
             if (resolved instanceof PsiField) {
-                final PsiField field = (PsiField)resolved;
+                final PsiField field = (PsiField) resolved;
                 PsiClass memberClass = psiMember.getContainingClass();
                 PsiClass fieldClass = field.getContainingClass();
                 if (memberClass != null && fieldClass != null && (memberClass == fieldClass || memberClass.isInheritor(fieldClass, true))) {
@@ -121,12 +122,12 @@ public class MyPropertyUtil {
     }
 
     /**
-     * @see com.intellij.psi.util.PropertyUtil#findPropertySetter(PsiClass, String, boolean, boolean)
-     * @param aClass 类
-     * @param propertyName property name
-     * @param isStatic is static
+     * @param aClass            类
+     * @param propertyName      property name
+     * @param isStatic          is static
      * @param checkSuperClasses is supper class
      * @return 方法
+     * @see com.intellij.psi.util.PropertyUtil#findPropertySetter(PsiClass, String, boolean, boolean)
      */
     @Nullable
     public static PsiMethod findPropertySetter(PsiClass aClass,
@@ -145,7 +146,7 @@ public class MyPropertyUtil {
                 continue;
             }
 
-            if (isSimplePropertySetter(aClass,method)) {
+            if (isSimplePropertySetter(aClass, method)) {
                 if (getPropertyNameBySetter(method).equals(propertyName)) {
                     return method;
                 }

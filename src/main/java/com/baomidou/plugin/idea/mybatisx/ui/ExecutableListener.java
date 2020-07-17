@@ -5,6 +5,6 @@ package com.baomidou.plugin.idea.mybatisx.ui;
  */
 public interface ExecutableListener {
 
-    public boolean isWriteAction();
+    boolean isWriteAction();
 
 }

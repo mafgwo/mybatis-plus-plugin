@@ -1,14 +1,8 @@
 package com.baomidou.plugin.idea.mybatisx.action;
 
-import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
-import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
-import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.view.ShowTableInfo;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
-import org.jetbrains.annotations.SystemIndependent;
-
-import java.util.List;
 
 public class CodeGenerator extends AnAction {
 
@@ -20,6 +14,6 @@ public class CodeGenerator extends AnAction {
         dialog.setVisible(true);
 //        dialog.setAlwaysOnTop(true);
         dialog.setLocationRelativeTo(null);
-        dialog.setSize(1000,600);
+        dialog.setSize(1000, 600);
     }
 }

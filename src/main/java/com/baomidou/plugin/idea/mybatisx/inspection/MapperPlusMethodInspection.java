@@ -13,7 +13,6 @@ import com.intellij.codeInspection.LocalQuickFix;
 import com.intellij.codeInspection.ProblemDescriptor;
 import com.intellij.codeInspection.ProblemHighlightType;
 import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiField;
 import com.intellij.psi.PsiIdentifier;
 import com.intellij.psi.PsiMethod;
 import com.intellij.util.xml.DomElement;
@@ -30,6 +29,7 @@ public class MapperPlusMethodInspection extends AbstractMapperInspection {
 
     /**
      * 检查方法
+     *
      * @param method
      * @param manager
      * @param isOnTheFly
@@ -61,6 +61,7 @@ public class MapperPlusMethodInspection extends AbstractMapperInspection {
 
     /**
      * 检查返回类型是否正确
+     *
      * @param method
      * @param manager
      * @param isOnTheFly
@@ -78,10 +79,10 @@ public class MapperPlusMethodInspection extends AbstractMapperInspection {
                 if (null != ide && null == select.getResultMap().getValue()) {
                     if (target.isPresent() && (null == clazz || !target.get().equals(clazz))) {
                         return Optional.of(manager.createProblemDescriptor(ide, "Result type not match for select id=\"#ref\"",
-                                new ResultTypeQuickFix(select, target.get()), ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
+                            new ResultTypeQuickFix(select, target.get()), ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
                     } else if (!target.isPresent() && null != clazz) {
                         return Optional.of(manager.createProblemDescriptor(ide, "Result type not match for select id=\"#ref\"",
-                                (LocalQuickFix) null, ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
+                            (LocalQuickFix) null, ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
                     }
                 }
             }
@@ -91,6 +92,7 @@ public class MapperPlusMethodInspection extends AbstractMapperInspection {
 
     /**
      * 检查声明是否存在
+     *
      * @param method
      * @param manager
      * @param isOnTheFly
@@ -100,7 +102,7 @@ public class MapperPlusMethodInspection extends AbstractMapperInspection {
         PsiIdentifier ide = method.getNameIdentifier();
         if (!PlusJavaService.getInstance(method.getProject()).findStatement(method).isPresent() && null != ide) {
             return Optional.of(manager.createProblemDescriptor(ide, "Statement with id=\"#ref\" not defined in mapper xml",
-                    new StatementNotExistsQuickFix(method), ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
+                new StatementNotExistsQuickFix(method), ProblemHighlightType.GENERIC_ERROR, isOnTheFly));
         }
         return Optional.absent();
     }

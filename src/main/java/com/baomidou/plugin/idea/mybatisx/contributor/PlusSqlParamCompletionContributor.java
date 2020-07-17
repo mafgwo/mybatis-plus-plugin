@@ -22,16 +22,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *  xml 里的 sql #{auto completion}
+ * xml 里的 sql #{auto completion}
  */
 public class PlusSqlParamCompletionContributor extends CompletionContributor {
 
     private Logger log = LoggerFactory.getLogger(PlusSqlParamCompletionContributor.class);
 
-    private Map<String,List<String>> suggestMaps = new HashMap<>();
-    public PlusSqlParamCompletionContributor(){
+    private Map<String, List<String>> suggestMaps = new HashMap<>();
+
+    public PlusSqlParamCompletionContributor() {
         List<TableInfo> tableInfos = MysqlUtil.getInstance().getTableInfo();
-        log.info("PlusSqlParamCompletionContributor:"+tableInfos);
+        log.info("PlusSqlParamCompletionContributor:" + tableInfos);
         for (TableInfo tableInfo : tableInfos) {
             List<ColumnInfo> columns = MysqlUtil.getInstance().getColumns(tableInfo.getTableName());
             List<String> suggests = new ArrayList<>();
@@ -39,7 +40,7 @@ public class PlusSqlParamCompletionContributor extends CompletionContributor {
                 suggests.add(column.getColumnName());
                 log.info("column" + column.getColumnName());
             }
-            String tableName = tableInfo.getTableName().replaceAll("_","").toLowerCase();
+            String tableName = tableInfo.getTableName().replaceAll("_", "").toLowerCase();
             suggestMaps.put(tableName, suggests);
             log.info("tableName" + tableName);
         }

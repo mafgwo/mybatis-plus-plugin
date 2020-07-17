@@ -1,29 +1,19 @@
 package com.baomidou.plugin.idea.mybatisx.util;
 
+import com.baomidou.plugin.idea.mybatisx.dom.model.*;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Collections2;
 import com.google.common.collect.Lists;
-
 import com.intellij.ide.fileTemplates.FileTemplate;
 import com.intellij.ide.fileTemplates.FileTemplateManager;
 import com.intellij.ide.fileTemplates.FileTemplateUtil;
 import com.intellij.openapi.project.Project;
-import com.intellij.psi.PsiClass;
-import com.intellij.psi.PsiDirectory;
-import com.intellij.psi.PsiElement;
-import com.intellij.psi.PsiFile;
-import com.intellij.psi.PsiMethod;
+import com.intellij.psi.*;
 import com.intellij.psi.xml.XmlElement;
 import com.intellij.util.Processor;
 import com.intellij.util.xml.DomElement;
 import com.intellij.util.xml.DomUtil;
-import com.baomidou.plugin.idea.mybatisx.dom.model.Configuration;
-import com.baomidou.plugin.idea.mybatisx.dom.model.IdDomElement;
-import com.baomidou.plugin.idea.mybatisx.dom.model.Mapper;
-import com.baomidou.plugin.idea.mybatisx.dom.model.TypeAlias;
-import com.baomidou.plugin.idea.mybatisx.dom.model.TypeAliases;
-
 import org.jetbrains.annotations.NonNls;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -90,7 +80,7 @@ public final class MapperUtils {
         List<Mapper> result = Lists.newArrayList();
         for (Mapper mapper : findMappers(project)) {
 //            if (getNamespace(mapper).equals(namespace)) {
-                result.add(mapper);
+            result.add(mapper);
 //            }
         }
         return result;
@@ -175,12 +165,12 @@ public final class MapperUtils {
     public static <T extends IdDomElement> String getIdSignature(@NotNull T domElement, @NotNull Mapper mapper) {
         Mapper contextMapper = getMapper(domElement);
         String id = getId(domElement);
-        if(id == null) {
+        if (id == null) {
             id = "";
         }
-        String idsignature= getIdSignature(domElement);
+        String idsignature = getIdSignature(domElement);
         //getIdSignature(domElement)
-        return isMapperWithSameNamespace(contextMapper, mapper) ?id :idsignature ;
+        return isMapperWithSameNamespace(contextMapper, mapper) ? id : idsignature;
     }
 
     public static void processConfiguredTypeAliases(@NotNull Project project, @NotNull Processor<TypeAlias> processor) {
