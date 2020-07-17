@@ -1,9 +1,5 @@
 package com.baomidou.plugin.idea.mybatisx.codegenerator.utils;
 
-import javax.servlet.http.HttpServletRequest;
-import java.util.Calendar;
-import java.util.Date;
-
 /**
  * 字符串工具类, 继承org.apache.commons.lang3.StringUtils类
  */

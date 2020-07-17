@@ -18,6 +18,6 @@ public class TestAction extends AnAction {
         dialog.setVisible(true);
         dialog.setLocationRelativeTo(null);
 //        dialog.setAlwaysOnTop(true);
-        dialog.setSize(1000,600);
+        dialog.setSize(1000, 600);
     }
 }

@@ -1,23 +1,19 @@
 package com.baomidou.plugin.idea.mybatisx.provider;
 
 import com.google.common.base.Optional;
-
-import com.intellij.codeHighlighting.Pass;
 import com.intellij.codeInsight.daemon.GutterIconNavigationHandler;
 import com.intellij.codeInsight.daemon.LineMarkerInfo;
 import com.intellij.openapi.editor.markup.GutterIconRenderer;
 import com.intellij.pom.Navigatable;
 import com.intellij.psi.PsiElement;
 import com.intellij.util.Function;
-
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.util.Collection;
 import java.util.List;
-
-import javax.swing.*;
 
 /**
  * @author yanglin
@@ -38,13 +34,13 @@ public abstract class AbstractSimpleLinePlusMarkerProvider<F extends PsiElement,
 
         Optional<T> processResult = apply((F) element);
         return processResult.isPresent() ? new LineMarkerInfo<F>(
-                (F) element,
-                element.getTextRange(),
-                getIcon(),
+            (F) element,
+            element.getTextRange(),
+            getIcon(),
 //                Pass.UPDATE_ALL,
-                getTooltipProvider(processResult.get()),
-                getNavigationHandler(processResult.get()),
-                GutterIconRenderer.Alignment.CENTER
+            getTooltipProvider(processResult.get()),
+            getNavigationHandler(processResult.get()),
+            GutterIconRenderer.Alignment.CENTER
         ) : null;
     }
 

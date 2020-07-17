@@ -50,8 +50,8 @@ public class BeanAliasResolver extends AbstractPackageAliasResolver {
     private void addPackages(Set<String> res, CommonSpringModel springModel) {
         Optional<PsiClass> sqlSessionFactoryClazzOpt = JavaUtils.findClazz(project, MAPPER_ALIAS_PACKAGE_CLASS);
         if (sqlSessionFactoryClazzOpt.isPresent()) {
-            Collection domBeans = springModel.getAllCommonBeans();//.getAllDomBeans();
-            PsiClass sqlSessionFactoryClazz = (PsiClass) sqlSessionFactoryClazzOpt.get();
+            Collection domBeans = springModel.getAllCommonBeans();
+            PsiClass sqlSessionFactoryClazz = sqlSessionFactoryClazzOpt.get();
 
             for (Object domBean : domBeans) {
                 SpringBeanPointer pointer = (SpringBeanPointer) domBean;

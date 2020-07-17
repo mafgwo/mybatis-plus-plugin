@@ -2,7 +2,6 @@ package com.baomidou.plugin.idea.mybatisx.codegenerator.view;
 
 import com.baomidou.plugin.idea.mybatisx.codegenerator.MysqlUtil;
 import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.ColumnInfo;
-import com.baomidou.plugin.idea.mybatisx.codegenerator.domain.vo.TableInfo;
 import com.intellij.ui.JBColor;
 
 import javax.swing.*;
@@ -56,9 +55,10 @@ public class ShowColumnInfo extends JFrame {
 
         // 表格所有行数据
         Object[][] rowData = new Object[columnInfoList.size()][];
-
-        for (int i = 0; i < columnInfoList.size(); i++) {//循环遍历所有行
-            ColumnInfo columnInfo = columnInfoList.get(i);//每行的列数
+        //循环遍历所有行
+        for (int i = 0; i < columnInfoList.size(); i++) {
+            //每行的列数
+            ColumnInfo columnInfo = columnInfoList.get(i);
             String[] tableInfoArr = {
                 columnInfo.getColumnName(),
                 columnInfo.getIsNullable(),
@@ -108,7 +108,7 @@ public class ShowColumnInfo extends JFrame {
         dialog.pack();
         dialog.setVisible(true);
         dialog.setLocationRelativeTo(null);
-        dialog.setSize(800,600);
+        dialog.setSize(800, 600);
 //        System.exit(0);
     }
 }

@@ -75,19 +75,19 @@ public class DBInfo extends JFrame {
         String dbUrl = PropertiesComponent.getInstance().getValue(PLUS_DBURL, "jdbc:mysql://localhost:3306/mysql?useSSL=false&serverTimezone=UTC");
         dbUrlTextField.setText(dbUrl);
 
-        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(PLUS_DBTYPE,0);
+        int jdbcDriverIndex = PropertiesComponent.getInstance().getInt(PLUS_DBTYPE, 0);
         jdbcDriverComboBox.setSelectedIndex(jdbcDriverIndex);
 
-        String username = PropertiesComponent.getInstance().getValue(PLUS_USERNAME,"root");
+        String username = PropertiesComponent.getInstance().getValue(PLUS_USERNAME, "root");
         userTextField.setText(username);
 
-        passwordField1.setText(PropertiesComponent.getInstance().getValue(PLUS_PASSWORD,""));
+        passwordField1.setText(PropertiesComponent.getInstance().getValue(PLUS_PASSWORD, ""));
     }
 
     private void saveMybatisPlusGlobalConst() {
-        PropertiesComponent.getInstance().setValue(PLUS_DBURL,dbUrlTextField.getText());
-        PropertiesComponent.getInstance().setValue(PLUS_DBTYPE,jdbcDriverComboBox.getSelectedIndex(),0);
-        PropertiesComponent.getInstance().setValue(PLUS_USERNAME,userTextField.getText());
+        PropertiesComponent.getInstance().setValue(PLUS_DBURL, dbUrlTextField.getText());
+        PropertiesComponent.getInstance().setValue(PLUS_DBTYPE, jdbcDriverComboBox.getSelectedIndex(), 0);
+        PropertiesComponent.getInstance().setValue(PLUS_USERNAME, userTextField.getText());
         PropertiesComponent.getInstance().setValue(PLUS_PASSWORD, String.valueOf(passwordField1.getPassword()));
         MysqlUtil.getInstance().resetDbInfo();
     }
@@ -108,7 +108,7 @@ public class DBInfo extends JFrame {
         dialog.pack();
         dialog.setVisible(true);
         dialog.setLocationRelativeTo(null);
-        dialog.setSize(800,600);
+        dialog.setSize(800, 600);
 //        System.exit(0);
     }
 }

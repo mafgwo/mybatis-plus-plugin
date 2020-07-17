@@ -13,6 +13,6 @@ public class ConfigDatabase extends AnAction {
         dialog.setVisible(true);
         dialog.setAlwaysOnTop(true);
         dialog.setLocationRelativeTo(null);
-        dialog.setSize(500,300);
+        dialog.setSize(500, 300);
     }
 }
