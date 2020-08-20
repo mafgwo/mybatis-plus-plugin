@@ -1,22 +1,14 @@
 <idea-plugin url="https://plugins.jetbrains.com/plugin/12670-mybatisplus">
-    <id>com.baomidou.plugin.idea.mybatisPlus</id>
-    <name>MyBatisPlus</name>
-    <vendor email="makey22112@gmail.com" url="https://plugins.jetbrains.com/plugin/12670-mybatisplus">MybatisPlus
+    <id>com.econ.platformcloud.codegenerator</id>
+    <name>econ-codegenerator</name>
+    <vendor email="xiaoqi.cxq@gmail.com">xiaoqi.cxq
     </vendor>
 
     <description><![CDATA[
-          <h1>MybatisPlus</h1>
+          <h1>econ-codegenerator</h1>
           generator code <br>
           live template <br>
-          MybatisPlus plugin  from java to xml or from xml to java
-          <p>
-          <b>
-              <a href="https://plugins.jetbrains.com/plugin/12670-mybatisplus">Website</a> |
-              <a href="https://github.com/kana112233/mybatis-plus-plugin">GitHub</a> |
-              <a href="https://github.com/kana112233/mybatis-plus-plugin/issues">Issues</a>|
-              <a href="https://github.com/kana112233/mybatis-plus-plugin/blob/dev/src/main/resources/images/wechat.png">support</a><br>
-
-          </b>
+          智光研究院代码生成工具
           </p>
           <br/>
       ]]>
@@ -40,94 +32,94 @@
 
         <!--文件描述-->
         <!--mapper.xml文件属性提示-->
-        <dom.fileDescription implementation="com.baomidou.plugin.idea.mybatisx.dom.description.PlusMapperDescription"/>
+        <dom.fileDescription implementation="com.econ.platformcloud.plugins.mybatisplus.dom.description.PlusMapperDescription"/>
         <!--mybatis配置文件属性提示-->
         <dom.fileDescription
-            implementation="com.baomidou.plugin.idea.mybatisx.dom.description.PlusConfigurationDescription"/>
+            implementation="com.econ.platformcloud.plugins.mybatisplus.dom.description.PlusConfigurationDescription"/>
 
         <!--定义搜索，这个东西用来实现通过Mapper接口类搜索实现类时直接跳转至mapper.xml文件-->
         <definitionsSearch
-            implementation="com.baomidou.plugin.idea.mybatisx.definitionsearch.PlusMapperDefinitionSearch"/>
+            implementation="com.econ.platformcloud.plugins.mybatisplus.definitionsearch.PlusMapperDefinitionSearch"/>
 
         <!--项目服务-->
-        <projectService serviceImplementation="com.baomidou.plugin.idea.mybatisx.service.PlusJavaService"/>
-        <projectService serviceImplementation="com.baomidou.plugin.idea.mybatisx.service.PlusAnnotationService"/>
-        <projectService serviceImplementation="com.baomidou.plugin.idea.mybatisx.service.PlusEditorService"/>
-        <projectService serviceImplementation="com.baomidou.plugin.idea.mybatisx.alias.PlusAliasFacade"/>
-        <projectService serviceImplementation="com.baomidou.plugin.idea.mybatisx.locator.PlusMapperLocator"/>
-        <projectService serviceInterface="com.baomidou.plugin.idea.mybatisx.core.PlusMapperManager"
-                        serviceImplementation="com.baomidou.plugin.idea.mybatisx.core.impl.PlusMapperManagerImpl"/>
+        <projectService serviceImplementation="com.econ.platformcloud.plugins.mybatisplus.service.PlusJavaService"/>
+        <projectService serviceImplementation="com.econ.platformcloud.plugins.mybatisplus.service.PlusAnnotationService"/>
+        <projectService serviceImplementation="com.econ.platformcloud.plugins.mybatisplus.service.PlusEditorService"/>
+        <projectService serviceImplementation="com.econ.platformcloud.plugins.mybatisplus.alias.PlusAliasFacade"/>
+        <projectService serviceImplementation="com.econ.platformcloud.plugins.mybatisplus.locator.PlusMapperLocator"/>
+        <projectService serviceInterface="com.econ.platformcloud.plugins.mybatisplus.core.PlusMapperManager"
+                        serviceImplementation="com.econ.platformcloud.plugins.mybatisplus.core.impl.PlusMapperManagerImpl"/>
 
         <!--代码行插件，实现代码导航功能-->
         <codeInsight.lineMarkerProvider language="JAVA"
-                                        implementationClass="com.baomidou.plugin.idea.mybatisx.provider.PlusMapperLineMarkerProvider"/>
+                                        implementationClass="com.econ.platformcloud.plugins.mybatisplus.provider.PlusMapperLineMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="XML"
-                                        implementationClass="com.baomidou.plugin.idea.mybatisx.provider.PlusStatementLinePlusMarkerProvider"/>
+                                        implementationClass="com.econ.platformcloud.plugins.mybatisplus.provider.PlusStatementLinePlusMarkerProvider"/>
         <codeInsight.lineMarkerProvider language="JAVA"
-                                        implementationClass="com.baomidou.plugin.idea.mybatisx.provider.PlusInjectionLineMarkerProvider"/>
+                                        implementationClass="com.econ.platformcloud.plugins.mybatisplus.provider.PlusInjectionLineMarkerProvider"/>
 
         <!--设置中的配置-->
-        <applicationConfigurable instance="com.baomidou.plugin.idea.mybatisx.setting.PlusMybatisConfigurable"/>
+        <applicationConfigurable instance="com.econ.platformcloud.plugins.mybatisplus.setting.PlusMybatisConfigurable"/>
 
         <!--应用服务-->
-        <applicationService serviceInterface="com.baomidou.plugin.idea.mybatisx.setting.MybatisPlusSetting"
-                            serviceImplementation="com.baomidou.plugin.idea.mybatisx.setting.MybatisPlusSetting"/>
+        <applicationService serviceInterface="com.econ.platformcloud.plugins.mybatisplus.setting.MybatisPlusSetting"
+                            serviceImplementation="com.econ.platformcloud.plugins.mybatisplus.setting.MybatisPlusSetting"/>
 
         <!--编辑mapper.xml文件时，实现参数提示-->
-        <typedHandler implementation="com.baomidou.plugin.idea.mybatisx.action.PlusMybatisTypedHandler" id="mybatis"
+        <typedHandler implementation="com.econ.platformcloud.plugins.mybatisplus.action.PlusMybatisTypedHandler" id="mybatis"
                       order="first"/>
 
         <!--自动完成提示-->
         <completion.contributor language="XML"
-                                implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusXmlParamContributor"/>
+                                implementationClass="com.econ.platformcloud.plugins.mybatisplus.contributor.PlusXmlParamContributor"/>
         <completion.contributor language="SQL"
-                                implementationClass="com.baomidou.plugin.idea.mybatisx.contributor.PlusSqlParamCompletionContributor"
+                                implementationClass="com.econ.platformcloud.plugins.mybatisplus.contributor.PlusSqlParamCompletionContributor"
                                 order="first"/>
         <completion.contributor language="JAVA" implementationClass="org.py.plugin.completion.MyCompletionContributor"/>
 
 
         <!--文件模板组，新建文件选择模板-->
         <fileTemplateGroup
-            implementation="com.baomidou.plugin.idea.mybatisx.template.PlusMybatisFileTemplateDescriptorFactory"/>
+            implementation="com.econ.platformcloud.plugins.mybatisplus.template.PlusMybatisFileTemplateDescriptorFactory"/>
 
         <!--附加的LiveTemplate模板-->
         <defaultLiveTemplatesProvider
-            implementation="com.baomidou.plugin.idea.mybatisx.template.PlusSqlLiveTemplateProvider"/>
+            implementation="com.econ.platformcloud.plugins.mybatisplus.template.PlusSqlLiveTemplateProvider"/>
         <refactoring.elementListenerProvider
-            implementation="com.baomidou.plugin.idea.mybatisx.refactoring.PlusMapperRefactoringProvider"/>
+            implementation="com.econ.platformcloud.plugins.mybatisplus.refactoring.PlusMapperRefactoringProvider"/>
 
         <!--语法校验，让没有生成代码的方法产生错误-->
         <localInspection language="JAVA" shortName="MybatisPlusMapperMethodInspection"
                          displayName="Mapper method inspection"
                          groupName="Mybatis" enabledByDefault="true" level="ERROR"
-                         implementationClass="com.baomidou.plugin.idea.mybatisx.inspection.MapperPlusMethodInspection"/>
+                         implementationClass="com.econ.platformcloud.plugins.mybatisplus.inspection.MapperPlusMethodInspection"/>
         <localInspection language="XML" shortName="MybatisPlusMapperXmlInspection" enabledByDefault="true" level="ERROR"
                          displayName="Mapper xml inspection" groupName="Mybatis"
-                         implementationClass="com.baomidou.plugin.idea.mybatisx.inspection.MapperPlusXmlInspection"/>
+                         implementationClass="com.econ.platformcloud.plugins.mybatisplus.inspection.MapperPlusXmlInspection"/>
         <!--实体类属性检测-->
 
 
         <!-- spring自定义本地组件发现器,用于添加一些自定义bean到spring容器中-->
         <!--<spring.customLocalComponentsDiscoverer
-            implementation="com.baomidou.plugin.idea.mybatisx.inspection.PlusEntityPropInspection"/>-->
+            implementation="PlusEntityPropInspection"/>-->
 
 
         <!--代码检测抑制器,用于过滤一些spring自带的校验规则-->
         <lang.inspectionSuppressor language="JAVA"
-                                   implementationClass="com.baomidou.plugin.idea.mybatisx.inspection.PlusSpringInspectionsFilter"/>
+                                   implementationClass="com.econ.platformcloud.plugins.mybatisplus.inspection.PlusSpringInspectionsFilter"/>
 
         <!--提示动作 start-->
         <!--生成参数注解-->
         <intentionAction>
-            <className>com.baomidou.plugin.idea.mybatisx.intention.PlusGenerateParamAnnotationIntention</className>
+            <className>com.econ.platformcloud.plugins.mybatisplus.intention.PlusGenerateParamAnnotationIntention</className>
         </intentionAction>
         <!--通过方法名生成对应的 查询语句-->
         <intentionAction>
-            <className>com.baomidou.plugin.idea.mybatisx.intention.PlusGenerateStatementIntention</className>
+            <className>com.econ.platformcloud.plugins.mybatisplus.intention.PlusGenerateStatementIntention</className>
         </intentionAction>
         <!--生成mybatis mapper.xml文件-->
         <intentionAction order="first">
-            <className>com.baomidou.plugin.idea.mybatisx.intention.PlusGenerateMapperIntention</className>
+            <className>com.econ.platformcloud.plugins.mybatisplus.intention.PlusGenerateMapperIntention</className>
         </intentionAction>
 
         <!-- 自动填充参数-->
@@ -147,16 +139,16 @@
     </project-components>
 
     <actions>
-        <action id="org.py.code.generator.action" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator"
+        <action id="org.py.code.generator.action" class="com.econ.platformcloud.plugins.mybatisplus.action.CodeGenerator"
                 text="Code Generator" description="Code generator">
             <add-to-group group-id="OtherMenu" anchor="first"/>
         </action>
-        <action id="org.py.code.generator.mysql" class="com.baomidou.plugin.idea.mybatisx.action.ConfigDatabase"
+        <action id="org.py.code.generator.mysql" class="com.econ.platformcloud.plugins.mybatisplus.action.ConfigDatabase"
                 text="Config Database" description="Config database">
             <add-to-group group-id="OtherMenu" anchor="first"/>
         </action>
 
-        <action id="org.py.code.generator.plugin" class="com.baomidou.plugin.idea.mybatisx.action.CodeGenerator"
+        <action id="org.py.code.generator.plugin" class="com.econ.platformcloud.plugins.mybatisplus.action.CodeGenerator"
                 text="CodeGenerator" description="Mybatis plus code generator ">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </action>
@@ -165,9 +157,7 @@
 
     <change-notes><![CDATA[
         This is change note<br>
-        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki">how to use</a> <br>
-        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/code-generate">code generate</a><br>
-        <a href="https://github.com/kana112233/mybatis-plus-plugin/wiki/change-log">changelog</a><br>
+        v1.0 version
       ]]>
     </change-notes>
 </idea-plugin>
