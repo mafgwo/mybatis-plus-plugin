@@ -135,7 +135,7 @@ public class GenUtil {
         pc.setController(genConfig.getControllerName());
         pc.setService(genConfig.getServiceName());
         pc.setServiceImpl(genConfig.getServiceImplName());
-        String xmlName = "mapper";
+        String xmlName = genConfig.getMapperXmlName();
         mpg.setPackageInfo(pc);
 
         // 自定义配置

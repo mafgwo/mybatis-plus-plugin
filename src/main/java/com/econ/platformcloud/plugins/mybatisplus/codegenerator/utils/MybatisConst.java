@@ -19,7 +19,9 @@ public interface MybatisConst {
         new IdTypeObj(IdType.INPUT, "INPUT(用户输入ID)"),
         new IdTypeObj(IdType.ID_WORKER, "ID_WORKER(全局唯一ID)"),
         new IdTypeObj(IdType.UUID, "UUID(全局唯一ID )"),
-        new IdTypeObj(IdType.ID_WORKER_STR, "ID_WORKER_STR(字符串全局唯一ID)")
+        new IdTypeObj(IdType.ID_WORKER_STR, "ID_WORKER_STR(字符串全局唯一ID)"),
+        new IdTypeObj(IdType.ASSIGN_ID, "ASSIGN_ID(v3.3.0之后唯一ID)"),
+        new IdTypeObj(IdType.ASSIGN_UUID, "ASSIGN_UUID(v3.3.0之后唯一UUID)")
     };
 
     DbTypeDriver[] DB_TYPE_DRIVERS = new DbTypeDriver[]{

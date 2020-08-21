@@ -60,6 +60,7 @@ public class GenConfig {
     private String templatePath = "/templates";
     private String entityName = "entity";
     private String mapperName = "mapper";
+    private String mapperXmlName = "mappers";
     private String controllerName = "controller";
     private String serviceName = "service";
     private String serviceImplName = "service.impl";
@@ -72,6 +73,7 @@ public class GenConfig {
     private boolean isAuthor;
     private boolean isEntity;
     private boolean isMapper;
+    private boolean isMapperXml;
     private boolean isController;
     private boolean isService;
     private boolean isServiceImpl;
@@ -98,6 +100,14 @@ public class GenConfig {
 
     public void setMapper(boolean mapper) {
         isMapper = mapper;
+    }
+
+    public boolean isMapperXml() {
+        return isMapperXml;
+    }
+
+    public void setMapperXml(boolean mapperXml) {
+        isMapperXml = mapperXml;
     }
 
     public boolean isController() {
@@ -242,6 +252,14 @@ public class GenConfig {
 
     public void setMapperName(String mapperName) {
         this.mapperName = mapperName;
+    }
+
+    public String getMapperXmlName() {
+        return mapperXmlName;
+    }
+
+    public void setMapperXmlName(String mapperXmlName) {
+        this.mapperXmlName = mapperXmlName;
     }
 
     public String getControllerName() {

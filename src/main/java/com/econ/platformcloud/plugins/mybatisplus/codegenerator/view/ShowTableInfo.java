@@ -33,6 +33,7 @@ public class ShowTableInfo extends JFrame {
     private JButton saveButton;
     private JTextField entityTextField;
     private JTextField mapperTextField;
+    private JTextField mapperXmlTextField;
     private JTextField controllerTextField;
     private JTextField serviceTextField;
     private JTextField serviceImplTextField;
@@ -47,6 +48,7 @@ public class ShowTableInfo extends JFrame {
     private JCheckBox entityCheckBox;
     private JCheckBox serviceCheckBox;
     private JCheckBox mapperCheckBox;
+    private JCheckBox mapperXmlCheckBox;
     private JCheckBox serviceImplCheckBox;
     private JCheckBox controllerCheckBox;
     private final String projectFilePath;
@@ -188,6 +190,7 @@ public class ShowTableInfo extends JFrame {
         // new add
         entityCheckBox.setSelected(genConfig.isEntity());
         mapperCheckBox.setSelected(genConfig.isMapper());
+        mapperXmlCheckBox.setSelected(genConfig.isMapperXml());
         serviceCheckBox.setSelected(genConfig.isServiceImpl());
         serviceImplCheckBox.setSelected(genConfig.isServiceImpl());
         controllerCheckBox.setSelected(genConfig.isController());
@@ -212,6 +215,7 @@ public class ShowTableInfo extends JFrame {
 
         entityTextField.setText(genConfig.getEntityName());
         mapperTextField.setText(genConfig.getMapperName());
+        mapperXmlTextField.setText(genConfig.getMapperXmlName());
         controllerTextField.setText(genConfig.getControllerName());
         serviceTextField.setText(genConfig.getServiceName());
         serviceImplTextField.setText(genConfig.getServiceImplName());
@@ -227,6 +231,7 @@ public class ShowTableInfo extends JFrame {
         // new add
         genConfig.setEntity(entityCheckBox.isSelected());
         genConfig.setMapper(mapperCheckBox.isSelected());
+        genConfig.setMapperXml(mapperXmlCheckBox.isSelected());
         genConfig.setService(serviceCheckBox.isSelected());
         genConfig.setServiceImpl(serviceImplCheckBox.isSelected());
         genConfig.setController(controllerCheckBox.isSelected());
@@ -247,6 +252,7 @@ public class ShowTableInfo extends JFrame {
 
         genConfig.setEntityName(entityTextField.getText());
         genConfig.setMapperName(mapperTextField.getText());
+        genConfig.setMapperXmlName(mapperXmlTextField.getText());
         genConfig.setControllerName(controllerTextField.getText());
         genConfig.setServiceName(serviceTextField.getText());
         genConfig.setServiceImplName(serviceImplTextField.getText());

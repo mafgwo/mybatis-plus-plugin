@@ -111,7 +111,7 @@ public class MyFreemarkerTemplateEngine extends AbstractTemplateEngine {
                     objectMap.put("cfg", injectionConfig.getMap());
                     List<FileOutConfig> focList = injectionConfig.getFileOutConfigList();
                     // gen mapper.xml
-                    if (genConfig.isMapper()) {
+                    if (genConfig.isMapperXml()) {
                         if (CollectionUtils.isNotEmpty(focList)) {
                             for (FileOutConfig foc : focList) {
                                 if (isCreate(FileType.OTHER, foc.outputFile(tableInfo))) {
@@ -140,7 +140,9 @@ public class MyFreemarkerTemplateEngine extends AbstractTemplateEngine {
                             writer(objectMap, templateFilePath(template.getMapper()), mapperFile);
                         }
                     }
-                    // MpMapper.xml
+                }
+                // MpMapper.xml
+                if (genConfig.isMapperXml()) {
                     if (null != tableInfo.getXmlName() && null != pathInfo.get(ConstVal.XML_PATH)) {
                         String xmlFile = String.format((pathInfo.get(ConstVal.XML_PATH) + File.separator + tableInfo.getXmlName() + ConstVal.XML_SUFFIX), entityName);
                         if (isCreate(FileType.XML, xmlFile)) {
@@ -202,7 +204,10 @@ public class MyFreemarkerTemplateEngine extends AbstractTemplateEngine {
             if (key.equals(CONTROLLER_PATH) && !genConfig.isController()) {
                 return;
             }
-            if ((key.equals(MAPPER_PATH)|| key.equals(XML_PATH)) && !genConfig.isMapper()) {
+            if (key.equals(MAPPER_PATH) && !genConfig.isMapper()) {
+                return;
+            }
+            if (key.equals(XML_PATH) && !genConfig.isMapperXml()) {
                 return;
             }
 
